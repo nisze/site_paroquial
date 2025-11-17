@@ -142,7 +142,7 @@ Acesse: http://localhost:4200
 ## Estrutura do Projeto
 
 ```
-shrimp-church/
+site_paroquial/
 ├── backend/
 │   └── Site_Paroquial/          # Aplicação Spring Boot
 │       ├── src/
