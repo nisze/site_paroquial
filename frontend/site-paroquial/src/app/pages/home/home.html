@@ -114,7 +114,7 @@
             </div>
             <div class="liturgia-info">
               <h2>Liturgia do Dia</h2>
-              <h3 class="liturgia-titulo">33º Domingo do Tempo Comum</h3>
+              <h3 class="liturgia-titulo">{{ liturgiaCompleta?.liturgia?.titulo || 'Carregando...' }}</h3>
               <p class="liturgia-data">
                 <i class="fas fa-calendar-day"></i>
                 {{ dataHoje | date:'d \'de\' MMMM \'de\' y':'pt-BR' }}

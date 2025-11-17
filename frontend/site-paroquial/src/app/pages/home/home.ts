@@ -2,6 +2,8 @@ import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angula
 import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SantoAdminService, Santo } from '../../shared/services/santo-admin';
+import { LiturgiaApi } from '../../shared/services/liturgia-api';
+import { LiturgiaDiaCompleta } from '../../shared/models/liturgia';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +18,27 @@ export class Home implements OnInit, AfterViewInit {
   dataHoje = new Date();
   santoDoDia: Santo | null = null;
   carregandoSanto = false;
+  liturgiaCompleta: LiturgiaDiaCompleta | null = null;
 
-  constructor(private santoService: SantoAdminService) {}
+  constructor(
+    private santoService: SantoAdminService,
+    private liturgiaApi: LiturgiaApi
+  ) {}
 
   ngOnInit() {
     this.carregarSantoDoDia();
+    this.carregarLiturgia();
+  }
+
+  carregarLiturgia() {
+    this.liturgiaApi.getLiturgiaDiaCompleta().subscribe({
+      next: (data) => {
+        this.liturgiaCompleta = data;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar liturgia:', err);
+      }
+    });
   }
 
   ngAfterViewInit() {
