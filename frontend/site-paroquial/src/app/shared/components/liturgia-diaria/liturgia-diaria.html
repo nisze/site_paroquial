@@ -36,8 +36,20 @@
 
     <!-- Título da Liturgia -->
     <div class="liturgia-titulo" *ngIf="liturgia">
-      <h5 class="mb-2">{{ liturgia.titulo }}</h5>
-      <small class="badge bg-secondary">{{ liturgia.tempo_liturgico }}</small>
+      <h5 class="mb-2">
+        Liturgia de 
+        <span *ngIf="santo?.santo_principal?.titulo">{{ santo.santo_principal.titulo }}</span>
+        <span *ngIf="!santo?.santo_principal?.titulo">{{ liturgia.titulo }}</span>
+      </h5>
+      <small class="badge" [ngClass]="{
+        'bg-success': liturgia.tempo_liturgico === 'Tempo Comum',
+        'bg-purple': liturgia.tempo_liturgico === 'Quaresma',
+        'bg-danger': liturgia.tempo_liturgico === 'Tempo Pascal',
+        'bg-info': liturgia.tempo_liturgico === 'Advento',
+        'bg-secondary': !['Tempo Comum', 'Quaresma', 'Tempo Pascal', 'Advento'].includes(liturgia.tempo_liturgico)
+      }">
+        {{ liturgia.tempo_liturgico }}
+      </small>
     </div>
 
     <!-- Grid de Conteúdo -->
@@ -54,7 +66,7 @@
           <!-- Primeira Leitura -->
           <div class="leitura-item" *ngIf="liturgia?.primeira_leitura">
             <strong class="leitura-titulo">{{ liturgia?.primeira_leitura?.titulo }}</strong>
-            <div class="leitura-ref">{{ liturgia?.primeira_leitura?.referencia }}</div>
+            <div class="leitura-ref text-dark">{{ liturgia?.primeira_leitura?.referencia }}</div>
             <p class="leitura-texto">
               {{ truncarTexto(liturgia?.primeira_leitura?.texto || '') }}
             </p>
@@ -76,7 +88,7 @@
               <i class="fas fa-cross text-warning"></i>
               {{ liturgia?.evangelho?.titulo }}
             </strong>
-            <div class="leitura-ref">{{ liturgia?.evangelho?.referencia }}</div>
+            <div class="leitura-ref text-dark">{{ liturgia?.evangelho?.referencia }}</div>
             <p class="leitura-texto">
               {{ truncarTexto(liturgia?.evangelho?.texto || '') }}
             </p>

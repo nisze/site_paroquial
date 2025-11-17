@@ -98,10 +98,14 @@
       }
 
       .leitura-ref {
-        font-size: 0.8rem;
-        color: #6c757d;
-        font-style: italic;
+        font-size: 0.85rem;
+        color: #212529;
+        font-weight: 500;
         margin-bottom: 0.5rem;
+        
+        &.text-dark {
+          color: #000 !important;
+        }
       }
 
       .leitura-texto {
