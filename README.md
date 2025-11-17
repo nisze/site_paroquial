@@ -62,15 +62,15 @@ O **Sistema Paroquial** é uma solução web desenvolvida para facilitar a comun
 ## Executando com Docker
 
 ### Pré-requisitos
-- [Docker Desktop](https://www.docker.com/products/docker-desktop) instalado
+- Docker instalado ([Docker Desktop](https://www.docker.com/products/docker-desktop) para Windows/Mac ou [Docker Engine](https://docs.docker.com/engine/install/) para Linux)
 - Git instalado
 
 ### Passo a Passo
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/nisze/shrimp-church.git
-cd shrimp-church
+git clone https://github.com/nisze/site_paroquial.git
+cd site_paroquial
 ```
 
 2. **Inicie os containers**
