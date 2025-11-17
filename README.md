@@ -74,9 +74,15 @@ cd site_paroquial
 ```
 
 2. **Inicie os containers**
-```bash
-docker compose up -d --build
-```
+
+   **Opção 1 - Script de inicialização (Windows):**
+   - Clique duplo no arquivo `start.bat` 
+   - O script verifica o Docker, inicia os containers e exibe os endereços de acesso
+
+   **Opção 2 - Linha de comando:**
+   ```bash
+   docker compose up -d --build
+   ```
 
 3. **Aguarde o build** (primeira execução ~5-10 minutos)
 
@@ -88,7 +94,7 @@ docker compose up -d --build
 ### Comandos Úteis
 
 ```bash
-# Parar os containers
+# Parar os containers (ou clique em stop.bat no Windows)
 docker compose down
 
 # Ver logs em tempo real
