@@ -36,11 +36,7 @@
 
     <!-- Título da Liturgia -->
     <div class="liturgia-titulo" *ngIf="liturgia">
-      <h5 class="mb-2">
-        Liturgia de 
-        <span *ngIf="santo?.santo_principal?.titulo">{{ santo?.santo_principal?.titulo }}</span>
-        <span *ngIf="!santo?.santo_principal?.titulo">{{ liturgia.titulo }}</span>
-      </h5>
+      <h5 class="mb-2">{{ liturgia.titulo }}</h5>
       <small class="badge" [ngClass]="{
         'bg-success': liturgia.tempo_liturgico === 'Tempo Comum',
         'bg-purple': liturgia.tempo_liturgico === 'Quaresma',
