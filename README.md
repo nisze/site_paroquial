@@ -185,16 +185,6 @@ Este projeto foi desenvolvido como trabalho acadêmico do 5º semestre por:
 
 ---
 
-## Documentação Adicional
-
-- [PRD - Product Requirements Document](docs/markdown/PRD-FINAL-ATUALIZADO-2025.md)
-- [Documentação Técnica Completa](docs/markdown/DOCUMENTACAO-TECNICA-COMPLETA.md)
-- [Manual do Usuário](docs/markdown/MANUAL-USUARIO-PADRE.md)
-- [Aspectos Legais e Compliance](docs/markdown/ASPECTOS-LEGAIS-COMPLIANCE.md)
-- [Guia Docker Detalhado](README-DOCKER.md)
-
----
-
 ## Funcionalidades Detalhadas
 
 ### Módulo Bíblia
