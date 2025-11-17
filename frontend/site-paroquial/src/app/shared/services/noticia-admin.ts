@@ -23,7 +23,7 @@ export interface Noticia {
   providedIn: 'root'
 })
 export class NoticiaAdminService {
-  private apiUrl = 'http://localhost:8080/api/admin/noticias';
+  private apiUrl = 'http://localhost:8081/api/admin/noticias';
 
   constructor(
     private http: HttpClient,

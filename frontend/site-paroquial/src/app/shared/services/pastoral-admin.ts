@@ -26,7 +26,7 @@ export interface Pastoral {
   providedIn: 'root'
 })
 export class PastoralAdminService {
-  private apiUrl = 'http://localhost:8080/api/admin/pastorais';
+  private apiUrl = 'http://localhost:8081/api/admin/pastorais';
 
   constructor(
     private http: HttpClient,

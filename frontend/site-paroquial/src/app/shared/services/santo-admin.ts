@@ -27,7 +27,7 @@ export interface Santo {
   providedIn: 'root'
 })
 export class SantoAdminService {
-  private apiUrl = 'http://localhost:8080/api/admin/santos';
+  private apiUrl = 'http://localhost:8081/api/admin/santos';
 
   constructor(
     private http: HttpClient,

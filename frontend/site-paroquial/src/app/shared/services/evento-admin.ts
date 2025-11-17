@@ -25,7 +25,7 @@ export interface Evento {
   providedIn: 'root'
 })
 export class EventoAdminService {
-  private apiUrl = 'http://localhost:8080/api/admin/eventos';
+  private apiUrl = 'http://localhost:8081/api/admin/eventos';
 
   constructor(
     private http: HttpClient,
