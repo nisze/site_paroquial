@@ -258,7 +258,6 @@ Este projeto foi desenvolvido como trabalho acadêmico do 5º semestre por:
 - [ ] Sistema de permissões granulares (roles e permissions)
 - [ ] Notificações push para eventos
 - [ ] App mobile nativo (iOS/Android)
-- [ ] Sistema de doações online
 - [ ] Transmissão ao vivo de missas
 - [ ] Pedidos de oração online
 - [ ] Chat com pastoral
