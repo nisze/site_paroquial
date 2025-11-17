@@ -8,7 +8,7 @@ services:
       - "8081:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=dev
-      - FRONTEND_URL=http://localhost
+      - FRONTEND_URL=http://localhost:8080
     networks:
       - paroquia-network
     restart: unless-stopped
