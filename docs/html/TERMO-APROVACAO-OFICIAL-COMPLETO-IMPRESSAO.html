@@ -1,0 +1,623 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termo de Aprovação Oficial - Sistema Digital paroquial</title>
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos para impressão */
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm 1.5cm;
+            }
+            
+            body {
+                font-size: 11pt;
+                line-height: 1.4;
+                color: #000;
+                background: white;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            table {
+                break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                break-after: avoid;
+            }
+            
+            .section {
+                break-inside: avoid;
+            }
+        }
+
+        /* Estilos gerais */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        /* Cabeçalho principal */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #1a365d;
+        }
+
+        .header h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h2 {
+            font-size: 14pt;
+            color: #4a5568;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        /* Seções */
+        .section {
+            margin-bottom: 25px;
+            padding: 15px 0;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 15px 0 10px 0;
+        }
+
+        /* Tabelas */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 11pt;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .info-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #1a365d;
+        }
+
+        .info-table td:first-child {
+            font-weight: bold;
+            background-color: #f8f9fa;
+            width: 35%;
+        }
+
+        /* Listas */
+        .feature-list {
+            margin: 15px 0 15px 30px;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            list-style-type: disc;
+            line-height: 1.5;
+        }
+
+        .check-list {
+            margin: 15px 0 15px 30px;
+        }
+
+        .check-list li {
+            margin-bottom: 8px;
+            list-style: none;
+            position: relative;
+            padding-left: 25px;
+            line-height: 1.5;
+        }
+
+        .check-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #059669;
+            font-weight: bold;
+        }
+
+        /* Área de assinatura */
+        .signature-area {
+            margin-top: 40px;
+            page-break-inside: avoid;
+        }
+
+        .signature-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #1a365d;
+            background-color: #f8f9fa;
+        }
+
+        .signature-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .signature-line {
+            border-bottom: 1px solid #000;
+            height: 35px;
+            margin: 15px 0 8px 0;
+            position: relative;
+        }
+
+        .signature-label {
+            font-weight: bold;
+            font-size: 10pt;
+            margin: 5px 0;
+            color: #4a5568;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Texto destacado */
+        .highlight-box {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .legal-declaration {
+            background-color: #e6fffa;
+            border: 1px solid #38b2ac;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+            text-align: center;
+        }
+
+        /* Texto em destaque */
+        .emphasis {
+            color: #1a365d;
+            font-weight: bold;
+        }
+
+        .cost-total {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #059669;
+            text-align: center;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #ecfdf5;
+            border: 2px solid #059669;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 10pt;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Anexos */
+        .anexos-list {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-left: 4px solid #3b82f6;
+            margin: 15px 0;
+        }
+
+        .anexos-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>TERMO DE APROVAÇÃO E ACEITE DO PROJETO</h1>
+        <h2>Sistema Digital paroquial - Versão Final 2025</h2>
+    </div>
+
+    <div class="section">
+        <div class="section-title">IDENTIFICAÇÃO DO PROJETO</div>
+        <table class="info-table">
+            <tr>
+                <td>Nome do Projeto</td>
+                <td>Sistema Digital paroquial Nossa Senhora Aparecida</td>
+            </tr>
+            <tr>
+                <td>Instituição</td>
+                <td>Paróquia Nossa Senhora Aparecida - Itapetininga/SP</td>
+            </tr>
+            <tr>
+                <td>Equipe de Desenvolvimento</td>
+                <td>Denise Korgiski de Oliveira (Desenvolvedora Responsável), João Vinicius Fonseca Diniz, Luiz Antonio Pereira Lima, Leandro Nicolas Silveira Gonçalves</td>
+            </tr>
+            <tr>
+                <td>Curso/Instituição</td>
+                <td>Análise e Desenvolvimento de Sistemas</td>
+            </tr>
+            <tr>
+                <td>Data de Início</td>
+                <td>Outubro 2025</td>
+            </tr>
+            <tr>
+                <td>Data de Conclusão</td>
+                <td>Dezembro 2025</td>
+            </tr>
+            <tr>
+                <td>Tipo de Projeto</td>
+                <td>Acadêmico - Sem Fins Lucrativos</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">OBJETIVO PRINCIPAL</div>
+        <p>Desenvolver um sistema web completo que unifique a comunicação e serviços da Paróquia Nossa Senhora Aparecida com suas <span class="emphasis">7 comunidades</span> em Itapetininga/SP, fornecendo:</p>
+        <ul class="feature-list">
+            <li>Presença digital moderna para a paróquia</li>
+            <li>Centralização de informações paroquiais</li>
+            <li>Recursos espirituais online acessíveis 24/7</li>
+            <li>Sistema de gestão de missas e eventos</li>
+            <li>Comunicação eficiente com os fiéis</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">FUNCIONALIDADES IMPLEMENTADAS</div>
+        
+        <div class="subsection-title">1. Sistema Frontend Angular 20</div>
+        <ul class="feature-list">
+            <li>Página Inicial Responsiva - Design moderno com vídeo de fundo</li>
+            <li>Bíblia Online Completa - 66 livros, busca avançada, navegação por capítulos</li>
+            <li>Horários de Missa - Todas as 7 comunidades organizadas por dia</li>
+            <li>liturgia Diária - Leituras, evangelho, salmos do dia</li>
+            <li>Santo do Dia - Biografia, imagens e informações litúrgicas</li>
+            <li>Sistema de Notícias - Eventos e campanhas paroquiais</li>
+            <li>Gestão de Grupos - Pastorais e movimentos</li>
+        </ul>
+
+        <div class="subsection-title">2. Sistema Backend Spring Boot 3.5.5</div>
+        <ul class="feature-list">
+            <li>API RESTful Completa - Endpoints para todos os recursos</li>
+            <li>Banco de Dados H2 - Persistência de dados dos santos</li>
+            <li>Sistema de Santos - Base de dados litúrgica completa</li>
+            <li>Web Scraping Inteligente - Coleta automática de informações</li>
+            <li>Sistema de Importação - Upload manual de dados</li>
+            <li>Gestão de Imagens Legais - Apenas fontes de domínio público</li>
+        </ul>
+
+        <div class="subsection-title">3. Integrações de APIs Públicas</div>
+        <ul class="feature-list">
+            <li>Bible API - bible-api.com (Tradução Almeida Portuguesa)</li>
+            <li>liturgia API - liturgia.up.railway.app (liturgia diária oficial)</li>
+            <li>Wikimedia Commons - Imagens de santos (domínio público)</li>
+            <li>Vatican Official - Fontes confiáveis da Igreja</li>
+        </ul>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">ESTRUTURA DO BANCO DE DADOS</div>
+        
+        <div class="subsection-title">Tabela: santos</div>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>BIGINT</td>
+                    <td>Identificador único</td>
+                </tr>
+                <tr>
+                    <td>nome</td>
+                    <td>VARCHAR(200)</td>
+                    <td>Nome completo do santo</td>
+                </tr>
+                <tr>
+                    <td>titulo</td>
+                    <td>VARCHAR(300)</td>
+                    <td>Título honorífico</td>
+                </tr>
+                <tr>
+                    <td>biografia</td>
+                    <td>TEXT</td>
+                    <td>Vida e obra do santo</td>
+                </tr>
+                <tr>
+                    <td>dia</td>
+                    <td>INTEGER</td>
+                    <td>Dia da festa litúrgica</td>
+                </tr>
+                <tr>
+                    <td>mes</td>
+                    <td>INTEGER</td>
+                    <td>Mês da festa litúrgica</td>
+                </tr>
+                <tr>
+                    <td>imagem_url</td>
+                    <td>VARCHAR(500)</td>
+                    <td>URL da imagem (domínio público)</td>
+                </tr>
+                <tr>
+                    <td>fonte</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Fonte da informação</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="subsection-title">Configuração do Banco</div>
+        <ul class="feature-list">
+            <li>Tipo: H2 Database (file-based)</li>
+            <li>Localização: ./dados/santos_db</li>
+            <li>Persistência: Dados mantidos entre execuções</li>
+            <li>Console Web: Disponível para administração</li>
+            <li>Backup: Automático via Spring Boot</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">ASPECTOS LEGAIS E COMPLIANCE</div>
+        
+        <div class="subsection-title">1. Uso de APIs Públicas</div>
+        <ul class="feature-list">
+            <li>Bible API: Tradução de domínio público (João Ferreira de Almeida)</li>
+            <li>liturgia API: Conteúdo oficial da Igreja Católica</li>
+            <li>Wikimedia Commons: Imagens sob licença Creative Commons</li>
+            <li>Vatican Official: Uso educacional autorizado</li>
+        </ul>
+
+        <div class="subsection-title">2. Política de Imagens</div>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Fonte</th>
+                    <th>Status Legal</th>
+                    <th>Uso Permitido</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Wikimedia Commons</td>
+                    <td>Domínio Público</td>
+                    <td>Sim - Uso livre</td>
+                </tr>
+                <tr>
+                    <td>Vatican Official</td>
+                    <td>Uso Educacional</td>
+                    <td>Sim - Uso acadêmico</td>
+                </tr>
+                <tr>
+                    <td>Placeholders Próprios</td>
+                    <td>Criação Própria</td>
+                    <td>Sim - Uso irrestrito</td>
+                </tr>
+                <tr>
+                    <td>Sites Comerciais</td>
+                    <td>Copyright</td>
+                    <td>Não - Evitado</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="legal-declaration">
+            <strong>Declaração Legal:</strong> Este projeto utiliza exclusivamente fontes de domínio público, APIs gratuitas e recursos com licenças apropriadas para uso educacional e religioso. Não há violação de direitos autorais.
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">MODELO FINANCEIRO</div>
+        
+        <div class="highlight-box">
+            <div class="subsection-title">PROJETO SEM FINS LUCRATIVOS</div>
+            <p>Este sistema é desenvolvido e entregue <strong>GRATUITAMENTE</strong> como serviço à comunidade paroquial.</p>
+        </div>
+
+        <div class="subsection-title">Custos Operacionais (Opcional)</div>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Serviço</th>
+                    <th>Custo</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hospedagem Frontend</td>
+                    <td>R$ 0,00/mês</td>
+                    <td>Vercel (gratuito)</td>
+                </tr>
+                <tr>
+                    <td>Banco de Dados</td>
+                    <td>R$ 0,00/mês</td>
+                    <td>H2 local (gratuito)</td>
+                </tr>
+                <tr>
+                    <td>APIs Externas</td>
+                    <td>R$ 0,00/mês</td>
+                    <td>Públicas (gratuitas)</td>
+                </tr>
+                <tr>
+                    <td>Desenvolvimento</td>
+                    <td>R$ 0,00</td>
+                    <td>Acadêmico (gratuito)</td>
+                </tr>
+                <tr>
+                    <td>Manutenção (1º ano)</td>
+                    <td>R$ 0,00</td>
+                    <td>Incluída (gratuita)</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="cost-total">
+            TOTAL: R$ 0,00 - Completamente gratuito
+        </div>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">TERMOS DE APROVAÇÃO</div>
+        
+        <div class="subsection-title">CONCORDÂNCIA DA PARÓQUIA</div>
+        <p>Eu, <strong>PE. LUIZ PAULO BATISTA BRAGA</strong>, pároco da Paróquia Nossa Senhora Aparecida, DECLARO que:</p>
+        <ul class="check-list">
+            <li>APROVO o desenvolvimento deste sistema digital</li>
+            <li>AUTORIZO o uso das informações paroquiais fornecidas</li>
+            <li>CONCORDO com o modelo gratuito sem fins lucrativos</li>
+            <li>ACEITO os termos legais sobre uso de APIs públicas</li>
+            <li>COMPREENDO que as imagens utilizadas são de domínio público</li>
+        </ul>
+
+        <div class="subsection-title">COMPROMISSOS DA EQUIPE DE DESENVOLVIMENTO</div>
+        <p>Nós, <strong>Equipe de Desenvolvimento do Sistema Digital paroquial</strong>, composta por <strong>Denise Korgiski de Oliveira (Desenvolvedora Responsável), João Vinicius Fonseca Diniz, Luiz Antonio Pereira Lima e Leandro Nicolas Silveira Gonçalves</strong>, COMPROMETEMO-NOS a:</p>
+        <ul class="check-list">
+            <li>ENTREGAR o sistema funcionalmente completo</li>
+            <li>GARANTIR conformidade legal em todos os aspectos</li>
+            <li>FORNECER documentação técnica completa</li>
+            <li>OFERECER suporte técnico durante o primeiro ano</li>
+            <li>MANTER o código fonte disponível para a paróquia</li>
+        </ul>
+    </div>
+
+    <div class="signature-area">
+        <div class="section-title">ASSINATURAS</div>
+        
+        <div class="signature-section">
+            <div class="signature-title">PARÓQUIA NOSSA SENHORA APARECIDA</div>
+            <div class="signature-line"></div>
+            <div class="signature-label">PE. LUIZ PAULO BATISTA BRAGA</div>
+            <div class="signature-label">Pároco Responsável</div>
+            <div class="signature-label">CPF: _______________</div>
+            <div class="signature-label">Data: ___/___/2025</div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-title">DESENVOLVIMENTO TÉCNICO</div>
+            <div class="signature-line"></div>
+            <div class="signature-label">Denise Korgiski de Oliveira (Desenvolvedora Responsável)</div>
+            <div class="signature-label">Análise e Desenvolvimento de Sistemas</div>
+            <div class="signature-label">Data: ___/___/2025</div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-title">EQUIPE DE DESENVOLVIMENTO</div>
+            <div class="signature-line"></div>
+            <div class="signature-label">João Vinicius Fonseca Diniz</div>
+            <div class="signature-label">Data: ___/___/2025</div>
+            
+            <div class="signature-line"></div>
+            <div class="signature-label">Luiz Antonio Pereira Lima</div>
+            <div class="signature-label">Data: ___/___/2025</div>
+            
+            <div class="signature-line"></div>
+            <div class="signature-label">Leandro Nicolas Silveira Gonçalves</div>
+            <div class="signature-label">Data: ___/___/2025</div>
+        </div>
+
+        <div class="signature-grid">
+            <div class="signature-section">
+                <div class="signature-title">TESTEMUNHA 1</div>
+                <div class="signature-line"></div>
+                <div class="signature-label">Nome: _________________</div>
+                <div class="signature-label">CPF: __________________</div>
+                <div class="signature-label">Data: ___/___/2025</div>
+            </div>
+            <div class="signature-section">
+                <div class="signature-title">TESTEMUNHA 2</div>
+                <div class="signature-line"></div>
+                <div class="signature-label">Nome: _________________</div>
+                <div class="signature-label">CPF: __________________</div>
+                <div class="signature-label">Data: ___/___/2025</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">ANEXOS</div>
+        <div class="anexos-list">
+            <ol>
+                <li>PRD Detalhado - Documento de requisitos completo</li>
+                <li>Documentação Técnica - Guias de instalação e uso</li>
+                <li>Manual do Usuário - Como usar o sistema</li>
+                <li>Aspectos Legais - Conformidade jurídica</li>
+                <li>Código Fonte - Acesso completo ao repositório</li>
+                <li>Exemplos de Dados - Formatos de importação</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Este documento serve como registro oficial do projeto para fins acadêmicos e contratuais.</strong></p>
+        <hr style="margin: 10px 0; border: none; border-top: 1px solid #d1d5db;">
+        <p>Data de Criação: 21 de Outubro de 2025 | Versão: 1.0 - Final | Próxima Revisão: Dezembro 2025</p>
+    </div>
+
+    <div class="no-print" style="margin-top: 30px; text-align: center;">
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; cursor: pointer; border-radius: 5px;">
+            🖨️ Imprimir Termo Oficial
+        </button>
+    </div>
+</body>
+</html>

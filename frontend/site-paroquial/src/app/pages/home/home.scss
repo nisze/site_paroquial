@@ -1,0 +1,707 @@
+// ===== HOME PAGE - PALETA MARROM/DOURADO =====
+
+// Cores da Paróquia
+$cor-primaria: #8B7355;
+$cor-secundaria: #d4af37;
+$cor-texto: #333;
+$cor-texto-claro: #666;
+
+// ===== HERO VIDEO SECTION =====
+.hero-video-section {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+
+  .hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
+
+  .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+
+  .hero-title,
+  .hero-subtitle {
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  }
+}
+
+// ===== HORÁRIOS MATRIZ =====
+.horarios-matriz-section {
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+}
+
+.horarios-matriz-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(139, 115, 85, 0.1);
+  border: 1px solid rgba(139, 115, 85, 0.1);
+
+  .horarios-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid $cor-primaria;
+
+    i {
+      font-size: 2rem;
+      color: $cor-primaria;
+    }
+
+    h2 {
+      color: $cor-primaria;
+      font-weight: 600;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    p {
+      color: $cor-texto-claro;
+      margin: 0.25rem 0 0 0;
+      font-size: 0.95rem;
+    }
+  }
+
+  .horarios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .horario-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(139, 115, 85, 0.12);
+      border-color: $cor-primaria;
+    }
+
+    &.destaque {
+      background: linear-gradient(135deg, $cor-primaria 0%, darken($cor-primaria, 10%) 100%);
+      color: white;
+
+      .dia-label i,
+      .dia-label span {
+        color: white;
+      }
+
+      .hora {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+    }
+
+    .dia-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+
+      i {
+        color: $cor-primaria;
+      }
+    }
+
+    .horas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .hora {
+        background: white;
+        border: 1px solid $cor-primaria;
+        color: $cor-primaria;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .horarios-footer {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid #e9ecef;
+
+    .btn-ver-mais {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: $cor-primaria;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(139, 115, 85, 0.2);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
+        background: darken($cor-primaria, 5%);
+      }
+    }
+  }
+}
+
+// ===== LITURGIA E SANTO =====
+.liturgia-santo-section {
+  padding: 4rem 0;
+  background: white;
+}
+
+.liturgia-dia-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  border: 2px solid rgba(139, 115, 85, 0.1);
+
+  .liturgia-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f0f0f0;
+
+    .liturgia-icon {
+      background: transparent;
+      border-radius: 8px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: visible;
+
+      i {
+        font-size: 2rem;
+        color: white;
+      }
+
+      .liturgia-img {
+        width: 182px;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+
+    .liturgia-info {
+      flex: 1;
+
+      h2 {
+        color: $cor-primaria;
+        font-weight: 600;
+        margin: 0 0 0.25rem 0;
+        font-size: 1rem;
+      }
+
+      .liturgia-titulo {
+        color: $cor-texto;
+        font-weight: 600;
+        margin: 0 0 0.25rem 0;
+        font-size: 1.3rem;
+      }
+
+      .liturgia-data {
+        color: $cor-texto-claro;
+        margin: 0;
+        font-size: 0.9rem;
+
+        i {
+          color: $cor-secundaria;
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .liturgia-content {
+    .leitura-item {
+      margin-bottom: 1.5rem;
+
+      h4 {
+        color: $cor-primaria;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+
+      .referencia {
+        color: $cor-secundaria;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .texto-preview {
+        color: $cor-texto-claro;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+    }
+
+    .liturgia-actions {
+      margin-top: 2rem;
+      text-align: center;
+
+      .btn-liturgia-completa {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: $cor-primaria;
+        color: white;
+        padding: 0.6rem 1.5rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(139, 115, 85, 0.2);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
+          background: darken($cor-primaria, 5%);
+        }
+      }
+    }
+  }
+}
+
+.santo-dia-card {
+  background: linear-gradient(135deg, #fff8e1 0%, #fffbf0 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  border: 2px solid $cor-secundaria;
+
+  .santo-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+
+    i {
+      font-size: 2.5rem;
+      color: $cor-secundaria;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    h3 {
+      color: $cor-primaria;
+      font-weight: 700;
+      margin: 0;
+      font-size: 1.3rem;
+    }
+  }
+
+  .santo-content {
+    text-align: center;
+
+    .santo-imagem {
+      margin-bottom: 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+
+    .santo-nome {
+      color: $cor-primaria;
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .santo-titulo {
+      color: $cor-secundaria;
+      font-style: italic;
+      font-size: 0.95rem;
+      margin: 0 0 1rem 0;
+    }
+
+    .santo-descricao {
+      color: $cor-texto-claro;
+      line-height: 1.6;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-santo-completo {
+      display: inline-block;
+      background: white;
+      color: $cor-primaria;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border: 2px solid $cor-primaria;
+
+      &:hover {
+        background: $cor-primaria;
+        color: white;
+      }
+    }
+  }
+}
+
+// ===== NOTÍCIAS =====
+.noticias-home-section {
+  padding: 4rem 0;
+  background: #f8f9fa;
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    padding: 2rem;
+    background: #FFF8E1;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: $cor-primaria;
+    }
+
+    h2 {
+      color: $cor-primaria;
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+
+      i {
+        margin-right: 0.75rem;
+      }
+    }
+
+    p {
+      color: $cor-texto-claro;
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+  }
+
+  .noticia-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .noticia-imagem {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .noticia-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: $cor-primaria;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+    }
+
+    .noticia-content {
+      padding: 1.5rem;
+
+      h3 {
+        color: $cor-texto;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .noticia-data {
+        color: $cor-secundaria;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+
+        i {
+          margin-right: 0.5rem;
+        }
+      }
+
+      .noticia-texto {
+        color: $cor-texto-claro;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+    }
+  }
+
+  .noticias-footer {
+    text-align: center;
+    margin-top: 3rem;
+
+    .btn-ver-todas {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: $cor-primaria;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(139, 115, 85, 0.2);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
+        background: darken($cor-primaria, 5%);
+      }
+    }
+  }
+}
+
+// ===== PASTORAIS =====
+.pastorais-home-section {
+  padding: 4rem 0;
+  background: white;
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    padding: 2rem;
+    background: #FFF8E1;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: $cor-primaria;
+    }
+
+    h2 {
+      color: $cor-primaria;
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+
+      i {
+        margin-right: 0.75rem;
+      }
+    }
+
+    p {
+      color: $cor-texto-claro;
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+  }
+
+  .pastoral-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    text-align: center;
+    height: 100%;
+    border: 2px solid transparent;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 30px rgba(139, 115, 85, 0.2);
+      border-color: $cor-primaria;
+    }
+
+    .pastoral-icon {
+      width: 80px;
+      height: 80px;
+      background: transparent;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+
+      i {
+        font-size: 2.5rem;
+        color: white;
+      }
+
+      .pastoral-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    h3 {
+      color: $cor-texto;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: $cor-texto-claro;
+      line-height: 1.5;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-pastoral {
+      background: transparent;
+      color: $cor-primaria;
+      border: 2px solid $cor-primaria;
+      padding: 0.75rem 1.5rem;
+      border-radius: 20px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: $cor-primaria;
+        color: white;
+      }
+    }
+  }
+
+  .pastorais-footer {
+    text-align: center;
+    margin-top: 3rem;
+
+    .btn-ver-todas-pastorais {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, $cor-primaria 0%, darken($cor-primaria, 10%) 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(139, 115, 85, 0.3);
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(139, 115, 85, 0.4);
+      }
+    }
+  }
+}
+
+// ===== RESPONSIVIDADE =====
+@media (max-width: 768px) {
+  .hero-video-section {
+    height: 50vh;
+    min-height: 400px;
+  }
+
+  .horarios-matriz-card {
+    padding: 2rem 1.5rem;
+
+    .horarios-header {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  .liturgia-dia-card .liturgia-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .section-header h2 {
+    font-size: 2rem !important;
+  }
+}

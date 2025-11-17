@@ -1,0 +1,248 @@
+<!-- HEADER DA LITURGIA DIÁRIA -->
+<section class="liturgia-hero">
+  <div class="video-background">
+    <video #heroVideo autoplay muted loop playsinline preload="auto" class="hero-video">
+      <source src="liturgiadiaria.mp4" type="video/mp4">
+      Seu navegador não suporta vídeos HTML5.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+  
+  <div class="container">
+    <div class="liturgia-hero-content">
+      <h1><i class="fas fa-calendar-day"></i> Liturgia Diária</h1>
+      <p>{{ dataHoje }}</p>
+      <div class="breadcrumb">
+        <a routerLink="/"><i class="fas fa-home"></i> Início</a>
+        <span><i class="fas fa-chevron-right"></i></span>
+        <span>Liturgia Diária</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<section class="liturgia-content">
+  <div class="container">
+    
+    <!-- Loading -->
+    <div *ngIf="carregando" class="text-center p-5">
+      <div class="spinner-border" style="color: #8B7355;" role="status">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+      <p class="mt-3 text-muted">Carregando liturgia do dia...</p>
+    </div>
+
+    <!-- Erro -->
+    <div *ngIf="erro" class="alert alert-warning" role="alert">
+      <i class="fas fa-exclamation-triangle"></i>
+      {{ erro }}
+      <button class="btn btn-sm btn-outline-primary ms-2" (click)="carregarLiturgiaDoDia()">
+        <i class="fas fa-redo"></i> Tentar novamente
+      </button>
+    </div>
+
+    <!-- Conteúdo da Liturgia -->
+    <div *ngIf="!carregando && !erro && liturgiaCompleta" class="row">
+      
+      <!-- Liturgia Principal -->
+      <div class="col-lg-8">
+        <div class="liturgia-card">
+          
+          <!-- Header da Liturgia -->
+          <div class="liturgia-header" *ngIf="liturgia">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="mb-1">{{ liturgia.titulo }}</h2>
+                <p class="text-muted mb-0">{{ liturgia.tempo_liturgico }}</p>
+              </div>
+              <div class="col-auto">
+                <span class="badge cor-liturgica" [style.background-color]="getCorLiturgica()">
+                  {{ liturgia.cor_liturgica }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Primeira Leitura -->
+          <div class="leitura-section" *ngIf="liturgia?.primeira_leitura">
+            <h4 class="section-title">
+              <i class="fas fa-scroll" style="color: #8B7355;"></i>
+              {{ liturgia?.primeira_leitura?.titulo }}
+            </h4>
+            <div class="referencia">{{ liturgia?.primeira_leitura?.referencia }}</div>
+            <div class="texto-leitura">
+              {{ liturgia?.primeira_leitura?.texto }}
+            </div>
+            <div class="response">- Palavra do Senhor.</div>
+            <div class="response">- Graças a Deus.</div>
+          </div>
+
+          <!-- Segunda Leitura (se houver) -->
+          <div class="leitura-section" *ngIf="liturgia?.segunda_leitura">
+            <h4 class="section-title">
+              <i class="fas fa-scroll" style="color: #8B7355;"></i>
+              {{ liturgia?.segunda_leitura?.titulo }}
+            </h4>
+            <div class="referencia">{{ liturgia?.segunda_leitura?.referencia }}</div>
+            <div class="texto-leitura">
+              {{ liturgia?.segunda_leitura?.texto }}
+            </div>
+            <div class="response">- Palavra do Senhor.</div>
+            <div class="response">- Graças a Deus.</div>
+          </div>
+
+          <!-- Salmo Responsorial -->
+          <div class="salmo-section" *ngIf="liturgia?.salmo">
+            <h4 class="section-title">
+              <i class="fas fa-music" style="color: #d4af37;"></i> 
+              Salmo Responsorial - {{ liturgia?.salmo?.referencia }}
+            </h4>
+            <div class="salmo-info">
+              <strong>Refrão:</strong> <em>{{ liturgia?.salmo?.refrao }}</em>
+            </div>
+            <div class="salmo-texto mt-3">
+              {{ liturgia?.salmo?.texto }}
+            </div>
+          </div>
+
+          <!-- Evangelho -->
+          <div class="evangelho-section" *ngIf="liturgia?.evangelho">
+            <h4 class="section-title destaque">
+              <i class="fas fa-cross" style="color: #d4af37;"></i>
+              {{ liturgia?.evangelho?.titulo }}
+            </h4>
+            <div class="referencia">{{ liturgia?.evangelho?.referencia }}</div>
+            <div class="texto-leitura">
+              {{ liturgia?.evangelho?.texto }}
+            </div>
+            <div class="response">- Palavra da Salvação.</div>
+            <div class="response">- Glória a vós, Senhor!</div>
+          </div>
+
+          <!-- Reflexão -->
+          <div class="reflexao-section" *ngIf="liturgia?.reflexao">
+            <h4 class="section-title">
+              <i class="fas fa-lightbulb" style="color: #8B7355;"></i>
+              Reflexão
+            </h4>
+            <div class="reflexao-texto">
+              <p><em>{{ liturgia?.reflexao }}</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        
+        <!-- Santo do Dia -->
+        <div class="santo-card" *ngIf="santoBackend || santo">
+          <h4 class="card-title">
+            <i class="fas fa-praying-hands" style="color: #d4af37;"></i>
+            Santo do Dia
+          </h4>
+          
+          <!-- Santo do Backend (prioridade) -->
+          <div class="santo-content" *ngIf="santoBackend">
+            <div class="santo-imagem mb-3" *ngIf="santoBackend.imagemUrl">
+              <img [src]="santoBackend.imagemUrl" [alt]="santoBackend.nome" style="width: 100%; border-radius: 8px; max-height: 300px; object-fit: cover;">
+            </div>
+            
+            <h5 class="santo-nome">{{ santoBackend.nome }}</h5>
+            <div class="santo-titulo" *ngIf="santoBackend.festaLiturgica">
+              <small class="text-muted">
+                <i class="fas fa-cross"></i> {{ santoBackend.festaLiturgica }}
+              </small>
+            </div>
+            
+            <div class="santo-biografia mt-3">
+              <p>{{ santoBackend.biografia }}</p>
+            </div>
+
+            <div class="santo-oracao" *ngIf="santoBackend.oracao">
+              <hr>
+              <h6><i class="fas fa-pray"></i> Oração</h6>
+              <div class="oracao-texto">
+                <em>{{ santoBackend.oracao }}</em>
+              </div>
+            </div>
+          </div>
+
+          <!-- Santo da API Externa (fallback) -->
+          <div class="santo-content" *ngIf="!santoBackend && santo">
+            <h5 class="santo-nome">{{ santo.santo_principal.nome }}</h5>
+            <div class="santo-titulo" *ngIf="santo.santo_principal.titulo">
+              <small class="text-muted">{{ santo.santo_principal.titulo }}</small>
+            </div>
+            
+            <div class="santo-biografia mt-3">
+              <p>{{ santo.santo_principal.biografia }}</p>
+            </div>
+
+            <div class="santo-info" *ngIf="santo.santo_principal.data_nascimento || santo.santo_principal.data_morte">
+              <hr>
+              <div class="info-item" *ngIf="santo.santo_principal.data_nascimento">
+                <strong>Nascimento:</strong> {{ santo.santo_principal.data_nascimento }}
+              </div>
+              <div class="info-item" *ngIf="santo.santo_principal.data_morte">
+                <strong>Falecimento:</strong> {{ santo.santo_principal.data_morte }}
+              </div>
+              <div class="info-item" *ngIf="santo.santo_principal.canonizado_por">
+                <strong>Canonizado por:</strong> {{ santo.santo_principal.canonizado_por }}
+              </div>
+            </div>
+
+            <div class="santo-padroeiro" *ngIf="santo.santo_principal.padroeiro_de && santo.santo_principal.padroeiro_de.length > 0">
+              <hr>
+              <strong>Padroeiro de:</strong>
+              <div class="padroeiro-list">
+                <span *ngFor="let padroado of santo.santo_principal.padroeiro_de; let last = last" class="padroeiro-item">
+                  {{ padroado }}<span *ngIf="!last">, </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="santo-oracao" *ngIf="santo.santo_principal.oracao">
+              <hr>
+              <h6><i class="fas fa-pray"></i> Oração</h6>
+              <div class="oracao-texto">
+                <em>{{ santo.santo_principal.oracao }}</em>
+              </div>
+            </div>
+          </div>
+
+          <!-- Outros Santos (apenas da API externa) -->
+          <div class="outros-santos-section" *ngIf="!santoBackend && santo && santo.outros_santos && santo.outros_santos.length > 0">
+            <hr>
+            <h6>Outros Santos celebrados hoje</h6>
+            <div *ngFor="let outroSanto of santo.outros_santos" class="outro-santo-item">
+              <strong>{{ outroSanto.nome }}</strong>
+              <div *ngIf="outroSanto.titulo" class="santo-titulo">
+                <small class="text-muted">{{ outroSanto.titulo }}</small>
+              </div>
+              <div *ngIf="outroSanto.biografia" class="santo-bio">
+                <small>{{ outroSanto.biografia }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <!-- Links Úteis -->
+        <div class="links-card mt-4">
+          <h5><i class="fas fa-external-link-alt"></i> Links Úteis</h5>
+          <div class="d-grid gap-2">
+            <a routerLink="/biblia" class="btn" style="border: 2px solid #8B7355; color: #8B7355; background-color: white;">
+              <i class="fas fa-book"></i>
+              Bíblia Online
+            </a>
+            <button class="btn" style="border: 2px solid #8B7355; color: #8B7355; background-color: white;" (click)="carregarLiturgiaDoDia()">
+              <i class="fas fa-sync-alt"></i>
+              Atualizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

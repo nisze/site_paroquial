@@ -1,0 +1,179 @@
+# ======================================
+# Sistema Paroquial - .gitignore
+# ======================================
+
+# Pastas específicas a serem ignoradas
+.bmad-core/
+chatmods/
+.github/chatmodes/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+.env.test
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+
+# Vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# Angular
+/frontend/site-paroquial/dist/
+/frontend/site-paroquial/.angular/
+/frontend/site-paroquial/tmp/
+/frontend/site-paroquial/out-tsc/
+/frontend/site-paroquial/bazel-out
+/frontend/site-paroquial/node_modules
+
+# IDEs and editors
+.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+/backend/Site_Paroquial/target/
+/backend/Site_Paroquial/.mvn/wrapper/maven-wrapper.jar
+
+# Spring Boot
+/backend/Site_Paroquial/.spring-boot-devtools.properties
+
+# H2 Database files (desenvolvimento)
+/backend/Site_Paroquial/dados/
+*.db
+*.h2.db
+*.mv.db
+*.trace.db
+
+# IntelliJ IDEA
+/backend/Site_Paroquial/.idea/
+/backend/Site_Paroquial/*.iws
+/backend/Site_Paroquial/*.iml
+/backend/Site_Paroquial/*.ipr
+
+# Eclipse
+/backend/Site_Paroquial/.metadata
+/backend/Site_Paroquial/bin/
+/backend/Site_Paroquial/tmp/
+/backend/Site_Paroquial/*.tmp
+/backend/Site_Paroquial/*.bak
+/backend/Site_Paroquial/*.swp
+/backend/Site_Paroquial/*~.nib
+/backend/Site_Paroquial/local.properties
+/backend/Site_Paroquial/.settings/
+/backend/Site_Paroquial/.loadpath
+/backend/Site_Paroquial/.recommenders
+
+# NetBeans
+/backend/Site_Paroquial/nbproject/private/
+/backend/Site_Paroquial/nbbuild/
+/backend/Site_Paroquial/dist/
+/backend/Site_Paroquial/nbdist/
+/backend/Site_Paroquial/.nb-gradle/
+/backend/Site_Paroquial/build/
+
+# Arquivos temporários
+*.tmp
+*.temp
+~$*
+
+# Backups
+*.backup
+*.bak
+
+# Outros
+.DS_Store
+.vscode/
+*.code-workspace

@@ -1,0 +1,113 @@
+<div class="page-header">
+  <div>
+    <h2><i class="fas fa-calendar-alt"></i> Gestão de Eventos</h2>
+    <p class="text-muted">Gerenciar eventos, missas e celebrações</p>
+  </div>
+  <button class="btn btn-primary" (click)="novo()">
+    <i class="fas fa-plus"></i> Novo Evento
+  </button>
+</div>
+
+<div class="filters-section">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Buscar evento por título ou local..."
+          [(ngModel)]="termoBusca"
+          (ngModelChange)="filtrar()">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content-card">
+  @if (carregando) {
+    <div class="text-center py-5">
+      <i class="fas fa-spinner fa-spin fa-2x"></i><br>
+      Carregando eventos...
+    </div>
+  } @else {
+    @if (eventosFiltrados.length === 0) {
+      <div class="empty-state">
+        <i class="fas fa-calendar-alt fa-3x text-muted mb-3"></i>
+        <h4>Nenhum evento encontrado</h4>
+        <p class="text-muted">
+          @if (termoBusca) {
+            Não há eventos que correspondam à sua busca.
+          } @else {
+            Comece criando o primeiro evento clicando no botão "Novo Evento".
+          }
+        </p>
+      </div>
+    } @else {
+      <div class="results-header">
+        <p>
+          <strong>{{ eventosFiltrados.length }}</strong> evento(s) encontrado(s)
+        </p>
+      </div>
+      
+      <div class="eventos-grid">
+        @for (evento of eventosFiltrados; track evento.id) {
+          <div class="evento-card">
+            <div class="evento-date">
+              <div class="date-day">{{ evento.dataInicio | date:'dd' }}</div>
+              <div class="date-month">{{ evento.dataInicio | date:'MMM' }}</div>
+            </div>
+            
+            @if (evento.imagemUrl) {
+              <div class="evento-image">
+                <img [src]="evento.imagemUrl" [alt]="evento.titulo">
+                @if (!evento.ativo) {
+                  <div class="evento-badge-inativo">
+                    <span class="badge badge-inativo">
+                      <i class="fas fa-eye-slash"></i> Inativo
+                    </span>
+                  </div>
+                }
+              </div>
+            }
+            
+            <div class="evento-content">
+              <h3>{{ evento.titulo }}</h3>
+              
+              @if (evento.tipo) {
+                <div class="evento-tipo">{{ evento.tipo }}</div>
+              }
+              
+              @if (evento.descricao) {
+                <p class="evento-descricao">{{ evento.descricao }}</p>
+              }
+              
+              <div class="evento-info">
+                <div class="info-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>{{ evento.dataInicio | date:'dd/MM/yyyy' }}</span>
+                </div>
+                
+                @if (evento.local) {
+                  <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{ evento.local }}</span>
+                  </div>
+                }
+              </div>
+              
+              <div class="evento-actions">
+                <button class="btn btn-sm btn-outline-primary" (click)="editar(evento.id!)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deletar(evento)">
+                  <i class="fas fa-trash"></i> Deletar
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

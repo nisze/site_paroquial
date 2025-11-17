@@ -1,0 +1,83 @@
+<nav class="navbar-paroquia">
+  <div class="navbar-container">
+    <!-- Menu Esquerdo -->
+    <div class="navbar-left">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link" (click)="closeMenu()">
+        INÍCIO
+      </a>
+      <a routerLink="/biblia" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+        BÍBLIA
+      </a>
+      <a routerLink="/liturgia-diaria" routerLinkActive="active" class="nav-link" (click)="closeMenu()">
+        LITURGIA DIÁRIA
+      </a>
+    </div>
+
+    <!-- Menu Direito com Dropdown -->
+    <div class="navbar-right">
+      <button class="menu-toggle" (click)="toggleMenu()" [class.active]="menuOpen">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <a routerLink="/admin-login" class="admin-link" title="Área Administrativa">
+        <i class="fas fa-lock"></i>
+      </a>
+      
+      <div class="dropdown-menu" [class.show]="menuOpen">
+        <a routerLink="/noticias" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
+          <i class="fas fa-newspaper"></i>
+          <span>Notícias</span>
+        </a>
+        <a routerLink="/grupos" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
+          <i class="fas fa-users"></i>
+          <span>Grupos e Pastorais</span>
+        </a>
+        <a routerLink="/calendario-liturgico" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Calendário Litúrgico</span>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a routerLink="/contato" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
+          <i class="fas fa-envelope"></i>
+          <span>Contato</span>
+        </a>
+        <a routerLink="/horarios-missas" routerLinkActive="active" class="dropdown-item" (click)="closeMenu()">
+          <i class="fas fa-clock"></i>
+          <span>Horários de Missa</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.show]="menuOpen">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="mobile-link" (click)="closeMenu()">
+      <i class="fas fa-home"></i> Início
+    </a>
+    <a routerLink="/biblia" routerLinkActive="active" class="mobile-link" (click)="closeMenu()">
+      <i class="fas fa-book-open"></i> Bíblia
+    </a>
+    <a routerLink="/liturgia-diaria" routerLinkActive="active" class="mobile-link" (click)="closeMenu()">
+      <i class="fas fa-calendar-day"></i> Liturgia Diária
+    </a>
+    <a routerLink="/noticias" routerLinkActive="active" class="mobile-link" (click)="closeMenu()">
+      <i class="fas fa-newspaper"></i> Notícias
+    </a>
+    <a routerLink="/grupos" routerLinkActive="active" class="mobile-link" (click)="closeMenu()">
+      <i class="fas fa-users"></i> Grupos
+    </a>
+    <a routerLink="/calendario-liturgico" routerLinkActive="active" class="mobile-link" (click)="closeMenu()">
+      <i class="fas fa-calendar-alt"></i> Calendário
+    </a>
+    <a routerLink="/contato" routerLinkActive="active" class="mobile-link" (click)="closeMenu()">
+      <i class="fas fa-envelope"></i> Contato
+    </a>
+  </div>
+  
+  <!-- Logo Central Flutuante -->
+  <div class="navbar-logo-floating">
+    <a routerLink="/home" class="logo-circle">
+      <img src="imagemnavbar.png" alt="Paróquia Nossa Senhora Aparecida" />
+    </a>
+  </div>
+</nav>

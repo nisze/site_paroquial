@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - Busca Expandida por "Amor"</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="biblia-api.js"></script>
+</head>
+<body>
+    <div class="container" style="padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h1><i class="fas fa-heart"></i> Teste - Busca Expandida</h1>
+            <p>Verificando se agora encontramos <strong>TODOS</strong> os versículos sobre amor</p>
+        </div>
+
+        <!-- TESTE AUTOMÁTICO -->
+        <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h2><i class="fas fa-search"></i> Teste Automático</h2>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button onclick="testarPalavra('amor')" style="padding: 15px 25px; background: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                    <i class="fas fa-heart"></i> Buscar "amor" (deve encontrar muitos)
+                </button>
+                <button onclick="testarPalavra('paz')" style="padding: 15px 25px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                    <i class="fas fa-dove"></i> Buscar "paz"
+                </button>
+                <button onclick="testarPalavra('pastor')" style="padding: 15px 25px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                    <i class="fas fa-user-friends"></i> Buscar "pastor"
+                </button>
+                <button onclick="testarPalavra('vida eterna')" style="padding: 15px 25px; background: #f39c12; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                    <i class="fas fa-infinity"></i> Buscar "vida eterna"
+                </button>
+            </div>
+            
+            <div id="resultado-teste" style="background: #f8f9fa; padding: 20px; border-radius: 5px; border: 1px solid #e9ecef; min-height: 100px;">
+                <p style="color: #666; text-align: center; margin: 40px 0;">Clique em um botão acima para testar a busca expandida...</p>
+            </div>
+        </div>
+
+        <!-- BUSCA MANUAL -->
+        <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h2><i class="fas fa-keyboard"></i> Busca Manual</h2>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <input type="text" id="busca-manual" placeholder="Digite qualquer palavra..." 
+                       style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; min-width: 250px; font-size: 16px;">
+                <button onclick="testarBuscaManual()" style="padding: 12px 25px; background: #8e44ad; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+            </div>
+            
+            <div style="display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+                <span style="font-size: 14px; color: #666; margin-right: 10px;">Sugestões:</span>
+                <button onclick="setBusca('amor')" class="btn-sugestao-mini">amor</button>
+                <button onclick="setBusca('Deus')" class="btn-sugestao-mini">Deus</button>
+                <button onclick="setBusca('fé')" class="btn-sugestao-mini">fé</button>
+                <button onclick="setBusca('esperança')" class="btn-sugestao-mini">esperança</button>
+                <button onclick="setBusca('pastor')" class="btn-sugestao-mini">pastor</button>
+                <button onclick="setBusca('vida')" class="btn-sugestao-mini">vida</button>
+                <button onclick="setBusca('paz')" class="btn-sugestao-mini">paz</button>
+                <button onclick="setBusca('Jesus')" class="btn-sugestao-mini">Jesus</button>
+            </div>
+            
+            <div id="resultado-manual" style="background: #f8f9fa; padding: 20px; border-radius: 5px; border: 1px solid #e9ecef; min-height: 100px;">
+                <p style="color: #666; text-align: center; margin: 40px 0;">Digite uma palavra e clique em "Buscar"...</p>
+            </div>
+        </div>
+
+        <!-- ESTATÍSTICAS -->
+        <div style="background: #2c3e50; color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+            <h2 style="color: white; margin-bottom: 20px;"><i class="fas fa-chart-pie"></i> Estatísticas da Base de Dados</h2>
+            <div id="estatisticas" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <!-- Será preenchido via JavaScript -->
+            </div>
+            <button onclick="carregarEstatisticas()" style="margin-top: 20px; padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <i class="fas fa-refresh"></i> Atualizar Estatísticas
+            </button>
+        </div>
+
+        <!-- NAVEGAÇÃO -->
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="biblia.html" style="display: inline-block; padding: 15px 30px; background: #1B4F72; color: white; text-decoration: none; border-radius: 10px; font-weight: 500; margin-right: 15px;">
+                <i class="fas fa-book-open"></i> Ir para Bíblia Completa
+            </a>
+            <a href="teste-api-completo.html" style="display: inline-block; padding: 15px 30px; background: #27AE60; color: white; text-decoration: none; border-radius: 10px; font-weight: 500; margin-right: 15px;">
+                <i class="fas fa-flask"></i> Teste da API
+            </a>
+            <a href="index.html" style="display: inline-block; padding: 15px 30px; background: #F39C12; color: white; text-decoration: none; border-radius: 10px; font-weight: 500;">
+                <i class="fas fa-home"></i> Voltar ao Início
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Aguardar carregamento da API
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Página de teste de busca expandida carregada!');
+            console.log('📖 API disponível:', !!window.bibliaAPI);
+            
+            // Carregar estatísticas automaticamente
+            setTimeout(carregarEstatisticas, 1000);
+        });
+
+        // Testar palavra específica
+        async function testarPalavra(palavra) {
+            const resultado = document.getElementById('resultado-teste');
+            resultado.innerHTML = `<p style="text-align: center;"><i class="fas fa-spinner fa-spin"></i> Buscando "${palavra}"...</p>`;
+            
+            try {
+                console.log(`🔍 Testando busca por: "${palavra}"`);
+                
+                const resultados = await window.bibliaAPI.buscarTexto(palavra, {
+                    buscaExata: false,
+                    limite: 50
+                });
+                
+                console.log(`📊 Resultados encontrados para "${palavra}":`, resultados);
+                
+                exibirResultados(palavra, resultados, 'resultado-teste');
+                
+            } catch (error) {
+                console.error('❌ Erro na busca:', error);
+                resultado.innerHTML = `
+                    <div style="color: #e74c3c; text-align: center;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Erro:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Busca manual
+        async function testarBuscaManual() {
+            const input = document.getElementById('busca-manual');
+            const palavra = input.value.trim();
+            
+            if (!palavra) {
+                alert('Digite uma palavra para buscar!');
+                return;
+            }
+            
+            const resultado = document.getElementById('resultado-manual');
+            resultado.innerHTML = `<p style="text-align: center;"><i class="fas fa-spinner fa-spin"></i> Buscando "${palavra}"...</p>`;
+            
+            try {
+                const resultados = await window.bibliaAPI.buscarTexto(palavra, {
+                    buscaExata: false,
+                    limite: 50
+                });
+                
+                exibirResultados(palavra, resultados, 'resultado-manual');
+                
+            } catch (error) {
+                console.error('❌ Erro na busca:', error);
+                resultado.innerHTML = `
+                    <div style="color: #e74c3c; text-align: center;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Erro:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Definir busca
+        function setBusca(palavra) {
+            document.getElementById('busca-manual').value = palavra;
+        }
+
+        // Exibir resultados
+        function exibirResultados(palavra, resultados, containerId) {
+            const container = document.getElementById(containerId);
+            
+            if (!resultados || resultados.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; color: #e74c3c;">
+                        <i class="fas fa-search" style="font-size: 2em; margin-bottom: 10px;"></i>
+                        <h3>Nenhum resultado encontrado</h3>
+                        <p>Não foram encontrados versículos contendo "<strong>${palavra}</strong>".</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <div style="text-align: center; margin-bottom: 25px; padding: 15px; background: #27ae60; color: white; border-radius: 5px;">
+                    <h3 style="margin: 0; color: white;">✅ ${resultados.length} resultado${resultados.length !== 1 ? 's' : ''} encontrado${resultados.length !== 1 ? 's' : ''} para "${palavra}"</h3>
+                    <p style="margin: 5px 0 0 0; opacity: 0.9;">Agora nossa busca está muito mais completa!</p>
+                </div>
+            `;
+            
+            resultados.forEach((resultado, index) => {
+                // Destacar palavra-chave
+                const textoDestacado = resultado.texto.replace(
+                    new RegExp(`(${palavra})`, 'gi'), 
+                    '<mark style="background: #fff3cd; padding: 2px 4px; border-radius: 3px; font-weight: bold;">$1</mark>'
+                );
+                
+                html += `
+                    <div style="border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <div style="background: #f8f9fa; padding: 12px; border-bottom: 1px solid #ddd; border-radius: 8px 8px 0 0;">
+                            <strong style="color: #1B4F72; font-size: 16px;">${resultado.referencia}</strong>
+                            <span style="float: right; font-size: 12px; background: ${resultado.fonte === 'API' ? '#27ae60' : '#3498db'}; color: white; padding: 2px 8px; border-radius: 12px;">
+                                ${resultado.fonte === 'API' ? '🌐 API' : '📱 Local'}
+                            </span>
+                        </div>
+                        <div style="padding: 15px; line-height: 1.6; font-size: 15px;">
+                            ${textoDestacado}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Carregar estatísticas
+        function carregarEstatisticas() {
+            const container = document.getElementById('estatisticas');
+            
+            try {
+                const todosTextos = window.bibliaAPI.obterTodosTextosParaBusca();
+                
+                let totalVersiculos = 0;
+                let totalLivros = new Set();
+                let palavrasEspeciais = {
+                    'amor': 0,
+                    'paz': 0,
+                    'Deus': 0,
+                    'Jesus': 0,
+                    'pastor': 0,
+                    'vida': 0,
+                    'fé': 0,
+                    'esperança': 0
+                };
+                
+                todosTextos.forEach(item => {
+                    totalLivros.add(item.livro);
+                    totalVersiculos += item.versiculos.length;
+                    
+                    item.versiculos.forEach(versiculo => {
+                        Object.keys(palavrasEspeciais).forEach(palavra => {
+                            if (versiculo.texto.toLowerCase().includes(palavra.toLowerCase())) {
+                                palavrasEspeciais[palavra]++;
+                            }
+                        });
+                    });
+                });
+                
+                let html = `
+                    <div style="text-align: center;">
+                        <div style="font-size: 2em; margin-bottom: 5px;">${totalLivros.size}</div>
+                        <div style="font-size: 14px; opacity: 0.8;">Livros</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2em; margin-bottom: 5px;">${totalVersiculos}</div>
+                        <div style="font-size: 14px; opacity: 0.8;">Versículos</div>
+                    </div>
+                `;
+                
+                Object.entries(palavrasEspeciais).forEach(([palavra, count]) => {
+                    if (count > 0) {
+                        html += `
+                            <div style="text-align: center;">
+                                <div style="font-size: 1.5em; margin-bottom: 5px; color: #f39c12;">${count}</div>
+                                <div style="font-size: 14px; opacity: 0.8;">"${palavra}"</div>
+                            </div>
+                        `;
+                    }
+                });
+                
+                container.innerHTML = html;
+                
+            } catch (error) {
+                container.innerHTML = `<div style="color: #e74c3c;">Erro ao carregar estatísticas: ${error.message}</div>`;
+            }
+        }
+
+        // Enter no campo de busca
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && e.target.id === 'busca-manual') {
+                testarBuscaManual();
+            }
+        });
+
+        console.log('🔍 Página de teste carregada!');
+        console.log('💡 Agora nossa busca deve encontrar MUITOS versículos sobre amor!');
+    </script>
+
+    <style>
+        .btn-sugestao-mini {
+            padding: 6px 12px;
+            background: #ecf0f1;
+            color: #2c3e50;
+            border: 1px solid #bdc3c7;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-sugestao-mini:hover {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        body {
+            background: #f0f2f5;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</body>
+</html>

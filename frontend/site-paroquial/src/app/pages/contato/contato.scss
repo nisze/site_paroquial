@@ -1,0 +1,88 @@
+// Cores da Paróquia
+$cor-primaria: #8B7355;
+$cor-secundaria: #d4af37;
+
+// ===== HERO SECTION =====
+.hero-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%),
+              url('/noticiasim.jpeg');
+  background-size: cover;
+  background-position: center 30%;
+  position: relative;
+  overflow: hidden;
+}
+
+// ===== CARD DE CONTATO =====
+.contato-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  border: 2px solid $cor-primaria;
+  height: 100%;
+  text-align: center;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    border-color: $cor-secundaria;
+  }
+  
+  .contato-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, $cor-primaria 0%, $cor-secundaria 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    
+    i {
+      font-size: 2rem;
+      color: white;
+    }
+    
+    &.whatsapp {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    }
+    
+    &.endereco {
+      background: linear-gradient(135deg, #dc3545 0%, #bd2130 100%);
+    }
+  }
+  
+  h3 {
+    color: $cor-primaria;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .contato-info {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .btn {
+    border-radius: 20px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .hero-section {
+    h1 {
+      font-size: 2rem;
+    }
+    
+    p {
+      font-size: 1.1rem;
+    }
+  }
+}

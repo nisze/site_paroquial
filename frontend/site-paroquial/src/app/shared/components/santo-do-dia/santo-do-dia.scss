@@ -1,0 +1,263 @@
+// ===== COMPONENTE SANTO DO DIA (HOME) =====
+
+.santo-home-card {
+  background: linear-gradient(135deg, #fff8e1 0%, #ffffff 100%);
+  border: 1px solid #f0c674;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(240, 198, 116, 0.2);
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(240, 198, 116, 0.3);
+  }
+}
+
+// ===== HEADER =====
+.santo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #f0c674;
+  padding-bottom: 0.75rem;
+
+  .santo-title {
+    color: #2c5aa0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+// ===== CONTEÚDO DO SANTO =====
+.santo-content {
+  .santo-nome {
+    color: #2c5aa0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .santo-titulo {
+    margin-bottom: 0.75rem;
+
+    em {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+  }
+
+  .santo-biografia {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #495057;
+    text-align: justify;
+    margin-bottom: 0.75rem;
+  }
+
+  .santo-padroeiro {
+    background: rgba(44, 90, 160, 0.1);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    border-left: 3px solid #2c5aa0;
+
+    small {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+
+      i {
+        color: #2c5aa0;
+      }
+    }
+  }
+}
+
+// ===== AÇÕES =====
+.santo-actions {
+  .btn {
+    border-radius: 8px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem 0.5rem;
+
+    i {
+      font-size: 1rem;
+    }
+
+    small {
+      font-size: 0.8rem;
+      line-height: 1.2;
+    }
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #2c5aa0 0%, #4a90e2 100%);
+    border: none;
+
+    &:hover {
+      background: linear-gradient(135deg, #1e3d6f 0%, #357abd 100%);
+      transform: translateY(-1px);
+    }
+  }
+
+  .btn-outline-warning {
+    border-color: #f0c674;
+    color: #d4a574;
+
+    &:hover {
+      background: #f0c674;
+      border-color: #f0c674;
+      color: #2c5aa0;
+      transform: translateY(-1px);
+    }
+  }
+}
+
+// ===== OUTROS SANTOS RESUMO =====
+.outros-santos-resumo {
+  text-align: center;
+  
+  hr {
+    border-color: #f0c674;
+    opacity: 0.5;
+  }
+
+  small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+
+    i {
+      color: #f0c674;
+    }
+  }
+}
+
+// ===== MODAL ORAÇÃO =====
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #2c5aa0 0%, #4a90e2 100%);
+  color: white;
+  border-radius: 12px 12px 0 0;
+
+  .modal-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-close {
+    filter: invert(1);
+  }
+}
+
+.oracao-texto {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #f0c674;
+  margin: 1rem 0;
+
+  p {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 1.05rem;
+    color: #495057;
+  }
+}
+
+.modal-footer {
+  border-top: 1px solid #e9ecef;
+  
+  .btn {
+    border-radius: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+// ===== ALERTAS CUSTOMIZADOS =====
+.alert-sm {
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+
+// ===== RESPONSIVO =====
+@media (max-width: 576px) {
+  .santo-home-card {
+    padding: 1rem;
+  }
+
+  .santo-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    .santo-title {
+      font-size: 1rem;
+    }
+  }
+
+  .santo-content {
+    .santo-nome {
+      font-size: 1.1rem;
+    }
+
+    .santo-biografia {
+      font-size: 0.9rem;
+    }
+  }
+
+  .santo-actions {
+    .btn {
+      padding: 0.5rem 0.25rem;
+
+      small {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}
+
+// ===== ANIMAÇÕES =====
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.santo-content {
+  animation: fadeInUp 0.5s ease-out;
+}

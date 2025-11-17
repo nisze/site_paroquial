@@ -1,0 +1,275 @@
+<div class="page-header">
+  <div class="header-content">
+    <button class="btn btn-outline-secondary" (click)="voltar()">
+      <i class="fas fa-arrow-left"></i>
+      Voltar
+    </button>
+    
+    <div class="header-title">
+      <h2>
+        <i class="fas fa-book-bible"></i>
+        {{ modo === 'criar' ? 'Novo Santo' : 'Editar Santo' }}
+      </h2>
+      <p class="text-muted">{{ modo === 'criar' ? 'Adicione as informações do santo' : 'Atualize as informações do santo' }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="form-container">
+  @if (carregando) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+    </div>
+  } @else {
+    <form (ngSubmit)="salvar()">
+      
+      <!-- SEÇÃO 1: INFORMAÇÕES BÁSICAS -->
+      <div class="form-section">
+        <h4><i class="fas fa-info-circle"></i> Informações Básicas</h4>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="mb-3">
+              <label class="form-label">Nome do Santo *</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="santo.nome"
+                name="nome"
+                placeholder="Ex: São Francisco de Assis"
+                required>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label class="form-label">Título</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="santo.titulo"
+                name="titulo"
+                placeholder="Ex: Doutor da Igreja">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Mês *</label>
+              <select 
+                class="form-select" 
+                [(ngModel)]="santo.mes"
+                name="mes"
+                required>
+                <option *ngFor="let m of meses" [value]="m.valor">{{ m.nome }}</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Dia *</label>
+              <select 
+                class="form-select" 
+                [(ngModel)]="santo.dia"
+                name="dia"
+                required>
+                <option *ngFor="let d of getDiasDoMes()" [value]="d">{{ d }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEÇÃO 2: IMAGEM -->
+      <div class="form-section">
+        <h4><i class="fas fa-image"></i> Imagem do Santo</h4>
+        
+        <div class="mb-3">
+          <label class="form-label">Selecionar Imagem</label>
+          <input 
+            type="file" 
+            class="form-control"
+            (change)="onImagemSelecionada($event)"
+            accept="image/*">
+          <small class="form-text text-muted">
+            Formatos: JPG, PNG, GIF. A imagem será salva no servidor.
+          </small>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Ou Cole URL Externa</label>
+          <input 
+            type="url" 
+            class="form-control"
+            [(ngModel)]="santo.imagemUrl"
+            name="imagemUrl"
+            placeholder="https://exemplo.com/imagem.jpg"
+            (ngModelChange)="previewImagem = santo.imagemUrl || null">
+          <small class="form-text text-muted">
+            Alternativa: Cole URL do Vatican News ou outra fonte
+          </small>
+        </div>
+        
+        @if (previewImagem) {
+          <div class="image-preview">
+            <img [src]="previewImagem" alt="Preview">
+            <button type="button" class="btn btn-danger btn-sm" (click)="removerImagem()">
+              <i class="fas fa-times"></i>
+              Remover Imagem
+            </button>
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label">URL da Fonte (Vatican News)</label>
+          <input 
+            type="url" 
+            class="form-control" 
+            [(ngModel)]="santo.fonte"
+            name="fonte"
+            placeholder="https://www.vaticannews.va/pt/santo-do-dia/...">
+          <small class="form-text text-muted">
+            Link da página do santo no Vatican News
+          </small>
+        </div>
+      </div>
+
+      <!-- SEÇÃO 3: DESCRIÇÕES -->
+      <div class="form-section">
+        <h4><i class="fas fa-align-left"></i> Descrições</h4>
+        
+        <div class="mb-3">
+          <label class="form-label">Descrição Resumida</label>
+          <textarea 
+            class="form-control" 
+            [(ngModel)]="santo.descricaoResumida"
+            name="descricaoResumida"
+            rows="3"
+            placeholder="Breve resumo sobre o santo (1-2 parágrafos)"></textarea>
+          <small class="form-text text-muted">
+            Será exibido nas listagens e cards
+          </small>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Descrição Completa</label>
+          <textarea 
+            class="form-control" 
+            [(ngModel)]="santo.descricaoCompleta"
+            name="descricaoCompleta"
+            rows="8"
+            placeholder="Biografia completa do santo copiada do Vatican News"></textarea>
+          <small class="form-text text-muted">
+            Será exibido na página individual do santo
+          </small>
+        </div>
+      </div>
+
+      <!-- SEÇÃO 4: INFORMAÇÕES ADICIONAIS -->
+      <div class="form-section">
+        <h4><i class="fas fa-plus-circle"></i> Informações Adicionais</h4>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Festa Litúrgica</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="santo.festaLiturgica"
+                name="festaLiturgica"
+                placeholder="Ex: Festa Litúrgica">
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Canonizado Por</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="santo.canonizadoPor"
+                name="canonizadoPor"
+                placeholder="Ex: Papa João Paulo II">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Data de Nascimento</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="santo.dataNascimento"
+                name="dataNascimento"
+                placeholder="Ex: 1182">
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Data de Morte</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                [(ngModel)]="santo.dataMorte"
+                name="dataMorte"
+                placeholder="Ex: 3 de outubro de 1226">
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Oração</label>
+          <textarea 
+            class="form-control" 
+            [(ngModel)]="santo.oracao"
+            name="oracao"
+            rows="4"
+            placeholder="Oração ao santo"></textarea>
+        </div>
+      </div>
+
+      <!-- SEÇÃO 5: ATIVO -->
+      <div class="form-section">
+        <h4><i class="fas fa-toggle-on"></i> Status</h4>
+        
+        <div class="form-check form-switch">
+          <input 
+            class="form-check-input" 
+            type="checkbox" 
+            [(ngModel)]="santo.ativo"
+            name="ativo"
+            id="ativo">
+          <label class="form-check-label" for="ativo">
+            Santo Ativo (será exibido no site)
+          </label>
+        </div>
+      </div>
+
+      <!-- BOTÕES -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline-secondary" (click)="voltar()" [disabled]="salvando">
+          <i class="fas fa-times"></i>
+          Cancelar
+        </button>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="salvando">
+          @if (salvando) {
+            <span class="spinner-border spinner-border-sm me-2"></span>
+          } @else {
+            <i class="fas fa-save"></i>
+          }
+          {{ salvando ? 'Salvando...' : 'Salvar Santo' }}
+        </button>
+      </div>
+    </form>
+  }
+</div>

@@ -1,0 +1,217 @@
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-12 text-center">
+        <h1 class="display-5 fw-bold mb-3">
+          Notícias da Paróquia
+        </h1>
+        <p class="lead mb-0">
+          Acompanhe as últimas novidades, eventos e comunicados da nossa comunidade paroquial.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Filtros -->
+<section class="py-4 filtros-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="d-flex flex-wrap gap-2 justify-content-center">
+          <button class="btn btn-filtro" [class.active]="filtroAtivo === 'todas'" (click)="filtrarPor('todas')">
+            <i class="fas fa-list me-2"></i>Todas
+          </button>
+          <button class="btn btn-filtro" [class.active]="filtroAtivo === 'avisos'" (click)="filtrarPor('avisos')">
+            <i class="fas fa-exclamation-circle me-2"></i>Avisos
+          </button>
+          <button class="btn btn-filtro" [class.active]="filtroAtivo === 'eventos'" (click)="filtrarPor('eventos')">
+            <i class="fas fa-calendar me-2"></i>Eventos
+          </button>
+          <button class="btn btn-filtro" [class.active]="filtroAtivo === 'pastorais'" (click)="filtrarPor('pastorais')">
+            <i class="fas fa-users me-2"></i>Pastorais
+          </button>
+          <button class="btn btn-filtro" [class.active]="filtroAtivo === 'liturgia'" (click)="filtrarPor('liturgia')">
+            <i class="fas fa-church me-2"></i>Liturgia
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Notícias Principais -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <!-- Notícia em Destaque -->
+        @if (noticias.length > 0 && noticias[0].destaque) {
+          <div class="card shadow-sm mb-4 noticia-destaque">
+            <div class="card-header bg-warning text-dark fw-bold">
+              <i class="fas fa-star me-2"></i>DESTAQUE
+            </div>
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img [src]="noticias[0].imagem" 
+                     class="img-fluid rounded-start h-100 object-fit-cover" 
+                     [alt]="noticias[0].titulo">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body h-100 d-flex flex-column">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <span class="badge" [ngClass]="getBadgeClass(noticias[0].categoria)">
+                      {{ noticias[0].categoria | titlecase }}
+                    </span>
+                    <small class="text-muted">
+                      <i class="fas fa-calendar me-1"></i>
+                      {{ noticias[0].data | date: 'dd \'de\' MMMM \'de\' yyyy' }}
+                    </small>
+                  </div>
+                  <h4 class="card-title fw-bold text-primary">
+                    {{ noticias[0].titulo }}
+                  </h4>
+                  <p class="card-text flex-grow-1">
+                    {{ noticias[0].resumo }}
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <button class="btn btn-primary">
+                      <i class="fas fa-book-open me-2"></i>Leia Mais
+                    </button>
+                    <div class="social-share">
+                      <button class="btn btn-sm btn-outline-secondary me-1">
+                        <i class="fab fa-facebook"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-secondary">
+                        <i class="fab fa-whatsapp"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Lista de Notícias -->
+        <div class="row">
+          <div class="col-md-6 mb-4" *ngFor="let noticia of noticiasFiltradas">
+            <div class="card h-100 shadow-sm noticia-card">
+              <img [src]="noticia.imagem" 
+                   class="card-img-top" 
+                   [alt]="noticia.titulo"
+                   style="height: 200px; object-fit: cover;">
+              <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <span class="badge" [ngClass]="getBadgeClass(noticia.categoria)">
+                    {{ noticia.categoria }}
+                  </span>
+                  <small class="text-muted">
+                    <i class="fas fa-calendar me-1"></i>
+                    {{ noticia.data | date:'dd/MM/yyyy' }}
+                  </small>
+                </div>
+                <h5 class="card-title">{{ noticia.titulo }}</h5>
+                <p class="card-text flex-grow-1">{{ noticia.resumo }}</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                  <button class="btn btn-outline-primary btn-sm">
+                    <i class="fas fa-read me-1"></i>Leia Mais
+                  </button>
+                  <small class="text-muted">
+                    <i class="fas fa-eye me-1"></i>{{ noticia.visualizacoes }}
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <!-- Avisos Importantes -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header card-header-avisos">
+            <h6 class="mb-0">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              Avisos Importantes
+            </h6>
+          </div>
+          <div class="card-body">
+            <div class="aviso-item mb-3 pb-3 border-bottom" *ngFor="let aviso of avisosImportantes">
+              <h6 class="fw-bold text-warning">{{ aviso.titulo }}</h6>
+              <p class="small mb-1">{{ aviso.texto }}</p>
+              <small class="text-muted">
+                <i class="fas fa-clock me-1"></i>{{ aviso.data | date:'dd/MM' }}
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Próximos Eventos -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-header card-header-eventos">
+            <h6 class="mb-0">
+              <i class="fas fa-calendar-alt me-2"></i>
+              Próximos Eventos
+            </h6>
+          </div>
+          <div class="card-body">
+            <div class="evento-item mb-3 pb-3 border-bottom" *ngFor="let evento of proximosEventos">
+              <div class="d-flex">
+                <div class="data-evento text-center me-3">
+                  <div class="dia bg-primary text-white rounded px-2 py-1">
+                    {{ evento.data | date:'dd' }}
+                  </div>
+                  <small class="mes text-muted">
+                    {{ evento.data | date:'MMM' }}
+                  </small>
+                </div>
+                <div>
+                  <h6 class="fw-bold mb-1">{{ evento.titulo }}</h6>
+                  <p class="small text-muted mb-1">
+                    <i class="fas fa-clock me-1"></i>{{ evento.horario }}
+                  </p>
+                  <p class="small mb-0">{{ evento.local }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="text-center">
+              <a routerLink="/eventos" class="btn btn-outline-primary btn-sm">
+                Ver Todos os Eventos
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="card shadow-sm">
+          <div class="card-header card-header-newsletter">
+            <h6 class="mb-0">
+              <i class="fas fa-envelope me-2"></i>
+              Receba Notícias
+            </h6>
+          </div>
+          <div class="card-body">
+            <p class="small mb-3">
+              Cadastre-se para receber as últimas notícias e avisos da paróquia por email.
+            </p>
+            <form>
+              <div class="mb-3">
+                <input type="email" 
+                       class="form-control" 
+                       placeholder="Seu email"
+                       required>
+              </div>
+              <button type="submit" class="btn btn-newsletter w-100">
+                <i class="fas fa-paper-plane me-2"></i>
+                Cadastrar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

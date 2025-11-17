@@ -1,0 +1,708 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Executivo - Sistema Digital paroquial</title>
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos para impressão */
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm 1.5cm;
+            }
+            
+            body {
+                font-size: 11pt;
+                line-height: 1.4;
+                color: #000;
+                background: white;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            table {
+                break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                break-after: avoid;
+            }
+            
+            .section {
+                break-inside: avoid;
+            }
+            
+            /* Regras específicas para assinaturas */
+            .assinatura-area {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin-top: 50px !important;
+                min-height: 300px;
+            }
+            
+            .aprovacao-box {
+                page-break-after: avoid;
+            }
+        }
+
+        /* Estilos gerais */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        /* Cabeçalho principal */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #1a365d;
+        }
+
+        .header h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h2 {
+            font-size: 14pt;
+            color: #4a5568;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        /* Resumo executivo destaque */
+        .executive-summary {
+            background-color: #e6fffa;
+            border: 3px solid #38b2ac;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .executive-summary h3 {
+            color: #2c7a7b;
+            margin-bottom: 20px;
+            font-size: 16pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .executive-summary p {
+            font-size: 12pt;
+            line-height: 1.8;
+            color: #1a365d;
+        }
+
+        /* Seções */
+        .section {
+            margin-bottom: 25px;
+            padding: 15px 0;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 15px 0 10px 0;
+        }
+
+        /* Tabelas */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 11pt;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 12px 15px;
+            border: 1px solid #d1d5db;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .info-table th {
+            background-color: #1a365d;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .info-table td:first-child {
+            font-weight: bold;
+            background-color: #f8f9fa;
+            width: 25%;
+        }
+
+        /* Cards de impacto */
+        .impacto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .impacto-card {
+            background-color: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .impacto-número {
+            font-size: 36pt;
+            font-weight: bold;
+            color: #1a365d;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .impacto-label {
+            font-size: 11pt;
+            color: #4a5568;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .impacto-descricao {
+            font-size: 10pt;
+            color: #6b7280;
+            margin-top: 8px;
+        }
+
+        /* ROI Box */
+        .roi-box {
+            background-color: #f0fff4;
+            border: 3px solid #38a169;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .roi-box h3 {
+            color: #2f855a;
+            margin-bottom: 15px;
+            font-size: 14pt;
+        }
+
+        /* Timeline */
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 4px solid #cbd5e0;
+            background-color: #f7fafc;
+        }
+
+        .timeline-concluido {
+            border-left-color: #38a169;
+            background-color: #f0fff4;
+        }
+
+        .timeline-andamento {
+            border-left-color: #ed8936;
+            background-color: #fffbeb;
+        }
+
+        .timeline-data {
+            font-weight: bold;
+            color: #1a365d;
+            margin-right: 15px;
+            min-width: 120px;
+        }
+
+        /* Tecnologias */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-item {
+            background-color: #edf2f7;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .tech-name {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .tech-version {
+            font-size: 10pt;
+            color: #4a5568;
+        }
+
+        /* Benefícios */
+        .beneficio-item {
+            background-color: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .beneficio-titulo {
+            font-weight: bold;
+            color: #c53030;
+            margin-bottom: 8px;
+        }
+
+        /* Aprovação */
+        .aprovacao-box {
+            background-color: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .aprovacao-box h3 {
+            color: #d69e2e;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14pt;
+        }
+
+        /* Assinatura */
+        .assinatura-area {
+            margin: 40px 0;
+            padding: 30px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background-color: #f8f9fa;
+        }
+
+        .assinatura-linha {
+            border-bottom: 2px solid #4a5568;
+            margin: 25px 0 8px 0;
+            height: 2px;
+        }
+
+        .assinatura-label {
+            text-align: center;
+            font-size: 11pt;
+            color: #4a5568;
+            font-weight: bold;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 10pt;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Listas */
+        .feature-list {
+            margin: 15px 0 15px 30px;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            list-style-type: disc;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>RESUMO EXECUTIVO</h1>
+        <h2>Sistema Digital paroquial Nossa Senhora Aparecida</h2>
+    </div>
+
+    <div class="executive-summary">
+        <h3>PROJETO EM DESENVOLVIMENTO</h3>
+        <p>O <strong>Sistema Digital paroquial Nossa Senhora Aparecida</strong> está sendo desenvolvido conforme especificações, atendendo a todas as necessidades pastorais e técnicas identificadas. O sistema será <strong>entregue em novembro de 2025</strong>, aguardando aprovação final para implantação oficial na paróquia.</p>
+        <hr style="margin: 20px 0; border: none; border-top: 2px solid #38b2ac;">
+        <p><strong>Desenvolvido por:</strong> Equipe de Desenvolvimento - Denise Korgiski de Oliveira (Desenvolvedora Responsável), João Vinicius Fonseca Diniz, Luiz Antonio Pereira Lima, Leandro Nicolas Silveira Gonçalves<br>
+        <strong>Para:</strong> Paróquia Nossa Senhora Aparecida - Itapetininga/SP<br>
+        <strong>Conclusão:</strong> Novembro de 2025</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">VISÃO GERAL DO PROJETO</div>
+        
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th colspan="2">INFORMAÇÕES PRINCIPAIS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Objetivo</td>
+                    <td>Digitalizar integralmente a pastoral da Paróquia Nossa Senhora Aparecida</td>
+                </tr>
+                <tr>
+                    <td>Tipo</td>
+                    <td>Projeto Acadêmico - Análise e Desenvolvimento de Sistemas</td>
+                </tr>
+                <tr>
+                    <td>Escopo</td>
+                    <td>Sistema web completo com frontend Angular e backend Spring Boot</td>
+                </tr>
+                <tr>
+                    <td>Beneficiários</td>
+                    <td>7 Comunidades Paroquiais (aproximadamente 2.500 famílias)</td>
+                </tr>
+                <tr>
+                    <td>Prazo</td>
+                    <td>10 semanas (Setembro - Novembro 2025)</td>
+                </tr>
+                <tr>
+                    <td>Custo</td>
+                    <td>R$ 0,00 (Projeto acadêmico sem fins lucrativos)</td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td><strong>EM DESENVOLVIMENTO - Entrega em Novembro 2025</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">IMPACTO E RESULTADOS</div>
+        
+        <div class="impacto-grid">
+            <div class="impacto-card">
+                <span class="impacto-número">8</span>
+                <div class="impacto-label">Páginas Funcionais</div>
+                <div class="impacto-descricao">Sistema completo com todas as funcionalidades</div>
+            </div>
+            <div class="impacto-card">
+                <span class="impacto-número">365+</span>
+                <div class="impacto-label">Santos Catalogados</div>
+                <div class="impacto-descricao">Banco de dados completo do ano litúrgico</div>
+            </div>
+            <div class="impacto-card">
+                <span class="impacto-número">2.500</span>
+                <div class="impacto-label">Famílias Beneficiadas</div>
+                <div class="impacto-descricao">Todas as 7 comunidades atendidas</div>
+            </div>
+            <div class="impacto-card">
+                <span class="impacto-número">100%</span>
+                <div class="impacto-label">Conformidade Legal</div>
+                <div class="impacto-descricao">Zero violações de direitos autorais</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">FUNCIONALIDADES PRINCIPAIS</div>
+        
+        <div class="subsection-title">1. Sistema Bíblico Integrado</div>
+        <ul class="feature-list">
+            <li>Acesso completo aos 66 livros da Bíblia Sagrada</li>
+            <li>Busca avançada por palavras-chave em todo o texto</li>
+            <li>Navegação intuitiva por livro, capítulo e versículo</li>
+            <li>Interface responsiva para todos os dispositivos</li>
+        </ul>
+
+        <div class="subsection-title">2. liturgia Diária Oficial</div>
+        <ul class="feature-list">
+            <li>Integração com API oficial da Igreja Católica</li>
+            <li>Primeira leitura, salmo responsorial e evangelho do dia</li>
+            <li>Atualização automática diária</li>
+            <li>Layout otimizado para leitura litúrgica</li>
+        </ul>
+
+        <div class="subsection-title">3. Santos Católicos</div>
+        <ul class="feature-list">
+            <li>Banco de dados completo com 365+ santos</li>
+            <li>Santo do dia com biografia e imagem</li>
+            <li>Sistema de busca por nome e data de festa</li>
+            <li>Imagens exclusivamente de fontes legais</li>
+        </ul>
+
+        <div class="subsection-title">4. Informações Paroquiais</div>
+        <ul class="feature-list">
+            <li>Detalhamento das 7 comunidades paroquiais</li>
+            <li>Horários de missa sempre atualizados</li>
+            <li>Contatos e endereços completos</li>
+            <li>Informações sobre o pároco e equipe pastoral</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">TECNOLOGIAS UTILIZADAS</div>
+        
+        <div class="tech-grid">
+            <div class="tech-item">
+                <div class="tech-name">Angular</div>
+                <div class="tech-version">Versão 20 (Frontend)</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-name">Spring Boot</div>
+                <div class="tech-version">Versão 3.5.5 (Backend)</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-name">H2 Database</div>
+                <div class="tech-version">File-based (Dados)</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-name">Java</div>
+                <div class="tech-version">17 LTS (Backend)</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-name">TypeScript</div>
+                <div class="tech-version">5.0+ (Frontend)</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-name">Bootstrap</div>
+                <div class="tech-version">5.3 (Design)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">CRONOGRAMA DE EXECUÇÃO</div>
+        
+        <div class="timeline-item timeline-concluido">
+            <div class="timeline-data">Semana 1-2</div>
+            <div>
+                <strong>Planejamento e Design</strong><br>
+                Análise de requisitos, design de interface e definição da arquitetura
+            </div>
+        </div>
+
+        <div class="timeline-item timeline-concluido">
+            <div class="timeline-data">Semana 3-4</div>
+            <div>
+                <strong>Desenvolvimento Frontend</strong><br>
+                Implementação completa do Angular com todas as páginas e funcionalidades
+            </div>
+        </div>
+
+        <div class="timeline-item timeline-concluido">
+            <div class="timeline-data">Semana 5-6</div>
+            <div>
+                <strong>Desenvolvimento Backend</strong><br>
+                Spring Boot, API REST, banco de dados H2 e sistema de santos
+            </div>
+        </div>
+
+        <div class="timeline-item timeline-concluido">
+            <div class="timeline-data">Semana 7</div>
+            <div>
+                <strong>Integração e Testes</strong><br>
+                Integração frontend-backend, testes funcionais e correções
+            </div>
+        </div>
+
+        <div class="timeline-item timeline-concluido">
+            <div class="timeline-data">Semana 8</div>
+            <div>
+                <strong>Compliance Legal</strong><br>
+                Auditoria legal completa, validação de imagens e documentação jurídica
+            </div>
+        </div>
+
+        <div class="timeline-item timeline-concluido">
+            <div class="timeline-data">Semana 9</div>
+            <div>
+                <strong>Documentação Final</strong><br>
+                PRDs, manuais, documentação técnica e preparação para aprovação
+            </div>
+        </div>
+
+        <div class="timeline-item timeline-andamento">
+            <div class="timeline-data">Semana 10</div>
+            <div>
+                <strong>Aprovação e Implantação</strong><br>
+                Aprovação final do pároco e lançamento oficial do sistema
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">BENEFÍCIOS ALCANÇADOS</div>
+        
+        <div class="beneficio-item">
+            <div class="beneficio-titulo">Para os Fiéis</div>
+            Acesso facilitado à Palavra de Deus, liturgia diária, santos católicos e informações paroquiais em qualquer dispositivo, promovendo o crescimento espiritual e fortalecimento da fé.
+        </div>
+
+        <div class="beneficio-item">
+            <div class="beneficio-titulo">Para a Paróquia</div>
+            Presença digital moderna e profissional, evangelização eficaz na era digital, centralização de informações e redução significativa de custos operacionais.
+        </div>
+
+        <div class="beneficio-item">
+            <div class="beneficio-titulo">Para as Comunidades</div>
+            Fortalecimento da identidade comunitária, facilidade de comunicação, divulgação eficiente de eventos e promoção da vida litúrgica em todas as 7 comunidades.
+        </div>
+
+        <div class="beneficio-item">
+            <div class="beneficio-titulo">Para a Sociedade</div>
+            Contribuição para a evangelização digital, preservação da cultura católica, promoção de valores cristãos e acesso democrático aos recursos espirituais.
+        </div>
+    </div>
+
+    <div class="roi-box">
+        <h3>RETORNO SOBRE INVESTIMENTO</h3>
+        <p><strong>Investimento Total:</strong> R$ 0,00 (Projeto acadêmico voluntário)</p>
+        <p><strong>Economia Anual Estimada:</strong> R$ 5.000,00 (material impresso, comunicação, manutenção)</p>
+        <p><strong>Benefício Social:</strong> INESTIMÁVEL (evangelização digital de 2.500 famílias)</p>
+        <hr style="margin: 15px 0; border: none; border-top: 1px solid #38a169;">
+        <p><strong>ROI:</strong> INFINITO (Investimento zero com benefícios significativos)</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">CONFORMIDADE E SEGURANÇA</div>
+        
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Aspecto</th>
+                    <th>Status</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Direitos Autorais</td>
+                    <td><strong>100% Conforme</strong></td>
+                    <td>Apenas fontes de domínio público</td>
+                </tr>
+                <tr>
+                    <td>LGPD</td>
+                    <td><strong>Não Aplicável</strong></td>
+                    <td>Nenhum dado pessoal coletado</td>
+                </tr>
+                <tr>
+                    <td>Segurança</td>
+                    <td><strong>Implementada</strong></td>
+                    <td>HTTPS, validação de entrada, backup</td>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td><strong>Otimizada</strong></td>
+                    <td>Carregamento rápido, cache eficiente</td>
+                </tr>
+                <tr>
+                    <td>Acessibilidade</td>
+                    <td><strong>Responsiva</strong></td>
+                    <td>Funciona em todos os dispositivos</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="aprovacao-box">
+        <h3>SOLICITAÇÃO DE APROVAÇÃO FINAL</h3>
+        <p>O sistema foi desenvolvido com total aderência às necessidades pastorais identificadas e encontra-se tecnicamente pronto para operação. Todos os requisitos funcionais, técnicos e legais foram rigorosamente atendidos.</p>
+        <br>
+        <p><strong>Solicitamos a aprovação final do Reverendo PE. LUIZ PAULO BATISTA BRAGA</strong> para proceder com a implantação oficial do Sistema Digital paroquial Nossa Senhora Aparecida.</p>
+        <br>
+        <p>Após a aprovação, o sistema estará disponível imediatamente para uso pelas 7 comunidades paroquiais, beneficiando diretamente aproximadamente 2.500 famílias católicas da região.</p>
+    </div>
+
+    <!-- Espaçamento para melhor formatação do PDF -->
+    <div style="height: 60px; page-break-inside: avoid;"></div>
+
+    <div class="assinatura-area" style="page-break-inside: avoid; margin-top: 40px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div>
+                <div class="assinatura-linha"></div>
+                <div class="assinatura-label">DENISE KORGISKI DE OLIVEIRA<br>Desenvolvedora Responsável</div>
+            </div>
+            <div>
+                <div class="assinatura-linha"></div>
+                <div class="assinatura-label">JOÃO VINICIUS FONSECA DINIZ<br>Desenvolvedor</div>
+            </div>
+        </div>
+        <br>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div>
+                <div class="assinatura-linha"></div>
+                <div class="assinatura-label">LUIZ ANTONIO PEREIRA LIMA<br>Desenvolvedor</div>
+            </div>
+            <div>
+                <div class="assinatura-linha"></div>
+                <div class="assinatura-label">LEANDRO NICOLAS SILVEIRA GONÇALVES<br>Desenvolvedor</div>
+            </div>
+        </div>
+        <br>
+        <div style="text-align: center;">
+            <div>
+                <div class="assinatura-linha"></div>
+                <div class="assinatura-label">PE. LUIZ PAULO BATISTA BRAGA<br>Pároco - Aprovação Final</div>
+            </div>
+        </div>
+        <br>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+            <div>
+                <div class="assinatura-linha"></div>
+                <div class="assinatura-label">DRA. ANDRÉIA RODRIGUES CASARE<br>Orientadora Acadêmica</div>
+            </div>
+            <div>
+                <div class="assinatura-linha"></div>
+                <div class="assinatura-label">COORDENAÇÃO DO CURSO<br>Aprovação Acadêmica</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Resumo Executivo - Sistema Digital paroquial Nossa Senhora Aparecida</strong></p>
+        <hr style="margin: 10px 0; border: none; border-top: 1px solid #d1d5db;">
+        <p>Desenvolvido por: Equipe de Desenvolvimento - Denise Korgiski de Oliveira, João Vinicius Fonseca Diniz, Luiz Antonio Pereira Lima, Leandro Nicolas Silveira Gonçalves | Curso: Análise e Desenvolvimento de Sistemas</p>
+        <p>Data: 21 de Novembro de 2025 | Documento Final para Aprovação</p>
+    </div>
+
+    <div class="no-print" style="margin-top: 30px; text-align: center;">
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; cursor: pointer; border-radius: 5px;">
+            🖨️ Imprimir Resumo Executivo
+        </button>
+    </div>
+</body>
+</html>

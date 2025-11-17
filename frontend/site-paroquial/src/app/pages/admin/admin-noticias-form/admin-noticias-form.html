@@ -1,0 +1,233 @@
+<div class="page-header">
+  <div>
+    <h2>
+      <i class="fas fa-newspaper"></i>
+      {{ modo === 'criar' ? 'Nova Notícia' : 'Editar Notícia' }}
+    </h2>
+    <p class="text-muted">Preencha as informações da notícia</p>
+  </div>
+  <button class="btn btn-secondary" (click)="voltar()">
+    <i class="fas fa-arrow-left"></i> Voltar
+  </button>
+</div>
+
+@if (carregando) {
+  <div class="text-center py-5">
+    <i class="fas fa-spinner fa-spin fa-2x"></i><br>
+    Carregando notícia...
+  </div>
+} @else {
+  <div class="form-card">
+    <form #noticiaForm="ngForm" (ngSubmit)="salvar()">
+      
+      <!-- Informações Básicas -->
+      <div class="form-section">
+        <h4><i class="fas fa-info-circle"></i> Informações Básicas</h4>
+        
+        <div class="mb-3">
+          <label class="form-label">Título *</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="noticia.titulo"
+            name="titulo"
+            required
+            placeholder="Ex: Horários das Missas de Natal">
+        </div>
+        
+        <div class="row">
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label class="form-label">Tipo *</label>
+              <select
+                class="form-select"
+                [(ngModel)]="noticia.tipo"
+                name="tipo"
+                required>
+                <option [value]="tipo.valor" *ngFor="let tipo of tipos">
+                  {{ tipo.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label class="form-label">Prioridade *</label>
+              <select
+                class="form-select"
+                [(ngModel)]="noticia.prioridade"
+                name="prioridade"
+                required>
+                <option [value]="prio.valor" *ngFor="let prio of prioridades">
+                  {{ prio.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label class="form-label">Comunidade</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="noticia.comunidadeOrigem"
+                name="comunidadeOrigem"
+                placeholder="Ex: Matriz">
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Resumo</label>
+          <textarea
+            class="form-control"
+            [(ngModel)]="noticia.resumo"
+            name="resumo"
+            rows="2"
+            placeholder="Breve resumo da notícia (opcional)"></textarea>
+          <small class="text-muted">Aparecerá na listagem de notícias</small>
+        </div>
+      </div>
+      
+      <!-- Conteúdo -->
+      <div class="form-section">
+        <h4><i class="fas fa-file-alt"></i> Conteúdo</h4>
+        
+        <div class="mb-3">
+          <label class="form-label">Conteúdo Completo</label>
+          <textarea
+            class="form-control"
+            [(ngModel)]="noticia.conteudo"
+            name="conteudo"
+            rows="8"
+            placeholder="Escreva o conteúdo completo da notícia aqui..."></textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Autor</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="noticia.autor"
+            name="autor"
+            placeholder="Nome do autor">
+        </div>
+      </div>
+      
+      <!-- Imagem -->
+      <div class="form-section">
+        <h4><i class="fas fa-image"></i> Imagem da Notícia</h4>
+        
+        <div class="mb-3">
+          <label class="form-label">Selecionar Imagem</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onImagemSelecionada($event)"
+            accept="image/*">
+          <small class="text-muted">A imagem será salva no servidor</small>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Ou Cole URL Externa</label>
+          <input
+            type="url"
+            class="form-control"
+            [(ngModel)]="noticia.imagemUrl"
+            name="imagemUrl"
+            placeholder="https://exemplo.com/imagem.jpg"
+            (ngModelChange)="previewImagem = noticia.imagemUrl || null">
+          <small class="text-muted">Alternativa: URL externa</small>
+        </div>
+        
+        @if (previewImagem) {
+          <div class="image-preview">
+            <img [src]="previewImagem" alt="Preview">
+            <button type="button" class="btn btn-danger btn-sm" (click)="removerImagem()">
+              <i class="fas fa-trash"></i> Remover Imagem
+            </button>
+          </div>
+        }
+      </div>
+      
+      <!-- Datas e Publicação -->
+      <div class="form-section">
+        <h4><i class="fas fa-calendar"></i> Publicação</h4>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Data de Publicação</label>
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="noticia.dataPublicacao"
+                name="dataPublicacao">
+              <small class="text-muted">Deixe em branco para publicar imediatamente</small>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Data de Expiração</label>
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="noticia.dataExpiracao"
+                name="dataExpiracao">
+              <small class="text-muted">Data em que a notícia deixará de ser exibida</small>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                [(ngModel)]="noticia.ativo"
+                name="ativo"
+                id="ativo">
+              <label class="form-check-label" for="ativo">
+                Notícia ativa
+              </label>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="form-check mb-3">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                [(ngModel)]="noticia.destaque"
+                name="destaque"
+                id="destaque">
+              <label class="form-check-label" for="destaque">
+                Colocar em destaque
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Botões -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="voltar()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="salvando">
+          @if (salvando) {
+            <i class="fas fa-spinner fa-spin"></i>
+          } @else {
+            <i class="fas fa-save"></i>
+          }
+          {{ modo === 'criar' ? 'Criar Notícia' : 'Salvar Alterações' }}
+        </button>
+      </div>
+      
+    </form>
+  </div>
+}

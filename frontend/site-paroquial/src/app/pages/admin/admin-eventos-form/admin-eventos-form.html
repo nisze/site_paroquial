@@ -1,0 +1,256 @@
+<div class="page-header">
+  <div>
+    <h2>
+      <i class="fas fa-calendar-alt"></i>
+      {{ modo === 'criar' ? 'Novo Evento' : 'Editar Evento' }}
+    </h2>
+    <p class="text-muted">Preencha as informações do evento</p>
+  </div>
+  <button class="btn btn-secondary" (click)="voltar()">
+    <i class="fas fa-arrow-left"></i> Voltar
+  </button>
+</div>
+
+@if (carregando) {
+  <div class="text-center py-5">
+    <i class="fas fa-spinner fa-spin fa-2x"></i><br>
+    Carregando evento...
+  </div>
+} @else {
+  <div class="form-card">
+    <form #eventoForm="ngForm" (ngSubmit)="salvar()">
+      
+      <!-- Informações Básicas -->
+      <div class="form-section">
+        <h4><i class="fas fa-info-circle"></i> Informações Básicas</h4>
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="mb-3">
+              <label class="form-label">Título *</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="evento.titulo"
+                name="titulo"
+                required
+                placeholder="Ex: Missa de Natal">
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label class="form-label">Tipo *</label>
+              <select
+                class="form-select"
+                [(ngModel)]="evento.tipo"
+                name="tipo"
+                required>
+                <option [value]="tipo.valor" *ngFor="let tipo of tipos">
+                  {{ tipo.nome }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Descrição</label>
+          <textarea
+            class="form-control"
+            [(ngModel)]="evento.descricao"
+            name="descricao"
+            rows="4"
+            placeholder="Descreva os detalhes do evento"></textarea>
+        </div>
+      </div>
+      
+      <!-- Data e Hora -->
+      <div class="form-section">
+        <h4><i class="fas fa-clock"></i> Data e Hora</h4>
+        
+        <div class="row">
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label class="form-label">Data Início *</label>
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="evento.dataInicio"
+                name="dataInicio"
+                required>
+            </div>
+          </div>
+          
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label class="form-label">Hora Início</label>
+              <input
+                type="time"
+                class="form-control"
+                [(ngModel)]="evento.horaInicio"
+                name="horaInicio">
+            </div>
+          </div>
+          
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label class="form-label">Data Fim</label>
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="evento.dataFim"
+                name="dataFim">
+            </div>
+          </div>
+          
+          <div class="col-md-3">
+            <div class="mb-3">
+              <label class="form-label">Hora Fim</label>
+              <input
+                type="time"
+                class="form-control"
+                [(ngModel)]="evento.horaFim"
+                name="horaFim">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Imagem -->
+      <div class="form-section">
+        <h4><i class="fas fa-image"></i> Imagem do Evento</h4>
+        
+        <div class="mb-3">
+          <label class="form-label">Selecionar Imagem</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="onImagemSelecionada($event)"
+            accept="image/*">
+          <small class="text-muted">A imagem será salva no servidor</small>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Ou Cole URL Externa</label>
+          <input
+            type="url"
+            class="form-control"
+            [(ngModel)]="evento.imagemUrl"
+            name="imagemUrl"
+            placeholder="https://exemplo.com/imagem.jpg"
+            (ngModelChange)="previewImagem = evento.imagemUrl || null">
+          <small class="text-muted">Alternativa: URL externa</small>
+        </div>
+        
+        @if (previewImagem) {
+          <div class="image-preview">
+            <img [src]="previewImagem" alt="Preview">
+            <button type="button" class="btn btn-danger btn-sm" (click)="removerImagem()">
+              <i class="fas fa-trash"></i> Remover Imagem
+            </button>
+          </div>
+        }
+      </div>
+      
+      <!-- Local e Responsável -->
+      <div class="form-section">
+        <h4><i class="fas fa-map-marker-alt"></i> Local e Responsável</h4>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Local</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="evento.local"
+                name="local"
+                placeholder="Ex: Igreja Matriz">
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Comunidade Responsável</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="evento.comunidadeResponsavel"
+                name="comunidadeResponsavel"
+                placeholder="Ex: Pastoral da Juventude">
+            </div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Responsável</label>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="evento.responsavelContato"
+                name="responsavelContato"
+                placeholder="Nome do responsável">
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Telefone</label>
+              <input
+                type="tel"
+                class="form-control"
+                [(ngModel)]="evento.telefoneContato"
+                name="telefoneContato"
+                placeholder="(00) 00000-0000">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Observações -->
+      <div class="form-section">
+        <h4><i class="fas fa-sticky-note"></i> Observações</h4>
+        
+        <div class="mb-3">
+          <textarea
+            class="form-control"
+            [(ngModel)]="evento.observacoes"
+            name="observacoes"
+            rows="3"
+            placeholder="Informações adicionais"></textarea>
+        </div>
+        
+        <div class="form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            [(ngModel)]="evento.ativo"
+            name="ativo"
+            id="ativo">
+          <label class="form-check-label" for="ativo">
+            Evento ativo
+          </label>
+        </div>
+      </div>
+      
+      <!-- Botões -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="voltar()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="salvando">
+          @if (salvando) {
+            <i class="fas fa-spinner fa-spin"></i>
+          } @else {
+            <i class="fas fa-save"></i>
+          }
+          {{ modo === 'criar' ? 'Criar Evento' : 'Salvar Alterações' }}
+        </button>
+      </div>
+      
+    </form>
+  </div>
+}

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Completo - API Bible-API.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="biblia-api.js"></script>
+</head>
+<body>
+    <div class="container" style="padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h1><i class="fas fa-flask"></i> Teste Completo - API Bible-API.com</h1>
+            <p>Demonstração da integração com <strong>https://bible-api.com/</strong></p>
+            <p><code>Exemplo: https://bible-api.com/Luke+10:6?translation=almeida</code></p>
+        </div>
+
+        <!-- TESTE ESPECÍFICO DA URL DO USUÁRIO -->
+        <div class="teste-section" style="background: #e8f5e8; padding: 30px; border-radius: 10px; margin-bottom: 30px; border: 2px solid #27AE60;">
+            <h2><i class="fas fa-star"></i> Teste da URL Sugerida pelo Usuário</h2>
+            <p><strong>URL:</strong> <code>https://bible-api.com/Lucas+10:6?translation=almeida</code></p>
+            
+            <button onclick="testarURLUsuario()" style="padding: 15px 30px; background: #27AE60; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin: 10px;">
+                <i class="fas fa-play"></i> Testar Lucas 10:6
+            </button>
+            
+            <div id="resultado-url-usuario" style="margin-top: 20px; padding: 20px; background: white; border-radius: 5px; border: 1px solid #27AE60;">
+                <p style="color: #666; margin: 0;">Clique no botão acima para testar a URL específica que você mencionou...</p>
+            </div>
+        </div>
+
+        <!-- TESTE DIRETO DA API -->
+        <div class="teste-section" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h2><i class="fas fa-globe"></i> Teste Direto da API</h2>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <input type="text" id="referencia-api" placeholder="Ex: Luke+10:6, John+3:16, Psalm+23" 
+                       style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 200px;">
+                <button onclick="testarAPIDirecto()" style="padding: 10px 20px; background: #1B4F72; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    <i class="fas fa-search"></i> Testar API
+                </button>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button onclick="testarPreset('Luke+10:6')" class="btn-exemplo">Lucas 10:6</button>
+                <button onclick="testarPreset('John+3:16')" class="btn-exemplo">João 3:16</button>
+                <button onclick="testarPreset('Psalm+23')" class="btn-exemplo">Salmo 23</button>
+                <button onclick="testarPreset('Matthew+5:1-10')" class="btn-exemplo">Mateus 5:1-10</button>
+                <button onclick="testarPreset('John+14:6')" class="btn-exemplo">João 14:6</button>
+            </div>
+            
+            <div id="resultado-api" style="background: #f8f9fa; padding: 20px; border-radius: 5px; border: 1px solid #e9ecef;">
+                <p style="color: #666; margin: 0;">Clique em "Testar API" para ver os resultados...</p>
+            </div>
+        </div>
+
+        <!-- TESTE DA BUSCA TEXTUAL -->
+        <div class="teste-section" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h2><i class="fas fa-search"></i> Teste de Busca Textual</h2>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <input type="text" id="palavra-busca" placeholder="Ex: amor, paz, Jesus, vida eterna" 
+                       style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; min-width: 200px;">
+                <button onclick="testarBuscaTexto()" style="padding: 10px 20px; background: #27AE60; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    <i class="fas fa-search"></i> Buscar Texto
+                </button>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button onclick="buscarPreset('amor')" class="btn-exemplo">amor</button>
+                <button onclick="buscarPreset('vida eterna')" class="btn-exemplo">vida eterna</button>
+                <button onclick="buscarPreset('pastor')" class="btn-exemplo">pastor</button>
+                <button onclick="buscarPreset('Deus')" class="btn-exemplo">Deus</button>
+                <button onclick="buscarPreset('caminho')" class="btn-exemplo">caminho</button>
+            </div>
+            
+            <div id="resultado-busca" style="background: #f8f9fa; padding: 20px; border-radius: 5px; border: 1px solid #e9ecef;">
+                <p style="color: #666; margin: 0;">Digite uma palavra e clique em "Buscar Texto" para ver os resultados...</p>
+            </div>
+        </div>
+
+        <!-- LINK PARA BÍBLIA COMPLETA -->
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="biblia.html" style="display: inline-block; padding: 15px 30px; background: #1B4F72; color: white; text-decoration: none; border-radius: 10px; font-weight: 500; margin-right: 15px;">
+                <i class="fas fa-book-open"></i> Ir para Bíblia Completa
+            </a>
+            <a href="index.html" style="display: inline-block; padding: 15px 30px; background: #F39C12; color: white; text-decoration: none; border-radius: 10px; font-weight: 500;">
+                <i class="fas fa-home"></i> Voltar ao Início
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Aguardar carregamento da API
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Página de teste carregada!');
+            console.log('📖 API disponível:', !!window.bibliaAPI);
+        });
+
+        // Testar a URL específica do usuário: Lucas 10:6
+        async function testarURLUsuario() {
+            const resultado = document.getElementById('resultado-url-usuario');
+            resultado.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Testando Lucas 10:6 com translation=almeida...</p>';
+            
+            try {
+                const url = 'https://bible-api.com/Lucas+10:6?translation=almeida';
+                console.log('🌐 Testando URL específica:', url);
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                console.log('📊 Resposta da API para Lucas 10:6:', data);
+                
+                let html = `
+                    <div style="border-left: 4px solid #27AE60; padding-left: 15px; margin-bottom: 15px;">
+                        <h3 style="color: #27AE60; margin: 0 0 10px 0;">✅ Teste da URL do Usuário</h3>
+                        <p><strong>URL Testada:</strong> <code>${url}</code></p>
+                        <p><strong>Status:</strong> <span style="color: #27AE60;">✅ Sucesso</span></p>
+                    </div>
+                `;
+                
+                if (data.reference) {
+                    html += `<div style="margin-bottom: 15px;"><strong>Referência:</strong> ${data.reference}</div>`;
+                }
+                
+                if (data.verses && data.verses.length > 0) {
+                    html += '<div style="margin-bottom: 15px;"><strong>Versículos:</strong></div>';
+                    html += '<div style="background: #27AE60; color: white; padding: 15px; border-radius: 5px;">';
+                    
+                    data.verses.forEach(verse => {
+                        html += `
+                            <div style="margin-bottom: 10px; line-height: 1.6;">
+                                <strong>${verse.verse}.</strong> ${verse.text}
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                } else if (data.text) {
+                    html += `
+                        <div style="margin-bottom: 15px;"><strong>Texto:</strong></div>
+                        <div style="background: #27AE60; color: white; padding: 15px; border-radius: 5px; line-height: 1.6;">
+                            ${data.text}
+                        </div>
+                    `;
+                }
+                
+                // Verificar se o texto contém algumas palavras esperadas
+                const textoCompleto = data.text || (data.verses ? data.verses.map(v => v.text).join(' ') : '');
+                const palavrasEsperadas = ['paz', 'peace', 'casa'];
+                const contem = palavrasEsperadas.some(palavra => textoCompleto.toLowerCase().includes(palavra.toLowerCase()));
+                
+                html += `
+                    <div style="margin-top: 20px; padding: 15px; background: ${contem ? '#d4edda' : '#fff3cd'}; border-radius: 5px;">
+                        <strong>Análise do conteúdo:</strong> 
+                        ${contem ? '✅ Contém palavras relacionadas ao contexto esperado' : '⚠️ Texto carregado, mas pode estar em inglês'}
+                    </div>
+                `;
+                
+                // Mostrar JSON raw (reduzido)
+                html += `
+                    <details style="margin-top: 20px;">
+                        <summary style="cursor: pointer; font-weight: bold; color: #1B4F72;">Ver JSON da resposta</summary>
+                        <pre style="background: #2c3e50; color: #ecf0f1; padding: 15px; border-radius: 5px; overflow-x: auto; font-size: 12px; margin-top: 10px;">${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `;
+                
+                resultado.innerHTML = html;
+                
+            } catch (error) {
+                console.error('❌ Erro na API:', error);
+                resultado.innerHTML = `
+                    <div style="color: #E74C3C; border-left: 4px solid #E74C3C; padding-left: 15px;">
+                        <h3 style="color: #E74C3C; margin: 0 0 10px 0;">❌ Erro no Teste</h3>
+                        <p><strong>Erro:</strong> ${error.message}</p>
+                        <p><strong>Possíveis causas:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li>Problema de conectividade</li>
+                            <li>API indisponível temporariamente</li>
+                            <li>Bloqueio CORS (necessário servidor)</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        // Testar preset
+        function testarPreset(referencia) {
+            document.getElementById('referencia-api').value = referencia;
+            testarAPIDirecto();
+        }
+        
+        function buscarPreset(palavra) {
+            document.getElementById('palavra-busca').value = palavra;
+            testarBuscaTexto();
+        }
+
+        // Testar API diretamente
+        async function testarAPIDirecto() {
+            const referencia = document.getElementById('referencia-api').value.trim();
+            const resultado = document.getElementById('resultado-api');
+            
+            if (!referencia) {
+                alert('Digite uma referência (ex: Luke+10:6)');
+                return;
+            }
+            
+            resultado.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Carregando...</p>';
+            
+            try {
+                const url = `https://bible-api.com/${referencia}?translation=almeida`;
+                console.log('🌐 Testando URL:', url);
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                console.log('📊 Resposta da API:', data);
+                
+                let html = `
+                    <div style="margin-bottom: 15px;">
+                        <strong>URL:</strong> <code>${url}</code>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>Status:</strong> <span style="color: green;">✅ Sucesso</span>
+                    </div>
+                `;
+                
+                if (data.reference) {
+                    html += `<div style="margin-bottom: 15px;"><strong>Referência:</strong> ${data.reference}</div>`;
+                }
+                
+                if (data.verses && data.verses.length > 0) {
+                    html += '<div style="margin-bottom: 15px;"><strong>Versículos:</strong></div>';
+                    html += '<div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #1B4F72;">';
+                    
+                    data.verses.forEach(verse => {
+                        html += `
+                            <div style="margin-bottom: 10px;">
+                                <strong>${verse.verse}.</strong> ${verse.text}
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                } else if (data.text) {
+                    html += `
+                        <div style="margin-bottom: 15px;"><strong>Texto:</strong></div>
+                        <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #1B4F72;">
+                            ${data.text}
+                        </div>
+                    `;
+                }
+                
+                resultado.innerHTML = html;
+                
+            } catch (error) {
+                console.error('❌ Erro na API:', error);
+                resultado.innerHTML = `
+                    <div style="color: red;">
+                        <strong>❌ Erro:</strong> ${error.message}
+                        <div style="margin-top: 10px; font-size: 12px; color: #666;">
+                            Verifique se a referência está no formato correto (ex: Luke+10:6)
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Testar busca textual
+        async function testarBuscaTexto() {
+            const palavra = document.getElementById('palavra-busca').value.trim();
+            const resultado = document.getElementById('resultado-busca');
+            
+            if (!palavra) {
+                alert('Digite uma palavra para buscar');
+                return;
+            }
+            
+            resultado.innerHTML = '<p><i class="fas fa-spinner fa-spin"></i> Buscando...</p>';
+            
+            try {
+                console.log(`🔍 Buscando "${palavra}" usando nossa API...`);
+                
+                const resultados = await window.bibliaAPI.buscarTexto(palavra, {
+                    buscaExata: false,
+                    limite: 10
+                });
+                
+                console.log('📊 Resultados encontrados:', resultados);
+                
+                let html = `
+                    <div style="margin-bottom: 15px;">
+                        <strong>Busca por:</strong> "${palavra}" | <strong>Resultados:</strong> ${resultados.length}
+                    </div>
+                `;
+                
+                if (resultados.length > 0) {
+                    html += '<div style="background: white; padding: 15px; border-radius: 5px;">';
+                    
+                    resultados.forEach((item, index) => {
+                        const textoDestacado = item.texto.replace(
+                            new RegExp(`(${palavra})`, 'gi'), 
+                            '<mark style="background: #fffacd; padding: 1px 3px;">$1</mark>'
+                        );
+                        
+                        html += `
+                            <div style="border-bottom: 1px solid #eee; padding: 10px 0; ${index === resultados.length - 1 ? 'border-bottom: none;' : ''}">
+                                <div style="font-weight: bold; color: #1B4F72; margin-bottom: 5px;">
+                                    ${item.referencia} <span style="font-size: 12px; background: #f8f9fa; padding: 2px 6px; border-radius: 3px;">${item.fonte}</span>
+                                </div>
+                                <div style="line-height: 1.5;">
+                                    ${textoDestacado}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div>';
+                } else {
+                    html += `
+                        <div style="text-align: center; padding: 20px; color: #666;">
+                            <i class="fas fa-search" style="font-size: 2em; margin-bottom: 10px;"></i>
+                            <div>Nenhum resultado encontrado para "${palavra}"</div>
+                            <div style="font-size: 12px; margin-top: 10px;">
+                                Tente: "amor", "Deus", "vida", "pastor", "caminho"
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                resultado.innerHTML = html;
+                
+            } catch (error) {
+                console.error('❌ Erro na busca:', error);
+                resultado.innerHTML = `
+                    <div style="color: red;">
+                        <strong>❌ Erro:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Enter nos campos de input
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                if (e.target.id === 'referencia-api') {
+                    testarAPIDirecto();
+                } else if (e.target.id === 'palavra-busca') {
+                    testarBuscaTexto();
+                }
+            }
+        });
+    </script>
+
+    <style>
+        .btn-exemplo {
+            padding: 8px 15px;
+            background: #F39C12;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-exemplo:hover {
+            background: #E67E22;
+            transform: translateY(-1px);
+        }
+        
+        .teste-section h2 {
+            color: #1B4F72;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #F7DC6F;
+            padding-bottom: 10px;
+        }
+        
+        body {
+            background: #f0f2f5;
+        }
+    </style>
+</body>
+</html>

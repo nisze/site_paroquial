@@ -1,0 +1,183 @@
+<!-- CARD DE LITURGIA DIÁRIA -->
+<div class="liturgia-card">
+  <!-- Loading -->
+  <div *ngIf="carregando" class="text-center p-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+    <p class="mt-2 text-muted">Carregando liturgia do dia...</p>
+  </div>
+
+  <!-- Erro -->
+  <div *ngIf="erro" class="alert alert-warning" role="alert">
+    <i class="fas fa-exclamation-triangle"></i>
+    {{ erro }}
+    <button class="btn btn-sm btn-outline-primary ms-2" (click)="carregarLiturgiaDoDia()">
+      <i class="fas fa-redo"></i> Tentar novamente
+    </button>
+  </div>
+
+  <!-- Conteúdo -->
+  <div *ngIf="!carregando && !erro && liturgiaCompleta" class="liturgia-content">
+    
+    <!-- Header -->
+    <div class="liturgia-header">
+      <div class="data-info">
+        <h4 class="mb-1">
+          Liturgia Diária
+        </h4>
+        <p class="text-muted mb-0">{{ dataHoje }}</p>
+      </div>
+      
+      <div class="cor-liturgica" [style.background-color]="getCorLiturgica()">
+        {{ liturgia?.cor_liturgica }}
+      </div>
+    </div>
+
+    <!-- Título da Liturgia -->
+    <div class="liturgia-titulo" *ngIf="liturgia">
+      <h5 class="mb-2">{{ liturgia.titulo }}</h5>
+      <small class="badge bg-secondary">{{ liturgia.tempo_liturgico }}</small>
+    </div>
+
+    <!-- Grid de Conteúdo -->
+    <div class="row g-3 mt-2">
+      
+      <!-- Leituras -->
+      <div class="col-md-6">
+        <div class="leituras-section">
+          <h6 class="section-title">
+            <i class="fas fa-book-open text-primary"></i>
+            Leituras do Dia
+          </h6>
+          
+          <!-- Primeira Leitura -->
+          <div class="leitura-item" *ngIf="liturgia?.primeira_leitura">
+            <strong class="leitura-titulo">{{ liturgia?.primeira_leitura?.titulo }}</strong>
+            <div class="leitura-ref">{{ liturgia?.primeira_leitura?.referencia }}</div>
+            <p class="leitura-texto">
+              {{ truncarTexto(liturgia?.primeira_leitura?.texto || '') }}
+            </p>
+          </div>
+
+          <!-- Salmo -->
+          <div class="salmo-section">
+            <strong class="leitura-titulo">Salmo Responsorial</strong>
+            <div class="salmo-antifona"><strong>{{ liturgia?.salmo?.referencia }}</strong></div>
+            <div class="salmo-refrao"><em>{{ liturgia?.salmo?.refrao }}</em></div>
+            <div class="salmo-texto mt-2">
+              {{ liturgia?.salmo?.texto }}
+            </div>
+          </div>
+
+          <!-- Evangelho -->
+          <div class="leitura-item destaque" *ngIf="liturgia?.evangelho">
+            <strong class="leitura-titulo">
+              <i class="fas fa-cross text-warning"></i>
+              {{ liturgia?.evangelho?.titulo }}
+            </strong>
+            <div class="leitura-ref">{{ liturgia?.evangelho?.referencia }}</div>
+            <p class="leitura-texto">
+              {{ truncarTexto(liturgia?.evangelho?.texto || '') }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Santo do Dia -->
+      <div class="col-md-6">
+        <div class="santo-section" *ngIf="santo">
+          <h6 class="section-title">
+            <i class="fas fa-praying-hands text-warning"></i>
+            Santo do Dia
+          </h6>
+          
+          <div class="santo-card">
+            <div class="santo-header">
+              <h6 class="santo-nome">{{ santo.santo_principal.nome }}</h6>
+              <small class="santo-titulo" *ngIf="santo.santo_principal.titulo">
+                {{ santo.santo_principal.titulo }}
+              </small>
+            </div>
+            
+            <div class="santo-biografia">
+              <p>{{ truncarTexto(santo.santo_principal.biografia, 200) }}</p>
+            </div>
+
+            <div class="santo-padroeiro" *ngIf="santo.santo_principal.padroeiro_de && santo.santo_principal.padroeiro_de.length > 0">
+              <small class="text-muted">
+                <strong>Padroeiro de:</strong> 
+                {{ santo.santo_principal.padroeiro_de.join(', ') }}
+              </small>
+            </div>
+
+            <div class="santo-oracao" *ngIf="santo.santo_principal.oracao">
+              <button class="btn btn-sm btn-outline-primary" 
+                      data-bs-toggle="collapse" 
+                      data-bs-target="#oracaoSanto">
+                <i class="fas fa-pray"></i>
+                Ver Oração
+              </button>
+              
+              <div class="collapse mt-2" id="oracaoSanto">
+                <div class="card card-body santo-oracao-texto">
+                  <em>{{ santo.santo_principal.oracao }}</em>
+                </div>
+              </div>
+            </div>
+
+            <!-- Outros Santos -->
+            <div class="outros-santos" *ngIf="santo.outros_santos && santo.outros_santos.length > 0">
+              <button class="btn btn-sm btn-link p-0" 
+                      data-bs-toggle="collapse" 
+                      data-bs-target="#outrosSantos">
+                <small>
+                  <i class="fas fa-plus"></i>
+                  {{ santo.outros_santos.length }} outros santos celebrados hoje
+                </small>
+              </button>
+              
+              <div class="collapse mt-1" id="outrosSantos">
+                <div *ngFor="let outroSanto of santo.outros_santos" class="outro-santo">
+                  <small>
+                    <strong>{{ outroSanto.nome }}</strong>
+                    <span *ngIf="outroSanto.titulo"> - {{ outroSanto.titulo }}</span>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reflexão -->
+    <div class="reflexao-section mt-3" *ngIf="liturgia?.reflexao">
+      <h6 class="section-title">
+        <i class="fas fa-lightbulb text-info"></i>
+        Reflexão
+      </h6>
+      <div class="reflexao-texto">
+        <p><em>{{ liturgia?.reflexao }}</em></p>
+      </div>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="liturgia-actions mt-3">
+      <div class="row">
+        <div class="col-md-6">
+          <a routerLink="/biblia" class="btn btn-primary w-100">
+            <i class="fas fa-book"></i>
+            Ler na Bíblia Online
+          </a>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-outline-primary w-100" (click)="carregarLiturgiaDoDia()">
+            <i class="fas fa-sync-alt"></i>
+            Atualizar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

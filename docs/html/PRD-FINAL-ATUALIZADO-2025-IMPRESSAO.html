@@ -1,0 +1,880 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRD Final - Sistema Digital paroquial</title>
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos para impressão */
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm 1.5cm;
+            }
+            
+            body {
+                font-size: 11pt;
+                line-height: 1.4;
+                color: #000;
+                background: white;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            table {
+                break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                break-after: avoid;
+            }
+            
+            .section {
+                break-inside: avoid;
+            }
+        }
+
+        /* Estilos gerais */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        /* Cabeçalho principal */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #1a365d;
+        }
+
+        .header h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h2 {
+            font-size: 14pt;
+            color: #4a5568;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        /* Seções */
+        .section {
+            margin-bottom: 25px;
+            padding: 15px 0;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 15px 0 10px 0;
+        }
+
+        /* Tabelas */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 11pt;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .info-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #1a365d;
+        }
+
+        .info-table td:first-child {
+            font-weight: bold;
+            background-color: #f8f9fa;
+            width: 30%;
+        }
+
+        /* Boxes especiais */
+        .highlight-box {
+            background-color: #e6fffa;
+            border: 2px solid #38b2ac;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight-box h3 {
+            color: #2c7a7b;
+            margin-bottom: 15px;
+            font-size: 14pt;
+        }
+
+        /* Status/tags */
+        .status-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 10pt;
+            font-weight: bold;
+            margin: 2px;
+        }
+
+        .status-finalizado {
+            background-color: #c6f6d5;
+            color: #2f855a;
+        }
+
+        .status-desenvolvimento {
+            background-color: #fef5e7;
+            color: #d69e2e;
+        }
+
+        .status-prioridade-alta {
+            background-color: #fed7d7;
+            color: #c53030;
+        }
+
+        /* Listas */
+        .feature-list {
+            margin: 15px 0 15px 30px;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            list-style-type: disc;
+            line-height: 1.5;
+        }
+
+        /* Métricas */
+        .metricas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metrica-box {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .metrica-número {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #1a365d;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .metrica-label {
+            font-size: 10pt;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Roadmap */
+        .roadmap-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 4px solid #cbd5e0;
+            background-color: #f7fafc;
+        }
+
+        .roadmap-concluido {
+            border-left-color: #38a169;
+            background-color: #f0fff4;
+        }
+
+        .roadmap-andamento {
+            border-left-color: #ed8936;
+            background-color: #fffbeb;
+        }
+
+        .roadmap-planejado {
+            border-left-color: #4299e1;
+            background-color: #ebf8ff;
+        }
+
+        /* Arquitetura */
+        .arquitetura-box {
+            background-color: #edf2f7;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            white-space: pre-line;
+            overflow-x: auto;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 10pt;
+            color: #6b7280;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>PRD FINAL - SISTEMA DIGITAL paroquial</h1>
+        <h2>Product Requirements Document - Versão Completa e Atualizada</h2>
+    </div>
+
+    <div class="highlight-box">
+        <h3>PROJETO ACADÊMICO PARA APROVAÇÃO</h3>
+        <p>O <strong>Sistema Digital Paroquial Nossa Senhora Aparecida</strong> será desenvolvido como <strong>projeto acadêmico</strong> conforme as especificações técnicas e requisitos funcionais definidos neste PRD.</p>
+        <hr style="margin: 15px 0; border: none; border-top: 1px solid #38b2ac;">
+        <p><strong>Objetivo:</strong> Desenvolver plataforma digital completa como trabalho acadêmico<br>
+        <strong>Prazo Previsto:</strong> 7 semanas de desenvolvimento (backend e frontend)<br>
+        <strong>Aprovação Acadêmica:</strong> Pe. Luiz Paulo Batista Braga aprova o desenvolvimento do projeto para fins acadêmicos<br>
+        <strong>Importante:</strong> O sistema não será hospedado ou colocado em produção neste momento</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">INFORMAÇÕES DO PROJETO</div>
+        
+        <table class="info-table">
+            <tbody>
+                <tr>
+                    <td>Nome do Projeto</td>
+                    <td>Sistema Digital paroquial Nossa Senhora Aparecida</td>
+                </tr>
+                <tr>
+                    <td>Versão</td>
+                    <td>1.0 Final</td>
+                </tr>
+                <tr>
+                    <td>Data de Criação</td>
+                    <td>Setembro de 2025</td>
+                </tr>
+                <tr>
+                    <td>Data de Entrega</td>
+                    <td>Novembro de 2025</td>
+                </tr>
+                <tr>
+                    <td>Tipo de Projeto</td>
+                    <td>Projeto Acadêmico (Análise e Desenvolvimento de Sistemas)</td>
+                </tr>
+                <tr>
+                    <td>Finalidade</td>
+                    <td>Desenvolvimento de Sistema como Trabalho Acadêmico</td>
+                </tr>
+                <tr>
+                    <td>Beneficiários</td>
+                    <td>7 Comunidades Paroquiais (aproximadamente 2.500 famílias)</td>
+                </tr>
+                <tr>
+                    <td>Desenvolvedor Principal</td>
+                    <td>Denise Korgiski de Oliveira</td>
+                </tr>
+                <tr>
+                    <td>Product Owner</td>
+                    <td>Pe. Luiz Paulo Batista Braga (Pároco)</td>
+                </tr>
+                <tr>
+                    <td>Supervisor Técnico</td>
+                    <td>Dra. Andréia Rodrigues Casare</td>
+                </tr>
+                <tr>
+                    <td>Stakeholder Principal</td>
+                    <td>Pe. Luiz Paulo Batista Braga (Pároco)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">OBJETIVOS DO PROJETO</div>
+
+        <div class="subsection-title">1. Objetivo Principal</div>
+        <div class="highlight-box">
+            <h3>DIGITALIZAÇÃO COMPLETA DA PASTORAL</h3>
+            <p>Criar uma plataforma digital integrada que facilite o acesso dos fiéis aos recursos espirituais, informações paroquiais e conteúdo litúrgico, promovendo uma evangelização eficaz na era digital.</p>
+        </div>
+
+        <div class="subsection-title">2. Objetivos Específicos</div>
+        <ul class="feature-list">
+            <li>Implementar sistema de consulta à Bíblia Sagrada com busca avançada</li>
+            <li>Integrar liturgia diária oficial da Igreja</li>
+            <li>Desenvolver banco de dados completo dos Santos Católicos</li>
+            <li>Criar sistema de informações paroquiais e horários de missa</li>
+            <li>Desenvolver interface responsiva para todos os dispositivos</li>
+            <li>Garantir conformidade legal total com direitos autorais</li>
+            <li>Construir backend robusto com API REST completa</li>
+            <li>Produzir documentação técnica e legal abrangente</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">MÉTRICAS DE SUCESSO ESPERADAS</div>
+        
+        <div class="metricas-grid">
+            <div class="metrica-box">
+                <span class="metrica-número">100%</span>
+                <span class="metrica-label">Requisitos Atendidos</span>
+            </div>
+            <div class="metrica-box">
+                <span class="metrica-número">8</span>
+                <span class="metrica-label">Páginas Funcionais</span>
+            </div>
+            <div class="metrica-box">
+                <span class="metrica-número">365+</span>
+                <span class="metrica-label">Santos Catalogados</span>
+            </div>
+            <div class="metrica-box">
+                <span class="metrica-número">66</span>
+                <span class="metrica-label">Livros Bíblicos</span>
+            </div>
+            <div class="metrica-box">
+                <span class="metrica-número">7</span>
+                <span class="metrica-label">Comunidades Atendidas</span>
+            </div>
+            <div class="metrica-box">
+                <span class="metrica-número">0</span>
+                <span class="metrica-label">Violações Legais</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">ARQUITETURA TÉCNICA PLANEJADA</div>
+        
+        <div class="subsection-title">1. Frontend (Angular 20)</div>
+        <div class="arquitetura-box">
+Sistema Angular 20 com:
+├── Components/
+│   ├── BíbliaComponent (Consulta Bíblica Completa)
+│   ├── LiturgiaComponent (Liturgia Diária Oficial)
+│   ├── SantosComponent (Santos Católicos)
+│   ├── HomeComponent (Página Principal)
+│   ├── ComunidadesComponent (7 Comunidades)
+│   ├── HoráriosComponent (Horários de Missa)
+│   ├── ContatoComponent (Contatos Paroquiais)
+│   └── SobreComponent (Sobre a Paróquia)
+├── Services/
+│   ├── BíbliaApiService (Integração bible-api.com)
+│   ├── LiturgiaApiService (Integração liturgia oficial)
+│   ├── SantoService (API Santos Backend)
+│   └── ComunidadeService (Dados das Comunidades)
+├── Models/
+│   ├── Versiculo.ts
+│   ├── Liturgia.ts
+│   ├── Santo.ts
+│   └── Comunidade.ts
+└── Assets/
+    ├── Imagens (Logos, Santos)
+    ├── Styles (CSS Responsivo)
+    └── Data (Dados JSON)
+        </div>
+
+        <div class="subsection-title">2. Backend (Spring Boot 3.5.5)</div>
+        <div class="arquitetura-box">
+Sistema Spring Boot com:
+├── Entities/
+│   └── Santo.java (JPA Entity Completa)
+├── Repositories/
+│   └── SantoRepository.java (Spring Data JPA)
+├── Services/
+│   ├── SantoService.java (Lógica de Negócio)
+│   ├── ImagemSantoService.java (Validação Legal)
+│   └── SantoImportacaoService.java (Importação Manual)
+├── Controllers/
+│   └── SantoController.java (REST API Completa)
+├── DTOs/
+│   ├── SantoDto.java
+│   └── SantoCreateDto.java
+├── Config/
+│   └── DatabaseConfig.java (H2 File Database)
+└── Database/
+    └── H2 File-based (./dados/santos_db)
+        </div>
+
+        <div class="subsection-title">3. Estratégia de Banco de Dados</div>
+        
+        <div class="highlight-box">
+            <h4>Desenvolvimento: H2 Database</h4>
+            <p>Para desenvolvimento local e testes rápidos</p>
+        </div>
+        
+        <div class="highlight-box">
+            <h4>Produção: Supabase PostgreSQL</h4>
+            <p>Banco hospedado gratuito com dashboard visual e APIs automáticas</p>
+        </div>
+        
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Aspecto</th>
+                    <th>H2 (Desenvolvimento)</th>
+                    <th>Supabase (Produção)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Tipo</strong></td>
+                    <td>H2 File-based</td>
+                    <td>PostgreSQL 15+ hospedado</td>
+                </tr>
+                <tr>
+                    <td><strong>Custo</strong></td>
+                    <td>Gratuito</td>
+                    <td>Gratuito (500MB, 2 projetos)</td>
+                </tr>
+                <tr>
+                    <td><strong>Recursos</strong></td>
+                    <td>Console web, setup rápido</td>
+                    <td>Dashboard, APIs REST, Auth, Backup</td>
+                </tr>
+                <tr>
+                    <td><strong>Principais Tabelas</strong></td>
+                    <td colspan="2">santos, usuários, informações_permanentes, eventos, notícias, comunidades</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">FUNCIONALIDADES A SEREM IMPLEMENTADAS</div>
+        
+        <div class="subsection-title">1. Sistema Bíblico Completo</div>
+        <ul class="feature-list">
+            <li>Consulta por livro, capítulo e versículo</li>
+            <li>Busca por palavra-chave em todo o texto</li>
+            <li>Navegação intuitiva entre livros</li>
+            <li>Interface responsiva para todos os dispositivos</li>
+            <li>Integração com API oficial bible-api.com</li>
+            <li>Tradução João Ferreira de Almeida (domínio público)</li>
+        </ul>
+
+        <div class="subsection-title">2. Liturgia Diária Oficial</div>
+        <ul class="feature-list">
+            <li>Integração com API oficial da Igreja</li>
+            <li>Primeira leitura, salmo responsorial, evangelho</li>
+            <li>Atualização automática diária</li>
+            <li>Layout otimizado para leitura</li>
+            <li>Compatível com liturgia romana oficial</li>
+        </ul>
+
+        <div class="subsection-title">3. Santos Católicos</div>
+        <ul class="feature-list">
+            <li>Banco de dados com 365+ santos</li>
+            <li>Santo do dia automático</li>
+            <li>Busca por nome e data de festa</li>
+            <li>Biografias completas e oficiais</li>
+            <li>Imagens legais (domínio público)</li>
+            <li>Sistema de validação de fontes</li>
+        </ul>
+
+        <div class="subsection-title">4. Sistema de Informações Permanentes</div>
+        <div class="highlight-box">
+            <h4>Funcionalidade Crítica</h4>
+            <p>Sistema para gerenciar informações permanentes como horários de missa, catequese e grupos paroquiais</p>
+        </div>
+        <ul class="feature-list">
+            <li><strong>15 Tipos de Informações:</strong> MISSA, CATEQUESE, GRUPO_ORACAO, PASTORAL_JUVENTUDE, etc.</li>
+            <li><strong>CRUD Completo:</strong> Criar, editar, listar e excluir informações</li>
+            <li><strong>API REST:</strong> Endpoints para administração e consulta pública</li>
+            <li><strong>Filtros Avançados:</strong> Por tipo, comunidade e status ativo</li>
+            <li><strong>Área Administrativa:</strong> Interface dedicada para o pároco</li>
+            <li><strong>Facilita Manutenção:</strong> Sem necessidade de alterar código para updates</li>
+        </ul>
+
+        <div class="subsection-title">5. Informações Paroquiais</div>
+        <ul class="feature-list">
+            <li>7 comunidades paroquiais detalhadas</li>
+            <li>Horários de missa atualizados</li>
+            <li>Contatos de cada comunidade</li>
+            <li>Endereços e mapas de localização</li>
+            <li>Informações sobre pároco e equipe</li>
+        </ul>
+        
+        <div class="subsection-title">6. Backend Completo - 7 Entidades</div>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Entidade</th>
+                    <th>Propósito</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Santo</strong></td>
+                    <td>Gerenciar santos católicos e datas de festa</td>
+                </tr>
+                <tr>
+                    <td><strong>Usuário</strong></td>
+                    <td>Sistema de autenticação e autorização</td>
+                </tr>
+                <tr>
+                    <td><strong>InformaçãoPermanente</strong></td>
+                    <td>Horários, catequese, grupos paroquiais</td>
+                </tr>
+                <tr>
+                    <td><strong>Evento</strong></td>
+                    <td>Eventos pontuais e celebrações especiais</td>
+                </tr>
+                <tr>
+                    <td><strong>Notícia</strong></td>
+                    <td>Comunicados e notícias paroquiais</td>
+                </tr>
+                <tr>
+                    <td><strong>Comunidade</strong></td>
+                    <td>Gestão das 7 comunidades paroquiais</td>
+                </tr>
+                <tr>
+                    <td><strong>ContatoWhatsApp</strong></td>
+                    <td>Gerenciar contatos para mensagens automáticas</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="highlight-box">
+            <h4>Sistema WhatsApp Planejado</h4>
+            <p>Entidade ContatoWhatsApp para gerenciar nomes e números para mensagens automáticas</p>
+            <ul class="feature-list">
+                <li>Validação de números brasileiros (+5511999999999)</li>
+                <li>Tipos de contato (Fiel, Coordenador, Liderança, etc.)</li>
+                <li>Controle de permissões para mensagens</li>
+                <li>Repository com queries especializadas</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">PLANO DE DESENVOLVIMENTO ACADÊMICO</div>
+        
+        <div class="subsection-title">Cronograma: 7 Semanas (Desenvolvimento Backend e Frontend)</div>
+        
+        <div class="subsection-title">Fases do Projeto Acadêmico</div>
+        
+        <div class="roadmap-item roadmap-planejado">
+            <div>
+                <strong>Fase 1 - Planejamento e Design (Semanas 1-2)</strong><br>
+                Análise de requisitos, design de interface, definição de arquitetura técnica
+            </div>
+        </div>
+
+        <div class="roadmap-item roadmap-planejado">
+            <div>
+                <strong>Fase 2 - Desenvolvimento Frontend (Semanas 3-4)</strong><br>
+                Implementação do Angular 20, integração com APIs externas, design responsivo
+            </div>
+        </div>
+
+        <div class="roadmap-item roadmap-planejado">
+            <div>
+                <strong>Fase 3 - Desenvolvimento Backend (Semanas 5-6)</strong><br>
+                Spring Boot 3.5.5, API REST completa, banco de dados H2, sistema de entidades
+            </div>
+        </div>
+
+        <div class="roadmap-item roadmap-planejado">
+            <div>
+                <strong>Fase 4 - Integração e Testes (Semana 7)</strong><br>
+                Integração frontend-backend, testes funcionais, correções, documentação final
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">OBJETIVOS DE APRENDIZADO ACADÊMICO</div>
+        
+        <div class="subsection-title">1. Objetivos Técnicos</div>
+        <ul class="feature-list">
+            <li>Aplicar conhecimentos de desenvolvimento full-stack (Angular + Spring Boot)</li>
+            <li>Implementar arquitetura de APIs REST completa</li>
+            <li>Trabalhar com banco de dados relacional (H2 Database)</li>
+            <li>Desenvolver sistema responsivo e acessível</li>
+            <li>Integrar APIs externas (Bíblia, Liturgia)</li>
+        </ul>
+
+        <div class="subsection-title">2. Objetivos Acadêmicos</div>
+        <ul class="feature-list">
+            <li>Demonstrar competência em análise e desenvolvimento de sistemas</li>
+            <li>Produzir documentação técnica profissional</li>
+            <li>Aplicar metodologias ágeis de desenvolvimento</li>
+            <li>Desenvolver projeto real com stakeholder definido</li>
+            <li>Criar portfólio técnico para carreira profissional</li>
+        </ul>
+
+        <div class="subsection-title">3. Benefícios Futuros (Caso seja Implementado)</div>
+        <ul class="feature-list">
+            <li>Sistema completo pronto para futuro deploy, se a paróquia decidir</li>
+            <li>Base sólida para expansão e melhorias</li>
+            <li>Código-fonte documentado e organizado</li>
+            <li>Possibilidade de uso como referência para outras paróquias</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">APROVAÇÕES NECESSÁRIAS</div>
+        
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Tipo de Aprovação</th>
+                    <th>Responsável</th>
+                    <th>Escopo da Aprovação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Aprovação Stakeholder</td>
+                    <td>Pe. Luiz Paulo Batista Braga</td>
+                    <td>Aprova o desenvolvimento do sistema como projeto acadêmico</td>
+                </tr>
+                <tr>
+                    <td>Aprovação Técnica e Acadêmica</td>
+                    <td>Dra. Andréia Rodrigues Casare</td>
+                    <td>Avaliação técnica do projeto e aprovação acadêmica</td>
+                </tr>
+                <tr>
+                    <td>Validação do Desenvolvimento</td>
+                    <td>Equipe de Desenvolvimento</td>
+                    <td>Garantia de qualidade técnica e funcionalidades implementadas</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">PRÓXIMOS PASSOS (PROJETO ACADÊMICO)</div>
+        
+        <div class="subsection-title">1. Após Aprovação Acadêmica</div>
+        <ul class="feature-list">
+            <li>Início do desenvolvimento conforme cronograma de 7 semanas</li>
+            <li>Reuniões semanais de acompanhamento com orientadora</li>
+            <li>Desenvolvimento em ambiente local (sem servidor de produção)</li>
+            <li>Validações técnicas com a equipe de desenvolvimento</li>
+        </ul>
+
+        <div class="subsection-title">2. Durante o Desenvolvimento</div>
+        <ul class="feature-list">
+            <li>Desenvolvimento incremental das funcionalidades backend e frontend</li>
+            <li>Testes locais de integração e funcionalidades</li>
+            <li>Documentação técnica do código</li>
+            <li>Versionamento com Git/GitHub</li>
+        </ul>
+
+        <div class="subsection-title">3. Entrega Acadêmica Final</div>
+        <ul class="feature-list">
+            <li>Sistema funcional em ambiente de desenvolvimento local</li>
+            <li>Código-fonte completo e documentado</li>
+            <li>Apresentação do projeto para a banca acadêmica</li>
+            <li>Documentação técnica completa (PRDs, diagramas, manuais)</li>
+            <li>Demonstração de todas as funcionalidades implementadas</li>
+        </ul>
+        
+        <div class="subsection-title">4. Futuro</div>
+        <ul class="feature-list">
+            <li>Caso a paróquia decida no futuro, o sistema está pronto para deploy</li>
+            <li>Código disponível para referência e portfólio profissional</li>
+            <li>Base para futuros projetos similares</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">CONCLUSÃO</div>
+        
+        <div class="highlight-box">
+            <h3>PROJETO ACADÊMICO PARA APROVAÇÃO</h3>
+            <p>O <strong>Sistema Digital Paroquial Nossa Senhora Aparecida</strong> será desenvolvido como <strong>projeto acadêmico</strong> com excelência técnica e aplicação prática dos conhecimentos adquiridos no curso de Análise e Desenvolvimento de Sistemas.</p>
+            <br>
+            <p><strong>Escopo do Projeto Acadêmico:</strong></p>
+            <ul class="feature-list">
+                <li><strong>Plataforma Web Completa</strong> - Angular 20 + Spring Boot 3.5.5</li>
+                <li><strong>Banco de Dados</strong> - H2 Database (ambiente de desenvolvimento)</li>
+                <li><strong>Funcionalidades Principais</strong> - Bíblia, Liturgia, Santos, Comunidades</li>
+                <li><strong>APIs Integradas</strong> - Bible API e Liturgia Diária Oficial</li>
+                <li><strong>Documentação Técnica</strong> - PRD, diagramas, código documentado</li>
+            </ul>
+            <br>
+            <p><strong>Cronograma Acadêmico:</strong></p>
+            <ul class="feature-list">
+                <li>Duração: 7 semanas (desenvolvimento backend e frontend)</li>
+                <li>4 fases de desenvolvimento técnico</li>
+                <li>Validações acadêmicas com orientadora</li>
+                <li>Entrega: Sistema funcional em ambiente local</li>
+            </ul>
+            <br>
+            <p><strong>Importante:</strong> Este é um projeto exclusivamente acadêmico. O sistema <strong>não será hospedado em servidor</strong> nem <strong>colocado em produção</strong>. O Pe. Luiz Paulo Batista Braga aprova o desenvolvimento para fins de aprendizado e avaliação acadêmica, não para uso efetivo pela paróquia neste momento.</p>
+        </div>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">APROVAÇÃO E ASSINATURAS</div>
+        
+        <div class="subsection-title">Aprovação Técnica</div>
+        <table class="info-table" style="width: 100%;">
+            <tr>
+                <td style="width: 25%; padding-bottom: 20px; vertical-align: bottom;"><strong>Equipe de Desenvolvimento</strong></td>
+                <td style="width: 75%; padding-bottom: 20px; padding-left: 5px; border-bottom: 1px solid #333;">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 5px; padding-left: 5px;">Denise Korgiski de Oliveira (Desenvolvedora Responsável)</td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 20px; vertical-align: bottom;"></td>
+                <td style="padding-bottom: 20px; padding-left: 5px; border-bottom: 1px solid #333;">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 5px; padding-left: 5px;">João Vinicius Fonseca Diniz</td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 20px; vertical-align: bottom;"></td>
+                <td style="padding-bottom: 20px; padding-left: 5px; border-bottom: 1px solid #333;">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 5px; padding-left: 5px;">Luiz Antonio Pereira Lima</td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 20px; vertical-align: bottom;"></td>
+                <td style="padding-bottom: 20px; padding-left: 5px; border-bottom: 1px solid #333;">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 5px; padding-left: 5px;">Leandro Nicolas Silveira Gonçalves</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 15px; padding-left: 5px;">Estudantes - Análise e Desenvolvimento de Sistemas</td>
+            </tr>
+            <tr>
+                <td><strong>Data:</strong></td>
+                <td style="padding-left: 5px;">____/____/2025</td>
+            </tr>
+        </table>
+
+        <div class="subsection-title">Aprovação Acadêmica</div>
+        <table class="info-table" style="width: 100%;">
+            <tr>
+                <td style="width: 25%; padding-bottom: 20px; vertical-align: bottom;"><strong>Orientadora Acadêmica</strong></td>
+                <td style="width: 75%; padding-bottom: 20px; padding-left: 5px; border-bottom: 1px solid #333;">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 5px; padding-left: 5px;">Dra. Andréia Rodrigues Casare</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-left: 5px;">FATEC Itapetininga</td>
+            </tr>
+            <tr>
+                <td><strong>Data:</strong></td>
+                <td style="padding-left: 5px;">____/____/2025</td>
+            </tr>
+        </table>
+
+        <div class="subsection-title">Aprovação do Stakeholder (Somente para Fins Acadêmicos)</div>
+        <table class="info-table" style="width: 100%;">
+            <tr>
+                <td style="width: 25%; padding-bottom: 20px; vertical-align: bottom;"><strong>Stakeholder do Projeto Acadêmico</strong></td>
+                <td style="width: 75%; padding-bottom: 20px; padding-left: 5px; border-bottom: 1px solid #333;">
+                    <br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 5px; padding-left: 5px;">Pe. Luiz Paulo Batista Braga</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-left: 5px;">Pároco - Paróquia Nossa Senhora Aparecida</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 10px; padding-left: 5px; font-size: 10pt; font-style: italic;">
+                    Aprovo o desenvolvimento deste sistema EXCLUSIVAMENTE como projeto acadêmico. Esta assinatura NÃO autoriza hospedagem, publicação ou uso em produção.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Data:</strong></td>
+                <td style="padding-left: 5px;">____/____/2025</td>
+            </tr>
+        </table>
+
+        <div class="subsection-title">Observações Finais</div>
+        <div style="border: 1px solid #ccc; padding: 15px; margin: 10px 0; min-height: 100px;">
+            <p><em>Espaço reservado para observações e comentários dos avaliadores:</em></p>
+            <br><br><br><br>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Sistema Digital paroquial Nossa Senhora Aparecida - PRD Final</strong></p>
+        <hr style="margin: 10px 0; border: none; border-top: 1px solid #d1d5db;">
+        <p>Desenvolvido por: Equipe de Desenvolvimento - Denise Korgiski de Oliveira, João Vinicius Fonseca Diniz, Luiz Antonio Pereira Lima, Leandro Nicolas Silveira Gonçalves | Curso: Análise e Desenvolvimento de Sistemas</p>
+        <p>Data: 21 de Outubro de 2025 | Versão: 1.0 - Proposta para Aprovação</p>
+    </div>
+
+    <div class="no-print" style="margin-top: 30px; text-align: center;">
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; cursor: pointer; border-radius: 5px;">
+            Imprimir PRD Final
+        </button>
+    </div>
+</body>
+</html>

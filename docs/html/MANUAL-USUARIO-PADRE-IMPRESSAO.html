@@ -1,0 +1,716 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual do Usuário - Sistema Digital paroquial</title>
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos para impressão */
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm 1.5cm;
+            }
+            
+            body {
+                font-size: 11pt;
+                line-height: 1.4;
+                color: #000;
+                background: white;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            table {
+                break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                break-after: avoid;
+            }
+            
+            .section {
+                break-inside: avoid;
+            }
+        }
+
+        /* Estilos gerais */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        /* Cabeçalho principal */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #1a365d;
+        }
+
+        .header h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h2 {
+            font-size: 14pt;
+            color: #4a5568;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        /* Saudação */
+        .greeting {
+            background-color: #f0f8ff;
+            border-left: 4px solid #3182ce;
+            padding: 20px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        /* Seções */
+        .section {
+            margin-bottom: 25px;
+            padding: 15px 0;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 15px 0 10px 0;
+        }
+
+        /* Comparação antes/depois */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .before, .after {
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .before {
+            background-color: #fed7d7;
+            border-left: 4px solid #e53e3e;
+        }
+
+        .after {
+            background-color: #c6f6d5;
+            border-left: 4px solid #38a169;
+        }
+
+        .before h4, .after h4 {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .before h4 {
+            color: #c53030;
+        }
+
+        .after h4 {
+            color: #2f855a;
+        }
+
+        /* Listas */
+        .feature-list {
+            margin: 15px 0 15px 30px;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            list-style-type: disc;
+            line-height: 1.5;
+        }
+
+        .numbered-list {
+            margin: 15px 0 15px 30px;
+        }
+
+        .numbered-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        /* Exemplo prático */
+        .example-box {
+            background-color: #edf2f7;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .example-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 12pt;
+        }
+
+        /* Tabelas */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 11pt;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .info-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #1a365d;
+        }
+
+        /* Benefícios */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .benefit-card {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .benefit-title {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        /* Suporte */
+        .support-box {
+            background-color: #e6fffa;
+            border: 2px solid #38b2ac;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #6c757d;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            color: #4a5568;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 10pt;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Estrutura hierárquica */
+        .hierarchy {
+            font-family: monospace;
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e0;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 10pt;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>MANUAL DO USUÁRIO</h1>
+        <h2>Sistema Digital paroquial - Guia Prático para o Padre</h2>
+    </div>
+
+    <div class="greeting">
+        <p><strong>Caro PE. LUIZ PAULO BATISTA BRAGA,</strong></p>
+        <p>Este manual foi criado especialmente para orientá-lo no uso do <strong>Sistema Digital paroquial</strong>. O sistema foi desenvolvido para facilitar a comunicação com os fiéis e centralizar os serviços da Paróquia Nossa Senhora Aparecida.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title">O QUE O SISTEMA FAZ PARA VOCÊ</div>
+        
+        <div class="subsection-title">Problemas que o Sistema Resolve</div>
+        <div class="comparison">
+            <div class="before">
+                <h4>ANTES</h4>
+                <ul>
+                    <li>Fiéis ligavam constantemente perguntando horários de missa</li>
+                    <li>Informações espalhadas em papéis e murais</li>
+                    <li>Jovens não sabiam dos eventos paroquiais</li>
+                    <li>Fiéis não tinham acesso fácil à Bíblia</li>
+                </ul>
+            </div>
+            <div class="after">
+                <h4>AGORA</h4>
+                <ul>
+                    <li>Horários sempre atualizados no site</li>
+                    <li>Tudo centralizado em um só lugar digital</li>
+                    <li>Presença digital moderna atinge todos</li>
+                    <li>Bíblia completa online com busca</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">PÁGINA INICIAL - O QUE OS FIÉIS VERÃO</div>
+        
+        <p>Quando alguém acessar <strong>www.paróquia-nsaparecida.com.br</strong>, verá:</p>
+
+        <div class="subsection-title">1. Vídeo de Apresentação</div>
+        <ul class="feature-list">
+            <li>Vídeo bonito da igreja no fundo</li>
+            <li>Título: "Paróquia Nossa Senhora Aparecida"</li>
+            <li>Mensagem de boas-vindas</li>
+        </ul>
+
+        <div class="subsection-title">2. Cards de Navegação Rápida</div>
+        <ul class="feature-list">
+            <li><strong>Bíblia Online</strong> - Acesso direto à Sagrada Escritura</li>
+            <li><strong>Horários de Missa</strong> - Todas as 7 comunidades</li>
+            <li><strong>liturgia Diária</strong> - Leituras e evangelho do dia</li>
+            <li><strong>Grupos e Pastorais</strong> - Movimentos paroquiais</li>
+            <li><strong>Notícias</strong> - Eventos e campanhas</li>
+        </ul>
+
+        <div class="subsection-title">3. Widget "Santo do Dia"</div>
+        <ul class="feature-list">
+            <li>Nome e imagem do santo</li>
+            <li>Biografia resumida</li>
+            <li>Data da festa litúrgica</li>
+        </ul>
+
+        <div class="subsection-title">4. Widget "liturgia Diária"</div>
+        <ul class="feature-list">
+            <li>Leituras do dia</li>
+            <li>Evangelho</li>
+            <li>Salmo responsorial</li>
+        </ul>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">BÍBLIA ONLINE - COMO OS FIÉIS USARÃO</div>
+        
+        <div class="subsection-title">Funcionalidades Disponíveis</div>
+        
+        <div class="subsection-title">1. Navegação por Livros</div>
+        <div class="hierarchy">
+Antigo Testamento (39 livros)
+├── Gênesis, Êxodo, Levítico...
+├── Salmos, Provérbios...
+└── Profetas: Isaías, Jeremias...
+
+Novo Testamento (27 livros)
+├── Evangelhos: Mateus, Marcos, Lucas, João
+├── Atos dos Apóstolos
+├── Cartas de Paulo: Romanos, Coríntios...
+└── Apocalipse
+        </div>
+
+        <div class="subsection-title">2. Busca Avançada</div>
+        <ul class="feature-list">
+            <li><strong>Por palavra:</strong> "amor", "paz", "salvação"</li>
+            <li><strong>Por referência:</strong> "João 3:16", "Salmo 23"</li>
+            <li><strong>Por trecho:</strong> "Pai Nosso", "Ave Maria"</li>
+        </ul>
+
+        <div class="subsection-title">3. Navegação Fácil</div>
+        <ul class="feature-list">
+            <li>Botões "Capítulo Anterior" / "Próximo"</li>
+            <li>Menu dropdown para pular capítulos</li>
+            <li>Numeração clara dos versículos</li>
+        </ul>
+
+        <div class="example-box">
+            <div class="example-title">Exemplo Prático:</div>
+            <ol class="numbered-list">
+                <li>Fiel clica em "Bíblia Online"</li>
+                <li>Escolhe "Novo Testamento" → "João"</li>
+                <li>Lê João capítulo 3</li>
+                <li>Clica em "Próximo" para ir ao capítulo 4</li>
+                <li>Usa busca para encontrar "vida eterna"</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">liturgia DIÁRIA - CONTEÚDO ATUALIZADO</div>
+        
+        <div class="subsection-title">O que Aparece Automáticamente Todos os Dias</div>
+
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Seção</th>
+                    <th>Conteúdo</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cabeçalho da liturgia</td>
+                    <td>Data, dia litúrgico, cor, tempo</td>
+                    <td>Informações básicas do dia</td>
+                </tr>
+                <tr>
+                    <td>Primeira Leitura</td>
+                    <td>Citação bíblica e texto completo</td>
+                    <td>Fonte sempre atualizada</td>
+                </tr>
+                <tr>
+                    <td>Salmo Responsorial</td>
+                    <td>Número, refrão, versículos</td>
+                    <td>Para participação dos fiéis</td>
+                </tr>
+                <tr>
+                    <td>Segunda Leitura</td>
+                    <td>Cartas apostólicas (domingos)</td>
+                    <td>Quando houver</td>
+                </tr>
+                <tr>
+                    <td>Evangelho</td>
+                    <td>Citação e texto completo</td>
+                    <td>Sempre destacado</td>
+                </tr>
+                <tr>
+                    <td>Santo do Dia</td>
+                    <td>Nome, biografia, imagem</td>
+                    <td>Quando disponível</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">HORÁRIOS DE MISSA - TODAS AS COMUNIDADES</div>
+        
+        <div class="subsection-title">Organização por Dias da Semana</div>
+        
+        <div class="example-box">
+            <div class="example-title">Exemplo de Layout:</div>
+            <p><strong>DOMINGO:</strong></p>
+            <ul class="feature-list">
+                <li>Nossa Senhora Aparecida (Matriz): 8h, 10h, 19h30</li>
+                <li>São José: 7h30</li>
+                <li>Santa Rita: 16h</li>
+                <li>[Outros horários das comunidades]</li>
+            </ul>
+            
+            <p><strong>SEGUNDA-FEIRA:</strong></p>
+            <ul class="feature-list">
+                <li>Nossa Senhora Aparecida: 19h30</li>
+                <li>[Horários das demais comunidades]</li>
+            </ul>
+        </div>
+
+        <div class="subsection-title">Recursos Especiais</div>
+        <ul class="feature-list">
+            <li><strong>Feriados e Datas Especiais:</strong> Horários diferenciados claramente marcados</li>
+            <li><strong>Avisos Especiais:</strong> Para Natal, Páscoa, etc.</li>
+            <li><strong>Atualização Fácil:</strong> Quando necessário, basta contactar a desenvolvedora</li>
+        </ul>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">SISTEMA DE NOTÍCIAS E EVENTOS</div>
+        
+        <div class="subsection-title">Como Funciona</div>
+        
+        <div class="subsection-title">1. Seção "Notícias"</div>
+        <ul class="feature-list">
+            <li>Eventos paroquiais</li>
+            <li>Campanhas em andamento</li>
+            <li>Avisos importantes</li>
+            <li>Atividades das pastorais</li>
+        </ul>
+
+        <div class="subsection-title">2. Formato das Notícias</div>
+        <ul class="feature-list">
+            <li>Título chamativo</li>
+            <li>Data do evento</li>
+            <li>Local (qual comunidade)</li>
+            <li>Descrição completa</li>
+            <li>Contato para informações</li>
+        </ul>
+
+        <div class="subsection-title">3. Exemplos de Conteúdo</div>
+        <div class="example-box">
+            <ul class="feature-list">
+                <li>"Festa de São José - 19 de Março"</li>
+                <li>"Campanha do Agasalho - Maio 2025"</li>
+                <li>"Retiro de Carnaval - Inscrições Abertas"</li>
+                <li>"Primeira Comunhão - Preparação"</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">BENEFÍCIOS PARA A PARÓQUIA</div>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-title">1. Redução de Ligações</div>
+                <ul class="feature-list">
+                    <li>Menos perguntas sobre horários</li>
+                    <li>Informações sempre disponíveis</li>
+                    <li>Fiéis mais bem informados</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-title">2. Alcance dos Jovens</div>
+                <ul class="feature-list">
+                    <li>Presença digital moderna</li>
+                    <li>Interface amigável</li>
+                    <li>Acesso via celular</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-title">3. Unificação das Comunidades</div>
+                <ul class="feature-list">
+                    <li>Todas as 7 comunidades em um lugar</li>
+                    <li>Eventos centralizados</li>
+                    <li>Comunicação integrada</li>
+                </ul>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-title">4. Recursos Espirituais</div>
+                <ul class="feature-list">
+                    <li>Bíblia sempre disponível</li>
+                    <li>liturgia diária oficial</li>
+                    <li>Vidas dos santos</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="subsection-title">5. Economia de Tempo</div>
+        <ul class="feature-list">
+            <li>Menos tempo explicando informações básicas</li>
+            <li>Mais tempo para atividades pastorais</li>
+            <li>Comunicação mais eficiente</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">COMO ATUALIZAR INFORMAÇÕES</div>
+        
+        <div class="subsection-title">Informações que se Atualizam Sozinhas</div>
+        <ul class="feature-list">
+            <li>liturgia diária (automática)</li>
+            <li>Santo do dia (automática)</li>
+            <li>Data e horário (automático)</li>
+        </ul>
+
+        <div class="subsection-title">Informações que Podem Precisar de Atualização</div>
+        <ul class="feature-list">
+            <li>Horários de missa (raramente mudam)</li>
+            <li>Notícias e eventos (periodicamente)</li>
+            <li>Informações de contato (raramente)</li>
+        </ul>
+
+        <div class="subsection-title">Para Alterações Necessárias</div>
+        <ol class="numbered-list">
+            <li>Contactar Denise (desenvolvedora)</li>
+            <li>WhatsApp ou email</li>
+            <li>Informar as mudanças necessárias</li>
+            <li>Aguardar atualização (rápida)</li>
+        </ol>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">SUPORTE TÉCNICO</div>
+        
+        <div class="support-box">
+            <div class="subsection-title">Equipe de Desenvolvimento</div>
+            <p><strong>Denise Korgiski de Oliveira (Desenvolvedora Responsável)</strong><br>
+            João Vinicius Fonseca Diniz<br>
+            Luiz Antonio Pereira Lima<br>
+            Leandro Nicolas Silveira Gonçalves<br>
+            Curso: Análise e Desenvolvimento de Sistemas<br>
+            Compromisso: Suporte gratuito por 1 ano</p>
+            
+            <div class="subsection-title">Para Dúvidas ou Problemas</div>
+            <ol class="numbered-list">
+                <li>WhatsApp: (15) 99825-5281</li>
+                <li>Email: denise.oliveira22@fatec.sp.gov.br</li>
+                <li>Tempo de resposta: 24-48h</li>
+                <li>Suporte presencial: Quando necessário</li>
+            </ol>
+            
+            <div class="subsection-title">Tipos de Suporte Inclusos</div>
+            <ul class="feature-list">
+                <li>Explicações sobre uso</li>
+                <li>Correções de problemas</li>
+                <li>Pequenas alterações</li>
+                <li>Atualizações de segurança</li>
+                <li>Backup dos dados</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">PERGUNTAS FREQUENTES (FAQ)</div>
+        
+        <div class="faq-item">
+            <div class="faq-question">Q: O sistema funciona em celulares?</div>
+            <div class="faq-answer">R: Sim, foi desenvolvido para ser responsivo em todos os dispositivos.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Preciso pagar alguma mensalidade?</div>
+            <div class="faq-answer">R: Não, o sistema é completamente gratuito.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: E se eu quiser alterar alguma informação?</div>
+            <div class="faq-answer">R: Basta entrar em contato com a desenvolvedora.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: Os horários de missa podem ser alterados?</div>
+            <div class="faq-answer">R: Sim, podem ser atualizados facilmente quando necessário.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: É seguro usar as imagens dos santos?</div>
+            <div class="faq-answer">R: Sim, todas são de domínio público ou fontes oficiais.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Q: O sistema pode ficar fora do ar?</div>
+            <div class="faq-answer">R: É muito raro, mas se acontecer, será resolvido rapidamente.</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">CONSIDERAÇÕES LEGAIS</div>
+        
+        <div class="subsection-title">Conformidade Garantida</div>
+        <ul class="feature-list">
+            <li>Todas as imagens são de domínio público</li>
+            <li>APIs utilizadas são gratuitas e legais</li>
+            <li>Não há violação de direitos autorais</li>
+            <li>Textos bíblicos de tradução livre</li>
+            <li>Conteúdo litúrgico oficial</li>
+        </ul>
+
+        <div class="subsection-title">Fontes Utilizadas</div>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Recurso</th>
+                    <th>Fonte</th>
+                    <th>Status Legal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Bíblia</td>
+                    <td>Tradução João Ferreira de Almeida</td>
+                    <td>Domínio público</td>
+                </tr>
+                <tr>
+                    <td>liturgia</td>
+                    <td>Conteúdo oficial da Igreja</td>
+                    <td>Uso autorizado</td>
+                </tr>
+                <tr>
+                    <td>Imagens</td>
+                    <td>Wikimedia Commons, Vatican</td>
+                    <td>Fontes livres</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">CONCLUSÃO</div>
+        
+        <p>Este Sistema Digital paroquial foi desenvolvido com carinho e dedicação para servir a comunidade da Paróquia Nossa Senhora Aparecida. Ele representa um passo importante para a modernização dos serviços paroquiais, mantendo sempre o foco na evangelização e no serviço aos fiéis.</p>
+        
+        <p>O sistema é uma ferramenta para facilitar seu trabalho pastoral, PE. LUIZ PAULO BATISTA BRAGA, e para aproximar os fiéis dos recursos espirituais de nossa fé católica.</p>
+        
+        <div class="greeting">
+            <p><strong>Que Nossa Senhora Aparecida abençoe este projeto e que ele possa contribuir para o crescimento espiritual de nossa comunidade paroquial.</strong></p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Este manual serve como guia prático para o uso eficiente do Sistema Digital paroquial.</strong></p>
+        <hr style="margin: 10px 0; border: none; border-top: 1px solid #d1d5db;">
+        <p>Data: 21 de Outubro de 2025 | Versão: 1.0 - Manual Final</p>
+    </div>
+
+    <div class="no-print" style="margin-top: 30px; text-align: center;">
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; cursor: pointer; border-radius: 5px;">
+            🖨️ Imprimir Manual
+        </button>
+    </div>
+</body>
+</html>

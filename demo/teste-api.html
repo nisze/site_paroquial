@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste - API da Bíblia</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .resultado { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .erro { background: #ffebee; color: #c62828; }
+        .sucesso { background: #e8f5e8; color: #2e7d32; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        .loading { color: #1976d2; }
+    </style>
+    <script src="biblia-api.js"></script>
+</head>
+<body>
+    <h1>🧪 Teste da API da Bíblia</h1>
+    
+    <div>
+        <h3>Testes Disponíveis:</h3>
+        <button onclick="testarGenesis1()">Gênesis 1</button>
+        <button onclick="testarJoao316()">João 3:16</button>
+        <button onclick="testarSalmo23()">Salmo 23</button>
+        <button onclick="testarMateus5()">Mateus 5 (Bem-aventuranças)</button>
+        <button onclick="testarJoao14()">João 14 (Caminho, Verdade, Vida)</button>
+        <button onclick="testarSalmo91()">Salmo 91 (Proteção)</button>
+        <button onclick="testarApocalipse21()">Apocalipse 21 (Nova Jerusalém)</button>
+        <button onclick="testarProverbios31()">Provérbios 31 (Mulher Virtuosa)</button>
+        <button onclick="testarCache()">Verificar Cache</button>
+        <button onclick="testarBuscaTexto()">Buscar Texto</button>
+        <button onclick="limparResultados()">Limpar</button>
+    </div>
+
+    <div id="resultados"></div>
+
+    <script>
+        function log(mensagem, tipo = 'info') {
+            const div = document.createElement('div');
+            div.className = `resultado ${tipo}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong>: ${mensagem}`;
+            document.getElementById('resultados').appendChild(div);
+            div.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        async function testarGenesis1() {
+            log('🔄 Testando Gênesis 1...', 'loading');
+            try {
+                const resultado = await window.buscarCapituloBiblia('genesis', 1);
+                if (resultado) {
+                    log(`✅ Gênesis 1 carregado! ${resultado.versiculos.length} versículos encontrados`, 'sucesso');
+                    log(`📖 Primeiro versículo: "${resultado.versiculos[0].texto}"`, 'info');
+                } else {
+                    log('⚠️ Gênesis 1 não encontrado, usando fallback', 'erro');
+                }
+            } catch (error) {
+                log(`❌ Erro ao carregar Gênesis 1: ${error.message}`, 'erro');
+            }
+        }
+
+        async function testarJoao316() {
+            log('🔄 Testando João 3:16...', 'loading');
+            try {
+                const resultado = await window.buscarVersiculoBiblia('joao', 3, 16);
+                if (resultado) {
+                    log(`✅ João 3:16 carregado!`, 'sucesso');
+                    log(`📖 Texto: "${resultado.texto}"`, 'info');
+                } else {
+                    log('⚠️ João 3:16 não encontrado', 'erro');
+                }
+            } catch (error) {
+                log(`❌ Erro ao carregar João 3:16: ${error.message}`, 'erro');
+            }
+        }
+
+        async function testarSalmo23() {
+            log('🔄 Testando Salmo 23...', 'loading');
+            try {
+                const resultado = await window.buscarCapituloBiblia('salmos', 23);
+                if (resultado) {
+                    log(`✅ Salmo 23 carregado! ${resultado.versiculos.length} versículos`, 'sucesso');
+                    log(`📖 "O Senhor é meu pastor": "${resultado.versiculos[0].texto}"`, 'info');
+                } else {
+                    log('⚠️ Salmo 23 não encontrado', 'erro');
+                }
+            } catch (error) {
+                log(`❌ Erro ao carregar Salmo 23: ${error.message}`, 'erro');
+            }
+        }
+
+        async function testarMateus5() {
+            log('🔄 Testando Mateus 5 (Bem-aventuranças)...', 'loading');
+            try {
+                const resultado = await window.buscarCapituloBiblia('mateus', 5);
+                if (resultado) {
+                    log(`✅ Mateus 5 carregado! ${resultado.versiculos.length} versículos`, 'sucesso');
+                    // Procurar bem-aventuranças
+                    const bemaventurancas = resultado.versiculos.filter(v => 
+                        v.texto.toLowerCase().includes('bem-aventurado')
+                    );
+                    log(`📖 Encontradas ${bemaventurancas.length} bem-aventuranças`, 'info');
+                } else {
+                    log('⚠️ Mateus 5 não encontrado', 'erro');
+                }
+            } catch (error) {
+                log(`❌ Erro ao carregar Mateus 5: ${error.message}`, 'erro');
+            }
+        }
+
+        async function testarJoao14() {
+            log('🔄 Testando João 14 (Caminho, Verdade, Vida)...', 'loading');
+            try {
+                const resultado = await window.buscarCapituloBiblia('joao', 14);
+                if (resultado) {
+                    log(`✅ João 14 carregado! ${resultado.versiculos.length} versículos`, 'sucesso');
+                    const versiculo6 = resultado.versiculos.find(v => v.numero === 6);
+                    if (versiculo6) {
+                        log(`📖 "Eu sou o caminho...": "${versiculo6.texto}"`, 'info');
+                    }
+                } else {
+                    log('⚠️ João 14 não encontrado', 'erro');
+                }
+            } catch (error) {
+                log(`❌ Erro ao carregar João 14: ${error.message}`, 'erro');
+            }
+        }
+
+        async function testarSalmo91() {
+            log('🔄 Testando Salmo 91 (Proteção)...', 'loading');
+            try {
+                const resultado = await window.buscarCapituloBiblia('salmos', 91);
+                if (resultado) {
+                    log(`✅ Salmo 91 carregado! ${resultado.versiculos.length} versículos`, 'sucesso');
+                    log(`📖 "Aquele que habita no esconderijo": "${resultado.versiculos[0].texto}"`, 'info');
+                } else {
+                    log('⚠️ Salmo 91 não encontrado', 'erro');
+                }
+            } catch (error) {
+                log(`❌ Erro ao carregar Salmo 91: ${error.message}`, 'erro');
+            }
+        }
+
+        async function testarApocalipse21() {
+            log('🔄 Testando Apocalipse 21 (Nova Jerusalém)...', 'loading');
+            try {
+                const resultado = await window.buscarCapituloBiblia('apocalipse', 21);
+                if (resultado) {
+                    log(`✅ Apocalipse 21 carregado! ${resultado.versiculos.length} versículos`, 'sucesso');
+                    log(`📖 "Novo céu e nova terra": "${resultado.versiculos[0].texto}"`, 'info');
+                } else {
+                    log('⚠️ Apocalipse 21 não encontrado', 'erro');
+                }
+            } catch (error) {
+                log(`❌ Erro ao carregar Apocalipse 21: ${error.message}`, 'erro');
+            }
+        }
+
+        async function testarProverbios31() {
+            log('🔄 Testando Provérbios 31 (Mulher Virtuosa)...', 'loading');
+            try {
+                const resultado = await window.buscarCapituloBiblia('proverbios', 31);
+                if (resultado) {
+                    log(`✅ Provérbios 31 carregado! ${resultado.versiculos.length} versículos`, 'sucesso');
+                    const versiculo10 = resultado.versiculos.find(v => v.numero === 10);
+                    if (versiculo10) {
+                        log(`📖 "Mulher virtuosa": "${versiculo10.texto}"`, 'info');
+                    }
+                } else {
+                    log('⚠️ Provérbios 31 não encontrado', 'erro');
+                }
+            } catch (error) {
+                log(`❌ Erro ao carregar Provérbios 31: ${error.message}`, 'erro');
+            }
+        }
+
+        async function testarBuscaTexto() {
+            log('🔄 Testando busca textual...', 'loading');
+            try {
+                // Simular busca por "amor"
+                const textos = [
+                    'João 3:16 - "Porque Deus amou o mundo..."',
+                    '1 João 4:8 - "Deus é amor"',
+                    '1 Coríntios 13:4 - "O amor é paciente..."'
+                ];
+                
+                log(`🔍 Simulando busca por "amor": ${textos.length} resultados encontrados`, 'sucesso');
+                textos.forEach(texto => log(`📖 ${texto}`, 'info'));
+                
+            } catch (error) {
+                log(`❌ Erro na busca textual: ${error.message}`, 'erro');
+            }
+        }
+
+        function testarCache() {
+            const stats = window.bibliaAPI.getEstatisticasCache();
+            log(`📊 Cache atual: ${stats.totalItens} itens`, 'info');
+            if (stats.totalItens > 0) {
+                log(`🗂️ Itens no cache: ${stats.itens.join(', ')}`, 'info');
+            }
+        }
+
+        function limparResultados() {
+            document.getElementById('resultados').innerHTML = '';
+            log('🧹 Resultados limpos!', 'sucesso');
+        }
+
+        // Teste automático ao carregar
+        window.onload = function() {
+            log('🚀 API da Bíblia carregada! Pronto para testes.', 'sucesso');
+            log('💡 Clique nos botões acima para testar diferentes funcionalidades.', 'info');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+.tempo-liturgico-widget {
+  border: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  }
+}
+
+.liturgico-header {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: -1rem -1rem 1rem -1rem;
+  color: white;
+  
+  h5 {
+    color: white !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  }
+  
+  i {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  }
+}
+
+.cor-indicador {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  
+  .cor-nome {
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  }
+}
+
+// Cores Litúrgicas
+.liturgico-green {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  border-color: #28a745;
+}
+
+.liturgico-purple {
+  background: linear-gradient(135deg, #6f42c1, #8e44ad);
+  border-color: #6f42c1;
+}
+
+.liturgico-white {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-color: #dee2e6;
+  color: #495057 !important;
+  
+  h5, i, .cor-nome {
+    color: #495057 !important;
+    text-shadow: none !important;
+  }
+}
+
+.liturgico-red {
+  background: linear-gradient(135deg, #dc3545, #e74c3c);
+  border-color: #dc3545;
+}
+
+.liturgico-rose {
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  border-color: #f5c6cb;
+  color: #721c24 !important;
+  
+  h5, i, .cor-nome {
+    color: #721c24 !important;
+    text-shadow: none !important;
+  }
+}
+
+.liturgico-black {
+  background: linear-gradient(135deg, #343a40, #495057);
+  border-color: #343a40;
+}
+
+.celebracao-principal {
+  border-left: 3px solid var(--bs-primary);
+  padding-left: 1rem;
+  margin-left: 1rem;
+}

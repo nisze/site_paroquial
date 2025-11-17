@@ -1,0 +1,216 @@
+// Cores da Paróquia
+$cor-primaria: #8B7355;
+$cor-secundaria: #d4af37;
+$cor-texto: #333;
+$cor-texto-claro: #666;
+
+// ===== HERO SECTION =====
+.hero-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%),
+              url('/pastorais.jpeg');
+  background-size: cover;
+  background-position: top;
+  position: relative;
+  overflow: hidden;
+
+  .hero-img {
+    max-width: 220px;
+    height: auto;
+    opacity: 0.9;
+  }
+
+  .btn-hero-cta {
+    background: white;
+    color: $cor-primaria;
+    border: 2px solid white;
+    font-weight: 600;
+
+    &:hover {
+      background: transparent;
+      color: white;
+      border-color: white;
+    }
+  }
+}
+
+// ===== FILTROS =====
+.filtros-section {
+  background: #FFF8E1;
+  border-bottom: 3px solid $cor-primaria;
+
+  .btn-filtro {
+    background: white;
+    color: $cor-primaria;
+    border: 2px solid $cor-primaria;
+    border-radius: 6px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: $cor-primaria;
+      color: white;
+    }
+
+    &.active {
+      background: $cor-primaria;
+      color: white;
+    }
+  }
+}
+
+// ===== CARDS DE GRUPOS =====
+.card {
+  border: 1px solid rgba(139, 115, 85, 0.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(139, 115, 85, 0.15);
+  }
+
+  .badge {
+    &.bg-success {
+      background: $cor-secundaria !important;
+    }
+  }
+}
+
+.btn-grupo-primary {
+  background: $cor-primaria;
+  border-color: $cor-primaria;
+  color: white;
+
+  &:hover {
+    background: darken($cor-primaria, 10%);
+    border-color: darken($cor-primaria, 10%);
+  }
+}
+
+.btn-grupo-participar {
+  background: transparent;
+  color: $cor-secundaria;
+  border: 2px solid $cor-secundaria;
+
+  &:hover {
+    background: $cor-secundaria;
+    color: white;
+  }
+}
+
+.btn-grupo-whatsapp {
+  background: transparent;
+  color: #25D366;
+  border: 2px solid #25D366;
+
+  &:hover {
+    background: #25D366;
+    color: white;
+  }
+}
+
+// ===== SIDEBAR =====
+.card-header-participar {
+  background: $cor-primaria;
+  color: white;
+}
+
+.badge-step {
+  background: $cor-primaria !important;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.card-header-contato {
+  background: $cor-secundaria;
+  color: white;
+}
+
+.btn-contato-tel {
+  background: transparent;
+  color: $cor-secundaria;
+  border: 2px solid $cor-secundaria;
+
+  &:hover {
+    background: $cor-secundaria;
+    color: white;
+  }
+}
+
+.btn-contato-email {
+  background: transparent;
+  color: $cor-primaria;
+  border: 2px solid $cor-primaria;
+
+  &:hover {
+    background: $cor-primaria;
+    color: white;
+  }
+}
+
+.card-header-stats {
+  background: lighten($cor-primaria, 35%);
+  color: $cor-texto;
+  border-bottom: 2px solid $cor-primaria;
+}
+
+.stat-primaria {
+  color: $cor-primaria !important;
+}
+
+.stat-secundaria {
+  color: $cor-secundaria !important;
+}
+
+// ===== CALL TO ACTION =====
+.cta-section {
+  background: #FFF8E1;
+
+  .btn-cta-primary {
+    background: $cor-primaria;
+    border: 2px solid $cor-primaria;
+    color: white;
+
+    &:hover {
+      background: darken($cor-primaria, 10%);
+      border-color: darken($cor-primaria, 10%);
+    }
+  }
+
+  .btn-cta-secondary {
+    background: transparent;
+    border: 2px solid $cor-secundaria;
+    color: $cor-secundaria;
+
+    &:hover {
+      background: $cor-secundaria;
+      color: white;
+    }
+  }
+}
+
+// ===== RESPONSIVIDADE =====
+@media (max-width: 768px) {
+  .hero-section {
+    .hero-img {
+      max-width: 150px;
+      margin-top: 2rem;
+    }
+  }
+
+  .filtros-section {
+    .btn-filtro {
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+    }
+  }
+
+  .btn-hero-cta {
+    font-size: 1rem;
+  }
+}

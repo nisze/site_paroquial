@@ -1,0 +1,98 @@
+<div class="admin-layout" [class.sidebar-fechada]="!sidebarAberta">
+  
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fas fa-church"></i>
+        @if (sidebarAberta) {
+          <span class="logo-text">Paróquia</span>
+        }
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a
+        [routerLink]="['/admin/eventos']"
+        routerLinkActive="active"
+        class="menu-item">
+        <i class="fas fa-calendar-alt"></i>
+        @if (sidebarAberta) {
+          <span>Eventos</span>
+        }
+      </a>
+
+      <a
+        [routerLink]="['/admin/noticias']"
+        routerLinkActive="active"
+        class="menu-item">
+        <i class="fas fa-newspaper"></i>
+        @if (sidebarAberta) {
+          <span>Notícias</span>
+        }
+      </a>
+
+      <a
+        [routerLink]="['/admin/pastorais']"
+        routerLinkActive="active"
+        class="menu-item">
+        <i class="fas fa-users"></i>
+        @if (sidebarAberta) {
+          <span>Pastorais</span>
+        }
+      </a>
+
+      <a
+        [routerLink]="['/admin/santos']"
+        routerLinkActive="active"
+        class="menu-item menu-spacer">
+        <i class="fas fa-book-bible"></i>
+        @if (sidebarAberta) {
+          <span>Santos</span>
+        }
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="menu-item" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        @if (sidebarAberta) {
+          <span>Sair</span>
+        }
+      </button>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="admin-content">
+    
+    <!-- HEADER -->
+    <header class="admin-header">
+      <button class="btn-toggle-sidebar" (click)="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="header-title">
+        <h1>Área Administrativa</h1>
+        <p class="text-muted">Gestão de Conteúdo</p>
+      </div>
+
+      <div class="header-user">
+        <div class="user-info">
+          <strong>{{ usuario?.nomeCompleto }}</strong>
+          <small>{{ getRoleLabel() }}</small>
+        </div>
+        <div class="user-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- ROUTER OUTLET -->
+    <main class="admin-main">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>

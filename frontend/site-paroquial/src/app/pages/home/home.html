@@ -1,0 +1,340 @@
+<!-- Hero Section com Vídeo -->
+<section class="hero-video-section">
+  <div class="video-background">
+    <video #heroVideo autoplay muted loop playsinline preload="auto" class="hero-video">
+      <source src="home.mp4" type="video/mp4">
+      Seu navegador não suporta vídeos HTML5.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+  
+  <div class="hero-content">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-10">
+          <h1 class="display-5 fw-bold mb-5 text-white hero-title">
+            Bem-vindos à Paróquia Nossa Senhora Aparecida
+          </h1>
+          <p class="lead mb-4 text-white hero-subtitle">
+            Uma comunidade de fé que acolhe, evangeliza e serve.<br>
+            Junte-se a nós na celebração do amor de Cristo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORÁRIOS DA IGREJA MATRIZ -->
+<section class="horarios-matriz-section">
+  <div class="container">
+    <div class="horarios-matriz-card">
+      <div class="horarios-header">
+        <i class="fas fa-church"></i>
+        <div>
+          <h2>Horários das Missas</h2>
+          <p>Igreja Matriz Nossa Senhora Aparecida</p>
+        </div>
+      </div>
+      
+      <div class="horarios-grid">
+        <div class="horario-item">
+          <div class="dia-label">
+            <i class="fas fa-calendar-day"></i>
+            <span>Quarta-Feira</span>
+          </div>
+          <div class="horas">
+            <span class="hora">19h30</span>
+          </div>
+        </div>
+        
+        <div class="horario-item">
+          <div class="dia-label">
+            <i class="fas fa-calendar-day"></i>
+            <span>Quinta-Feira</span>
+          </div>
+          <div class="horas">
+            <span class="hora">7h00</span>
+          </div>
+        </div>
+        
+        <div class="horario-item">
+          <div class="dia-label">
+            <i class="fas fa-calendar-day"></i>
+            <span>1º Sexta-Feira do mês</span>
+          </div>
+          <div class="horas">
+            <span class="hora">19h30</span>
+          </div>
+        </div>
+        
+        <div class="horario-item">
+          <div class="dia-label">
+            <i class="fas fa-calendar-day"></i>
+            <span>1º Sábado do mês</span>
+          </div>
+          <div class="horas">
+            <span class="hora">12h00</span>
+          </div>
+        </div>
+        
+        <div class="horario-item destaque">
+          <div class="dia-label">
+            <i class="fas fa-star"></i>
+            <span>Domingo</span>
+          </div>
+          <div class="horas">
+            <span class="hora">11h00</span>
+            <span class="hora">19h00</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="horarios-footer">
+        <a routerLink="/horarios-missas" class="btn-ver-mais">
+          <i class="fas fa-clock"></i>
+          Ver todos os horários e capelas
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LITURGIA DO DIA E SANTO -->
+<section class="liturgia-santo-section">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Liturgia do Dia - 70% -->
+      <div class="col-lg-8">
+        <div class="liturgia-dia-card">
+          <div class="liturgia-header">
+            <div class="liturgia-icon">
+              <img src="liturgiaimg.png" alt="Liturgia" class="liturgia-img">
+            </div>
+            <div class="liturgia-info">
+              <h2>Liturgia do Dia</h2>
+              <h3 class="liturgia-titulo">33º Domingo do Tempo Comum</h3>
+              <p class="liturgia-data">
+                <i class="fas fa-calendar-day"></i>
+                {{ dataHoje | date:'d \'de\' MMMM \'de\' y':'pt-BR' }}
+              </p>
+            </div>
+          </div>
+          
+          <div class="liturgia-content">
+            <div class="liturgia-preview">
+              <div class="leitura-item">
+                <h4><i class="fas fa-scroll"></i> Primeira Leitura</h4>
+                <p class="referencia">Malaquias 3,19-20a</p>
+                <p class="texto-preview">
+                  "Eis que vem o dia, ardente como fornalha! Nesse dia, 
+                  todos os soberbos e malfeitores serão como palha..."
+                </p>
+              </div>
+              
+              <div class="leitura-item">
+                <h4><i class="fas fa-cross"></i> Evangelho</h4>
+                <p class="referencia">Lucas 21,5-19</p>
+                <p class="texto-preview">
+                  "Naquele tempo, algumas pessoas falavam a respeito do templo, 
+                  como era ornamentado com belas pedras e com ofertas votivas..."
+                </p>
+              </div>
+            </div>
+            
+            <div class="liturgia-actions">
+              <a routerLink="/liturgia-diaria" class="btn-liturgia-completa">
+                <i class="fas fa-book-reader"></i>
+                Acessar Liturgia Completa
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Santo do Dia - 30% -->
+      <div class="col-lg-4">
+        <div class="santo-dia-card">
+          <div class="santo-header">
+            <h3>Santo do Dia</h3>
+            <p class="data-dia">{{ dataHoje | date:'dd/MM/yyyy' }}</p>
+          </div>
+          
+          @if (carregandoSanto) {
+            <div class="santo-content text-center py-5">
+              <i class="fas fa-spinner fa-spin fa-2x"></i>
+              <p>Carregando...</p>
+            </div>
+          } @else if (santoDoDia) {
+            <div class="santo-content">
+              <div class="santo-imagem">
+                <img [src]="santoDoDia.imagemUrl || 'https://via.placeholder.com/300x350/8B7355/FFFFFF?text=Santo+do+Dia'" [alt]="santoDoDia.nome">
+              </div>
+              
+              <h4 class="santo-nome">{{ santoDoDia.nome }}</h4>
+              
+              @if (santoDoDia.festaLiturgica) {
+                <p class="santo-festa">
+                  <i class="fas fa-cross"></i> {{ santoDoDia.festaLiturgica }}
+                </p>
+              }
+              
+              @if (santoDoDia.biografia) {
+                <p class="santo-descricao">
+                  {{ santoDoDia.biografia.length > 200 ? santoDoDia.biografia.substring(0, 200) + '...' : santoDoDia.biografia }}
+                </p>
+              }
+              
+              <a routerLink="/liturgia-diaria" class="btn-santo-completo">
+                <i class="fas fa-book-open"></i>
+                Ver biografia completa
+              </a>
+            </div>
+          } @else {
+            <div class="santo-content text-center py-4">
+              <i class="fas fa-book-bible fa-2x mb-3"></i>
+              <p class="text-muted">Nenhum santo cadastrado para hoje</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTÍCIAS DA PARÓQUIA -->
+<section class="noticias-home-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Notícias da Paróquia</h2>
+      <p>Fique por dentro das novidades e acontecimentos</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="noticia-card">
+          <div class="noticia-imagem">
+            <img src="kilo2.png" alt="Campanha do Quilo">
+            <span class="noticia-badge">Comunicado</span>
+          </div>
+          <div class="noticia-content">
+            <h3>Campanha do Quilo 2025</h3>
+            <p class="noticia-data"><i class="fas fa-calendar"></i> 15 de Novembro</p>
+            <p class="noticia-texto">
+              Participe da nossa campanha solidária! Estamos arrecadando alimentos 
+              não perecíveis para ajudar famílias carentes da nossa comunidade.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="noticia-card">
+          <div class="noticia-imagem">
+            <img src="festa.png" alt="Festa de Nossa Senhora Aparecida">
+            <span class="noticia-badge">Evento</span>
+          </div>
+          <div class="noticia-content">
+            <h3>Festa de Nossa Senhora Aparecida</h3>
+            <p class="noticia-data"><i class="fas fa-calendar"></i> 12 de Outubro</p>
+            <p class="noticia-texto">
+              Celebramos com grande festa a padroeira do Brasil. Missas solenes, 
+              procissão e confraternização com toda a comunidade.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="noticia-card">
+          <div class="noticia-imagem">
+            <img src="advento.png" alt="Preparação para o Advento">
+            <span class="noticia-badge">Aviso</span>
+          </div>
+          <div class="noticia-content">
+            <h3>Preparação para o Advento</h3>
+            <p class="noticia-data"><i class="fas fa-calendar"></i> 30 de Novembro</p>
+            <p class="noticia-texto">
+              Inicia-se o tempo do Advento. Prepare seu coração para acolher 
+              o Menino Jesus com orações e reflexões especiais.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="noticias-footer">
+      <a routerLink="/noticias" class="btn-ver-todas">
+        <i class="fas fa-newspaper"></i>
+        Ver todas as notícias
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONHEÇA AS PASTORAIS -->
+<section class="pastorais-home-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Conheça as Pastorais</h2>
+      <p>Faça parte de uma de nossas pastorais e grupos</p>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="pastoral-card">
+          <div class="pastoral-icon">
+            <img src="pastoral.png" alt="Pastoral Litúrgica" class="pastoral-img">
+          </div>
+          <h3>Pastoral Litúrgica</h3>
+          <p>Animação e preparação das celebrações litúrgicas</p>
+          <button class="btn-pastoral">Saiba mais</button>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="pastoral-card">
+          <div class="pastoral-icon">
+            <img src="caridade.png" alt="Pastoral da Caridade" class="pastoral-img">
+          </div>
+          <h3>Pastoral da Caridade</h3>
+          <p>Ações sociais e auxílio às famílias necessitadas</p>
+          <button class="btn-pastoral">Saiba mais</button>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="pastoral-card">
+          <div class="pastoral-icon">
+            <img src="crianca.png" alt="Pastoral da Criança" class="pastoral-img">
+          </div>
+          <h3>Pastoral da Criança</h3>
+          <p>Acompanhamento e cuidado com as crianças</p>
+          <button class="btn-pastoral">Saiba mais</button>
+        </div>
+      </div>
+      
+      <div class="col-md-3">
+        <div class="pastoral-card">
+          <div class="pastoral-icon">
+            <img src="familiar.png" alt="Pastoral Familiar" class="pastoral-img">
+          </div>
+          <h3>Pastoral Familiar</h3>
+          <p>Fortalecimento dos laços familiares cristãos</p>
+          <button class="btn-pastoral">Saiba mais</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="pastorais-footer">
+      <a routerLink="/grupos" class="btn-ver-todas-pastorais">
+        <i class="fas fa-users"></i>
+        Ver todas as pastorais e grupos
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>

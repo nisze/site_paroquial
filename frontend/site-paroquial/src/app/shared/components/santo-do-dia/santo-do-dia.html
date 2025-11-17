@@ -1,0 +1,108 @@
+<!-- CARD SANTO DO DIA -->
+<div class="santo-home-card">
+  <!-- Loading -->
+  <div *ngIf="carregando" class="text-center p-3">
+    <div class="spinner-border spinner-border-sm text-warning" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+  </div>
+
+  <!-- Erro -->
+  <div *ngIf="erro" class="alert alert-warning alert-sm" role="alert">
+    <small>{{ erro }}</small>
+  </div>
+
+  <!-- Conteúdo do Santo -->
+  <div *ngIf="!carregando && !erro && santo" class="santo-content">
+    
+    <!-- Header -->
+    <div class="santo-header">
+      <h5 class="santo-title">
+        <i class="fas fa-praying-hands text-warning"></i>
+        Santo do Dia
+      </h5>
+      <small class="text-muted">{{ getDataFormatada() }}</small>
+    </div>
+
+    <!-- Santo Principal -->
+    <div class="santo-info">
+      <h6 class="santo-nome">{{ santo.santo_principal.nome }}</h6>
+      
+      <div class="santo-titulo" *ngIf="santo.santo_principal.titulo">
+        <small class="text-muted"><em>{{ santo.santo_principal.titulo }}</em></small>
+      </div>
+
+      <p class="santo-biografia">
+        {{ truncarTexto(santo.santo_principal.biografia) }}
+      </p>
+
+      <!-- Padroeiro -->
+      <div class="santo-padroeiro" *ngIf="santo.santo_principal.padroeiro_de && santo.santo_principal.padroeiro_de.length > 0">
+        <small class="text-primary">
+          <i class="fas fa-shield-alt"></i>
+          <strong>Padroeiro:</strong> {{ santo.santo_principal.padroeiro_de[0] }}
+          <span *ngIf="santo.santo_principal.padroeiro_de.length > 1">
+            e outros
+          </span>
+        </small>
+      </div>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="santo-actions mt-3">
+      <div class="row g-2">
+        <div class="col-6">
+          <a routerLink="/liturgia-diaria" class="btn btn-primary btn-sm w-100">
+            <i class="fas fa-calendar-day"></i>
+            <small>Liturgia Completa</small>
+          </a>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-outline-warning btn-sm w-100" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#oracaoModal"
+                  *ngIf="santo.santo_principal.oracao">
+            <i class="fas fa-pray"></i>
+            <small>Ver Oração</small>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Outros Santos (resumido) -->
+    <div class="outros-santos-resumo" *ngIf="santo.outros_santos && santo.outros_santos.length > 0">
+      <hr class="my-2">
+      <small class="text-muted">
+        <i class="fas fa-plus-circle"></i>
+        Mais {{ santo.outros_santos.length }} santos celebrados hoje
+      </small>
+    </div>
+  </div>
+</div>
+
+<!-- Modal da Oração -->
+<div class="modal fade" id="oracaoModal" tabindex="-1" aria-labelledby="oracaoModalLabel" aria-hidden="true" *ngIf="santo?.santo_principal?.oracao">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="oracaoModalLabel">
+          <i class="fas fa-pray text-warning"></i>
+          Oração a {{ santo?.santo_principal?.nome }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="oracao-texto">
+          <p><em>{{ santo?.santo_principal?.oracao }}</em></p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <a routerLink="/liturgia-diaria" class="btn btn-primary" data-bs-dismiss="modal">
+          <i class="fas fa-external-link-alt"></i>
+          Ver Liturgia Completa
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

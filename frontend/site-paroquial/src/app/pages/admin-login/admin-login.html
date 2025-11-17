@@ -1,0 +1,84 @@
+<section class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <!-- Header -->
+      <div class="login-header">
+        <i class="fas fa-lock"></i>
+        <h2>Área Administrativa</h2>
+        <p>Paróquia Nossa Senhora Aparecida</p>
+      </div>
+
+      <!-- Formulário de Login -->
+      <form (ngSubmit)="login()" (keydown.enter)="onEnter($event)" class="login-form">
+        <div class="form-group">
+          <label for="username">
+            <i class="fas fa-user"></i> Usuário
+          </label>
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            [(ngModel)]="username"
+            name="username"
+            placeholder="Digite seu usuário"
+            autocomplete="username"
+            [disabled]="carregando"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="senha">
+            <i class="fas fa-key"></i> Senha
+          </label>
+          <div class="senha-input-wrapper">
+            <input
+              [type]="mostrarSenha ? 'text' : 'password'"
+              id="senha"
+              class="form-control"
+              [(ngModel)]="senha"
+              name="senha"
+              placeholder="Digite sua senha"
+              autocomplete="current-password"
+              [disabled]="carregando"
+              required>
+            <button
+              type="button"
+              class="btn-toggle-senha"
+              (click)="toggleMostrarSenha()"
+              [disabled]="carregando">
+              <i [class]="mostrarSenha ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mensagem de Erro -->
+        <div class="alert alert-danger" *ngIf="erro">
+          <i class="fas fa-exclamation-circle"></i> {{ erro }}
+        </div>
+
+        <!-- Botão de Login -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          [disabled]="carregando || !username || !senha">
+          <i class="fas fa-spinner fa-spin" *ngIf="carregando"></i>
+          <i class="fas fa-sign-in-alt" *ngIf="!carregando"></i>
+          {{ carregando ? 'Entrando...' : 'Entrar' }}
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <div class="login-footer">
+        <a routerLink="/">
+          <i class="fas fa-arrow-left"></i> Voltar ao site
+        </a>
+        <div class="credenciais-demo">
+          <small class="text-muted">
+            <strong>Credenciais de Demonstração:</strong><br>
+            Usuário: <strong>admin</strong> / Senha: <strong>admin</strong>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

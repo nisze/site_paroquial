@@ -1,0 +1,437 @@
+<!-- HEADER DA BÍBLIA -->
+<section class="biblia-hero">
+  <div class="video-background">
+    <video #heroVideo autoplay muted playsinline preload="auto" class="hero-video">
+      <source src="biblia2.mp4" type="video/mp4">
+      Seu navegador não suporta vídeos HTML5.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+  
+  <div class="container">
+    <div class="biblia-hero-content">
+      <h1><i class="fas fa-book-open"></i> Bíblia Online</h1>
+      <p>Acesse a Palavra de Deus completa - Edição Pastoral</p>
+      <div class="breadcrumb">
+        <a routerLink="/"><i class="fas fa-home"></i> Início</a>
+        <span><i class="fas fa-chevron-right"></i></span>
+        <span>Bíblia Online</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BARRA DE FERRAMENTAS -->
+<section class="biblia-toolbar">
+  <div class="container">
+    <div class="toolbar-content">
+      
+      <!-- Seletores de Testamento Separados -->
+      <div class="testamentos-selector">
+        
+        <!-- Antigo Testamento -->
+        <div class="testamento-selector">
+          <button 
+            class="btn btn-outline-primary dropdown-toggle" 
+            type="button"
+            (click)="alternarMenuAntigoTestamento()"
+            [class.active]="menuAntigoTestamentoAberto || (livroSelecionado?.testamento === 'VT')">
+            <i class="fas fa-scroll"></i>
+            <span class="testamento-label">Antigo Testamentoㅤ</span>
+          </button>
+          
+          <!-- Livro Selecionado - Centralizado abaixo -->
+          <div class="livro-selecionado-info" *ngIf="livroSelecionado?.testamento === 'VT'">
+            <small class="livro-nome">{{ livroSelecionado?.name }}</small>
+          </div>
+          
+          <!-- Dropdown Antigo Testamento -->
+          <div class="livros-dropdown" [class.show]="menuAntigoTestamentoAberto">
+            <div class="dropdown-header">
+              <h6><i class="fas fa-scroll"></i> Antigo Testamento</h6>
+              <small class="text-muted">39 livros - A história do povo de Deus</small>
+            </div>
+            
+            <div class="livros-grid">
+              <button 
+                *ngFor="let livro of livrosVT"
+                class="livro-btn"
+                [class.active]="livroSelecionado?.abbrev === livro.abbrev"
+                (click)="selecionarLivro(livro)">
+                {{ livro.name }}
+                <small>{{ livro.chapters }} cap.</small>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Novo Testamento -->
+        <div class="testamento-selector">
+          <button 
+            class="btn btn-outline-primary dropdown-toggle" 
+            type="button"
+            (click)="alternarMenuNovoTestamento()"
+            [class.active]="menuNovoTestamentoAberto || (livroSelecionado?.testamento === 'NT')">
+            <i class="fas fa-cross"></i>
+            <span class="testamento-label">Novo Testamento</span>
+          </button>
+          
+          <!-- Livro Selecionado - Centralizado abaixo -->
+          <div class="livro-selecionado-info" *ngIf="livroSelecionado?.testamento === 'NT'">
+            <small class="livro-nome">{{ livroSelecionado?.name }}</small>
+          </div>
+          
+          <!-- Dropdown Novo Testamento -->
+          <div class="livros-dropdown" [class.show]="menuNovoTestamentoAberto">
+            <div class="dropdown-header">
+              <h6><i class="fas fa-cross"></i> Novo Testamento</h6>
+              <small class="text-muted">27 livros - A vida e ensinamentos de Jesus</small>
+            </div>
+            
+            <div class="livros-grid">
+              <button 
+                *ngFor="let livro of livrosNT"
+                class="livro-btn"
+                [class.active]="livroSelecionado?.abbrev === livro.abbrev"
+                (click)="selecionarLivro(livro)">
+                {{ livro.name }}
+                <small>{{ livro.chapters }} cap.</small>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navegação de Capítulos -->
+      <div class="capitulo-nav" *ngIf="livroSelecionado">
+        <button 
+          class="btn btn-sm btn-outline-secondary"
+          [disabled]="numeroCapitulo <= 1"
+          (click)="capituloAnterior()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <select 
+          class="form-select form-select-sm capitulo-select"
+          [(ngModel)]="numeroCapitulo"
+          (ngModelChange)="navegarParaCapitulo($event)">
+          <option *ngFor="let cap of getCapitulos(livroSelecionado)" [value]="cap">
+            Capítulo {{ cap }}
+          </option>
+        </select>
+        
+        <button 
+          class="btn btn-sm btn-outline-secondary"
+          [disabled]="numeroCapitulo >= livroSelecionado.chapters"
+          (click)="proximoCapitulo()">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Barra de Busca -->
+      <div class="busca-container">
+        <div class="input-group">
+          <input 
+            type="text" 
+            class="form-control"
+            placeholder="Buscar na Bíblia..."
+            [(ngModel)]="termoBusca"
+            (keyup.enter)="buscarTexto()">
+          
+          <button 
+            class="btn btn-primary"
+            type="button"
+            [disabled]="buscandoTexto"
+            (click)="buscarTexto()"
+            style="opacity: 1 !important; visibility: visible !important; display: inline-flex !important; background-color: #8B7355 !important; color: white !important;">
+            <i class="fas fa-search" *ngIf="!buscandoTexto"></i>
+            <i class="fas fa-spinner fa-spin" *ngIf="buscandoTexto"></i>
+            Buscar
+          </button>
+        </div>
+        
+        <!-- Opções de Busca -->
+        <div class="busca-opcoes">
+          <div class="form-check form-check-inline">
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              id="buscaExata"
+              [(ngModel)]="buscaExata">
+            <label class="form-check-label" for="buscaExata">
+              Busca exata
+            </label>
+          </div>
+          
+          <select class="form-select form-select-sm" [(ngModel)]="testamentoFiltro">
+            <option [value]="null">Toda a Bíblia</option>
+            <option value="VT">Antigo Testamento</option>
+            <option value="NT">Novo Testamento</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Botões de Visualização -->
+      <div class="view-buttons">
+        <button 
+          class="btn btn-sm btn-outline-primary"
+          [class.btn-primary]="visualizacao === 'navegacao'"
+          (click)="voltarParaNavegacao()">
+          <i class="fas fa-list"></i>
+          Livros
+        </button>
+        
+        <button 
+          class="btn btn-sm btn-outline-primary"
+          [class.btn-primary]="visualizacao === 'leitura'"
+          [disabled]="!capituloAtual">
+          <i class="fas fa-book-open"></i>
+          Leitura
+        </button>
+        
+        <button 
+          class="btn btn-sm btn-outline-primary"
+          [class.btn-primary]="visualizacao === 'busca'"
+          [disabled]="resultadosBusca.length === 0">
+          <i class="fas fa-search"></i>
+          Resultados ({{ resultadosBusca.length }})
+        </button>
+      </div>
+    </div>
+    
+    <!-- Overlay para fechar dropdowns -->
+    <div 
+      class="dropdown-overlay" 
+      [class.show]="isAnyDropdownOpen()"
+      (click)="menuAntigoTestamentoAberto = false; menuNovoTestamentoAberto = false">
+    </div>
+  </div>
+</section>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<section class="biblia-content">
+  <div class="container">
+    
+    <!-- NAVEGAÇÃO DE LIVROS -->
+    <div class="livros-navegacao" *ngIf="visualizacao === 'navegacao'">
+      <div class="row">
+        <!-- Antigo Testamento -->
+        <div class="col-md-6">
+          <div class="testamento-card">
+            <h3><i class="fas fa-scroll"></i> Antigo Testamento</h3>
+            <p class="text-muted">39 livros - A história do povo de Deus</p>
+            
+            <div class="livros-list">
+              <div 
+                class="livro-card"
+                *ngFor="let livro of livrosVT"
+                (click)="selecionarLivro(livro)">
+                <div class="livro-info">
+                  <h5>{{ livro.name }}</h5>
+                  <small>{{ livro.chapters }} capítulos</small>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Novo Testamento -->
+        <div class="col-md-6">
+          <div class="testamento-card">
+            <h3><i class="fas fa-cross"></i> Novo Testamento</h3>
+            <p class="text-muted">27 livros - A vida e ensinamentos de Jesus</p>
+            
+            <div class="livros-list">
+              <div 
+                class="livro-card"
+                *ngFor="let livro of livrosNT"
+                (click)="selecionarLivro(livro)">
+                <div class="livro-info">
+                  <h5>{{ livro.name }}</h5>
+                  <small>{{ livro.chapters }} capítulos</small>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEITURA DO CAPÍTULO -->
+    <div class="capitulo-leitura" *ngIf="visualizacao === 'leitura'">
+      
+      <!-- Loading -->
+      <div class="text-center py-5" *ngIf="carregandoCapitulo">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+        <p class="mt-3">Carregando capítulo...</p>
+      </div>
+      
+      <!-- Capítulo Carregado -->
+      <div class="capitulo-container" *ngIf="capituloAtual && !carregandoCapitulo">
+        
+        <!-- Header do Capítulo -->
+        <div class="capitulo-header">
+          <h2>{{ formatarReferencia() }}</h2>
+          <div class="capitulo-info">
+            <span class="badge bg-primary">{{ capituloAtual.book.testamento === 'VT' ? 'Antigo Testamento' : 'Novo Testamento' }}</span>
+            <span class="versiculos-count">{{ capituloAtual.verses.length }} versículos</span>
+          </div>
+        </div>
+        
+        <!-- Versículos -->
+        <div class="versiculos-container">
+          <div 
+            class="versiculo"
+            *ngFor="let versiculo of capituloAtual.verses; trackBy: trackByVersiculo">
+            
+            <span class="versiculo-numero">{{ versiculo.verse }}</span>
+            
+            <span class="versiculo-texto">{{ versiculo.text }}</span>
+            
+            <div class="versiculo-actions">
+              <button 
+                class="btn btn-sm btn-outline-secondary"
+                title="Adicionar aos favoritos"
+                (click)="adicionarFavorito(versiculo)">
+                <i class="fas fa-heart"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Navegação entre Capítulos -->
+        <div class="capitulo-footer">
+          <div class="row">
+            <div class="col">
+              <button 
+                class="btn btn-outline-primary"
+                [disabled]="numeroCapitulo <= 1"
+                (click)="capituloAnterior()">
+                <i class="fas fa-chevron-left"></i>
+                Capítulo Anterior
+              </button>
+            </div>
+            
+            <div class="col text-center">
+              <small class="text-muted">
+                Capítulo {{ numeroCapitulo }} de {{ livroSelecionado?.chapters }}
+              </small>
+            </div>
+            
+            <div class="col text-end">
+              <button 
+                class="btn btn-outline-primary"
+                [disabled]="!livroSelecionado || numeroCapitulo >= livroSelecionado.chapters"
+                (click)="proximoCapitulo()">
+                Próximo Capítulo
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTADOS DA BUSCA -->
+    <div class="busca-resultados" *ngIf="visualizacao === 'busca'">
+      
+      <!-- Header dos Resultados -->
+      <div class="resultados-header">
+        <h3>
+          <i class="fas fa-search"></i> 
+          Resultados para "{{ termoBusca }}"
+        </h3>
+        
+        <div class="resultados-info">
+          <span class="badge bg-info">{{ resultadosBusca.length }} resultados encontrados</span>
+          <button 
+            class="btn btn-sm btn-outline-secondary ms-2"
+            (click)="limparBusca()">
+            <i class="fas fa-times"></i>
+            Limpar busca
+          </button>
+        </div>
+      </div>
+      
+      <!-- Lista de Resultados -->
+      <div class="resultados-lista" *ngIf="resultadosBusca.length > 0">
+        <div 
+          class="resultado-item"
+          *ngFor="let resultado of resultadosBusca"
+          (click)="irParaVersiculo(resultado)">
+          
+          <div class="resultado-referencia">
+            <strong>{{ resultado.referencia }}</strong>
+            <span class="fonte-badge">{{ resultado.fonte }}</span>
+          </div>
+          
+          <div class="resultado-texto">
+            {{ resultado.texto }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Nenhum Resultado -->
+      <div class="no-results" *ngIf="resultadosBusca.length === 0 && !buscandoTexto">
+        <div class="text-center py-5">
+          <i class="fas fa-search fa-3x text-muted mb-3"></i>
+          <h4>Nenhum resultado encontrado</h4>
+          <p class="text-muted">
+            Tente usar palavras diferentes ou verifique a ortografia.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Loading Busca -->
+      <div class="text-center py-5" *ngIf="buscandoTexto">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Buscando...</span>
+        </div>
+        <p class="mt-3">Procurando na Bíblia...</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VERSÍCULOS EM DESTAQUE -->
+<section class="versiculos-destaque" *ngIf="visualizacao === 'navegacao'">
+  <div class="container">
+    <h3 class="text-center mb-4">
+      <i class="fas fa-star"></i> Versículos em Destaque
+    </h3>
+    
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <div class="versiculo-card" (click)="irParaVersiculo({livro: 'João', capitulo: 3, versiculo: 16, texto: '', referencia: ''})">
+          <div class="versiculo-ref">João 3:16</div>
+          <div class="versiculo-preview">
+            "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito..."
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-3">
+        <div class="versiculo-card" (click)="irParaVersiculo({livro: 'Salmos', capitulo: 23, versiculo: 1, texto: '', referencia: ''})">
+          <div class="versiculo-ref">Salmos 23:1</div>
+          <div class="versiculo-preview">
+            "O Senhor é o meu pastor; nada me faltará."
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-3">
+        <div class="versiculo-card" (click)="irParaVersiculo({livro: 'Filipenses', capitulo: 4, versiculo: 13, texto: '', referencia: ''})">
+          <div class="versiculo-ref">Filipenses 4:13</div>
+          <div class="versiculo-preview">
+            "Posso todas as coisas em Cristo que me fortalece."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

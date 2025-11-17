@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paróquia Nossa Senhora Aparecida - Demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Audio com configuração simplificada -->
+    <audio id="backgroundAudio" preload="auto" loop style="display: none;">
+        <source src="aveMaria.mp3" type="audio/mpeg">
+        <source src="aveMaria.wav" type="audio/wav">
+        <source src="aveMaria.ogg" type="audio/ogg">
+    </audio>
+    
+    <!-- Botão flutuante para iniciar áudio -->
+    <div id="audioPrompt" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; 
+                                  background: rgba(27,79,114,0.95); color: white; 
+                                  padding: 15px 20px; border-radius: 10px; 
+                                  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                                  cursor: pointer; display: none;
+                                  font-family: 'Inter', sans-serif; font-size: 14px;
+                                  animation: fadeIn 0.5s ease-in;">
+        <i class="fas fa-music" style="margin-right: 8px;"></i>
+        Clique para ouvir a última missa
+    </div>
+    
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-church"></i>
+                <span>Paróquia N. Sra. Aparecida</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#inicio" class="nav-link">Início</a></li>
+                <li><a href="#horarios" class="nav-link">Horários</a></li>
+                <li><a href="biblia.html" class="nav-link">Bíblia</a></li>
+                <li><a href="#noticias" class="nav-link">Notícias</a></li>
+                <li><a href="#grupos" class="nav-link">Grupos</a></li>
+                <li><a href="#galeria" class="nav-link">Galeria</a></li>
+                <li><a href="#contato" class="nav-link">Contato</a></li>
+            </ul>
+            <button class="nav-cta">Solicitar Missa</button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION COM VÍDEO -->
+    <section class="hero-section" id="inicio">
+        <div class="hero-video">
+            <!-- Vídeos gratuitos de igrejas católicas para demonstração -->
+            <video autoplay muted loop playsinline>
+                <!-- Opção 1: Igreja com céu dramático -->
+                <source src="https://cdn.pixabay.com/video/2020/11/02/54120-476532863_large.mp4" type="video/mp4">
+                <!-- Opção 2: Fallback - Igreja com pôr do sol -->
+                <source src="https://cdn.pixabay.com/video/2022/10/28/136777-764955524_large.mp4" type="video/mp4">
+                <!-- Fallback para imagem se vídeo não carregar -->
+            </video>
+            <!-- Overlay para melhor legibilidade do texto -->
+            <div class="hero-overlay"></div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">Bem-vindos à Paróquia Nossa Senhora Aparecida</h1>
+            <p class="hero-subtitle">Uma comunidade de fé que acolhe 7 comunidades em Itapetininga</p>
+
+            <!-- BUSCA ADAPTADA -->
+            <div class="search-container">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Procurar horários, eventos, grupos...">
+                </div>
+                <select class="search-select">
+                    <option value="">Todas as comunidades</option>
+                    <option value="matriz">Matriz - N. Sra. Aparecida</option>
+                    <option value="bom-pastor">Bom Pastor</option>
+                    <option value="conceicao">Nossa Senhora da Conceição</option>
+                    <option value="gracas">Nossa Senhora das Graças</option>
+                    <option value="sagrado">Sagrado Coração de Jesus</option>
+                    <option value="santana">Sant'Ana</option>
+                    <option value="santa-cruz">Santa Cruz e São Roque</option>
+                    <option value="sao-miguel">São Miguel Arcanjo</option>
+                </select>
+                <button class="search-button">Buscar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE SERVIÇOS (CARDS) -->
+    <section class="services-section" id="servicos">
+        <div class="container">
+            <h2 class="section-title">Serviços da Paróquia</h2>
+            <p class="section-subtitle">Conheça os serviços disponíveis para nossa comunidade</p>
+
+            <div class="cards-grid">
+                <!-- Card 1: Horários -->
+                <div class="service-card">
+                    <div class="card-image">
+                        <img src="https://thumbs.dreamstime.com/b/igreja-interna-43897334.jpg" alt="Horários de Missa">
+                        <span class="card-badge">7 Comunidades</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Horários de Missa</h3>
+                        <p>Confira os horários de todas as missas da matriz e comunidades</p>
+                        <div class="card-info">
+                            <div class="card-price">
+                                <span class="highlight">Dom 11h e 19h</span>
+                                <span class="detail">Matriz + comunidades</span>
+                            </div>
+                        </div>
+                        <button class="card-button">Ver Horários</button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Solicitação Missa -->
+                <div class="service-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=400&h=300&fit=crop"
+                            alt="Intenção de Missa">
+                        <span class="card-badge">Online</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Solicitar Missa</h3>
+                        <p>Solicite missas por intenções especiais, falecidos ou ação de graças</p>
+                        <div class="card-info">
+                            <div class="card-price">
+                                <span class="highlight">Formulário Online</span>
+                                <span class="detail">Solicitação simples</span>
+                            </div>
+                        </div>
+                        <button class="card-button">Solicitar</button>
+                    </div>
+                </div>
+
+                <!-- Card 3: Grupos -->
+                <div class="service-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=400&h=300&fit=crop"
+                            alt="Grupos Paroquiais">
+                        <span class="card-badge">Ativo</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Grupos e Pastorais</h3>
+                        <p>Participe dos grupos de jovens, oração, catequese e outras atividades</p>
+                        <div class="card-info">
+                            <div class="card-price">
+                                <span class="highlight">Múltiplos grupos</span>
+                                <span class="detail">Participe conosco</span>
+                            </div>
+                        </div>
+                        <button class="card-button">Participar</button>
+                    </div>
+                </div>
+
+                <!-- Card 5: Bíblia Online -->
+                <div class="service-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=400&h=300&fit=crop"
+                            alt="Bíblia Online">
+                        <span class="card-badge">Gratuito</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Bíblia Online</h3>
+                        <p>Acesse a Palavra de Deus completa, busque versículos e estude as Escrituras</p>
+                        <div class="card-info">
+                            <div class="card-price">
+                                <span class="highlight">Acesso completo</span>
+                                <span class="detail">Todos os livros</span>
+                            </div>
+                        </div>
+                        <button class="card-button" onclick="window.location.href='biblia.html'">Ler Bíblia</button>
+                    </div>
+                </div>
+
+                <!-- Card 4: Eventos -->
+                <div class="service-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=400&h=300&fit=crop"
+                            alt="Eventos">
+                        <span class="card-badge">Novidades</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Eventos e Campanhas</h3>
+                        <p>Fique por dentro dos eventos especiais e campanhas da paróquia</p>
+                        <div class="card-info">
+                            <div class="card-price">
+                                <span class="highlight">Em breve</span>
+                                <span class="detail">Festa da Padroeira</span>
+                            </div>
+                        </div>
+                        <button class="card-button">Ver Agenda</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO HORÁRIOS -->
+    <section class="horarios-section" id="horarios">
+        <div class="container">
+            <h2 class="section-title">Horários de Missa</h2>
+
+            <div class="horarios-grid">
+                <div class="horario-card">
+                    <h3><i class="fas fa-church"></i> Matriz - Nossa Senhora Aparecida</h3>
+                    <div class="horarios-list">
+                        <div class="horario-item">
+                            <span class="dia">Quarta-feira</span>
+                            <span class="hora">19h30</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="dia">Quinta-feira</span>
+                            <span class="hora">7h</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="dia">1ª Sexta-feira</span>
+                            <span class="hora">19h30</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="dia">1º Sábado</span>
+                            <span class="hora">12h</span>
+                        </div>
+                        <div class="horario-item highlight">
+                            <span class="dia">Domingo</span>
+                            <span class="hora">11h e 19h</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="horario-card">
+                    <h3><i class="fas fa-cross"></i> Comunidades</h3>
+                    <div class="horarios-list">
+                        <div class="horario-item">
+                            <span class="dia">Bom Pastor</span>
+                            <span class="hora">Dom 9h30</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="dia">Sagrado Coração</span>
+                            <span class="hora">Dom 8h</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="dia">Santa Cruz</span>
+                            <span class="hora">Sáb 19h</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="dia">N. Sra. Conceição</span>
+                            <span class="hora">1ª e 3ª Qui 19h30</span>
+                        </div>
+                        <div class="horario-item">
+                            <span class="dia">N. Sra. das Graças</span>
+                            <span class="hora">2ª e 4ª Qua 19h30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO NOTÍCIAS -->
+    <section class="noticias-section" id="noticias">
+        <div class="container">
+            <h2 class="section-title">Últimas Notícias</h2>
+
+            <div class="noticias-grid">
+                <article class="noticia-card featured">
+                    <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=600&h=400&fit=crop"
+                        alt="Campanha de Alimentos">
+                    <div class="noticia-content">
+                        <span class="noticia-categoria">Campanha</span>
+                        <h3>Campanha de Alimentos para Famílias Carentes</h3>
+                        <p>Nossa paróquia está organizando uma grande campanha de arrecadação de alimentos não
+                            perecíveis para ajudar famílias em situação de vulnerabilidade...</p>
+                        <div class="noticia-meta">
+                            <span><i class="fas fa-calendar"></i> 05 de outubro</span>
+                            <span><i class="fas fa-user"></i> Diácono Tales Macia de Faria</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="noticia-card">
+                    <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=400&h=300&fit=crop"
+                        alt="Encontro de Jovens">
+                    <div class="noticia-content">
+                        <span class="noticia-categoria">Jovens</span>
+                        <h3>Encontro de Jovens - Tema: Esperança</h3>
+                        <p>Próxima sexta-feira às 19h teremos nosso encontro mensal...</p>
+                        <div class="noticia-meta">
+                            <span><i class="fas fa-calendar"></i> 03 de outubro</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="noticia-card">
+                    <img src="https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=400&h=300&fit=crop"
+                        alt="Novena">
+                    <div class="noticia-content">
+                        <span class="noticia-categoria">Espiritualidade</span>
+                        <h3>Novena de Nossa Senhora Aparecida</h3>
+                        <p>Iniciamos hoje a tradicional novena em preparação...</p>
+                        <div class="noticia-meta">
+                            <span><i class="fas fa-calendar"></i> 02 de outubro</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paróquia Nossa Senhora Aparecida</h3>
+                    <p>Uma comunidade de fé que acolhe e evangeliza</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#horarios">Horários de Missa</a></li>
+                        <li><a href="biblia.html">Bíblia Online</a></li>
+                        <li><a href="#noticias">Notícias</a></li>
+                        <li><a href="#grupos">Grupos e Pastorais</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Av. Nisshimbo do Brasil, 1236<br>Vila Camarão -
+                            Itapetininga/SP</p>
+                        <p><i class="fas fa-phone"></i> (15) 3272-8718</p>
+                        <p><i class="fas fa-envelope"></i> p.n.s.aparecida@hotmail.com</p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Horário de Atendimento</h4>
+                    <p>Segunda a Sexta: 8h às 12h30<br>13h30 às 17h</p>
+                    <p>Sábado: 8h às 12h</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Paróquia Nossa Senhora Aparecida. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    
+    <!-- Script inteligente para autoplay com fallback elegante -->
+    <script>
+        console.log('🎵 Iniciando sistema de áudio inteligente...');
+        
+        const audio = document.getElementById('backgroundAudio');
+        const audioPrompt = document.getElementById('audioPrompt');
+        let audioStarted = false;
+        
+        // Configura o áudio
+        audio.volume = 0.4;
+        
+        function startAudio() {
+            if (audioStarted) return;
+            
+            console.log('🎯 Tentando iniciar áudio...');
+            
+            audio.play()
+                .then(() => {
+                    console.log('✅ SUCESSO! Ave Maria tocando! 🎶');
+                    audioStarted = true;
+                    hideAudioPrompt();
+                })
+                .catch((error) => {
+                    console.log('⚠️ Autoplay bloqueado:', error.message);
+                    showAudioPrompt();
+                });
+        }
+        
+        function showAudioPrompt() {
+            console.log('👆 Mostrando botão para o usuário...');
+            audioPrompt.style.display = 'block';
+            
+            // Auto-hide após 10 segundos
+            setTimeout(() => {
+                if (!audioStarted) {
+                    hideAudioPrompt();
+                }
+            }, 10000);
+        }
+        
+        function hideAudioPrompt() {
+            audioPrompt.style.display = 'none';
+        }
+        
+        // Click no botão de prompt
+        audioPrompt.addEventListener('click', () => {
+            console.log('🖱️ Usuário clicou no botão de áudio!');
+            startAudio();
+        });
+        
+        // Tenta autoplay imediatamente
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📄 DOM carregado, tentando autoplay...');
+            setTimeout(startAudio, 1000);
+        });
+        
+        // Segunda tentativa após carregamento completo
+        window.addEventListener('load', () => {
+            console.log('🌐 Página carregada, segunda tentativa...');
+            setTimeout(startAudio, 500);
+        });
+        
+        // Listeners silenciosos para primeira interação
+        function tryPlayOnInteraction(event) {
+            if (!audioStarted) {
+                console.log(`� Interação detectada (${event.type}), tentando tocar...`);
+                startAudio();
+            }
+        }
+        
+        // Múltiplos listeners para capturar primeira interação
+        ['click', 'touchstart', 'keydown', 'scroll'].forEach(eventType => {
+            document.addEventListener(eventType, tryPlayOnInteraction, { once: true, passive: true });
+        });
+        
+        // CSS para animação
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            #audioPrompt:hover {
+                background: rgba(27,79,114,1) !important;
+                transform: scale(1.05);
+                transition: all 0.2s ease;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

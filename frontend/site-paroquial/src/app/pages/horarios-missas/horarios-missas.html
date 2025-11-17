@@ -1,0 +1,236 @@
+<!-- HEADER COM VÍDEO -->
+<section class="missas-hero">
+  <div class="video-background">
+    <video #heroVideo autoplay muted loop playsinline preload="auto" class="hero-video">
+      <source src="igreja-interior.mp4" type="video/mp4">
+      Seu navegador não suporta vídeos HTML5.
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+  
+  <div class="container">
+    <div class="missas-hero-content">
+      <h1><i class="fas fa-clock"></i> Horários das Missas</h1>
+      <p>Confira os horários de celebrações em nossa paróquia</p>
+      <div class="breadcrumb">
+        <a routerLink="/"><i class="fas fa-home"></i> Início</a>
+        <span><i class="fas fa-chevron-right"></i></span>
+        <span>Horários das Missas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HORÁRIOS REGULARES -->
+<section class="horarios-section">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h2>Horários Regulares</h2>
+      <p class="text-muted">Celebrações semanais na Igreja Matriz</p>
+    </div>
+
+    <div class="row g-4">
+      @for (horario of horariosSemana; track horario.dia) {
+        <div class="col-md-4">
+          <div class="horario-card">
+            <div class="horario-header">
+              <h3>{{ horario.dia }}</h3>
+            </div>
+            <div class="horario-body">
+              <div class="horarios-list">
+                @for (hora of horario.horarios; track hora) {
+                  <div class="horario-item">
+                    <i class="fas fa-clock"></i>
+                    <span>{{ hora }}</span>
+                  </div>
+                }
+              </div>
+              @if (horario.local) {
+                <div class="horario-local">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>{{ horario.local }}</span>
+                </div>
+              }
+              @if (horario.observacao) {
+                <div class="horario-obs">
+                  <i class="fas fa-info-circle"></i>
+                  <small>{{ horario.observacao }}</small>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CELEBRAÇÕES ESPECIAIS -->
+<section class="especiais-section bg-light">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h2>Celebrações Especiais</h2>
+      <p class="text-muted">Horários diferenciados para devoções mensais</p>
+    </div>
+
+    <div class="row g-4">
+      @for (especial of horariosEspeciais; track especial.titulo) {
+        <div class="col-md-6">
+          <div class="especial-card">
+            <div class="especial-icon">
+              <i class="fas fa-praying-hands"></i>
+            </div>
+            <div class="especial-content">
+              <h3>{{ especial.titulo }}</h3>
+              <p class="especial-data">
+                <i class="fas fa-calendar-alt"></i>
+                {{ especial.data }}
+              </p>
+              @if (especial.descricao) {
+                <p class="especial-descricao">{{ especial.descricao }}</p>
+              }
+              <div class="especial-horarios">
+                @for (hora of especial.horarios; track hora) {
+                  <span class="badge bg-primary">
+                    <i class="fas fa-clock"></i> {{ hora }}
+                  </span>
+                }
+              </div>
+              @if (especial.local) {
+                <p class="especial-local">
+                  <i class="fas fa-church"></i>
+                  {{ especial.local }}
+                </p>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- COMUNIDADES -->
+<section class="comunidades-section">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h2><i class="fas fa-users"></i> Capelas e Comunidades</h2>
+      <p class="text-muted">Horários de missas nas capelas da paróquia</p>
+    </div>
+
+    <div class="row g-4">
+      @for (comunidade of comunidades; track comunidade.nome) {
+        <div class="col-md-6">
+          <div class="comunidade-card">
+            <div class="comunidade-imagem">
+              <img [src]="comunidade.imagem" [alt]="comunidade.nome" class="img-fluid">
+            </div>
+            <div class="comunidade-header">
+              <i class="fas fa-church"></i>
+              <div>
+                <h3>{{ comunidade.nome }}</h3>
+                <p class="comunidade-endereco">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{ comunidade.endereco }}
+                </p>
+              </div>
+            </div>
+            <div class="comunidade-horarios">
+              @for (horario of comunidade.horarios; track horario.dia) {
+                <div class="horario-item">
+                  <span class="horario-dia">{{ horario.dia }}</span>
+                  <span class="horario-hora">{{ horario.hora }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- CONFISSÕES -->
+<section class="confissoes-section bg-light">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h2><i class="fas fa-hands-praying"></i> Horários de Confissões</h2>
+      <p class="text-muted">Atendimento para o Sacramento da Reconciliação</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="confissoes-card">
+          @for (confissao of confissoes; track confissao.dia) {
+            <div class="confissao-item">
+              <div class="confissao-dia">
+                <i class="fas fa-calendar-day"></i>
+                <strong>{{ confissao.dia }}</strong>
+              </div>
+              <div class="confissao-horario">
+                <i class="fas fa-clock"></i>
+                {{ confissao.horario }}
+              </div>
+              <div class="confissao-local">
+                <i class="fas fa-location-dot"></i>
+                {{ confissao.local }}
+              </div>
+            </div>
+          }
+        </div>
+        <div class="confissoes-obs mt-4 text-center">
+          <p class="text-muted">
+            <i class="fas fa-info-circle"></i>
+            Atendimento também pode ser agendado pelo telefone da secretaria paroquial
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFORMAÇÕES ADICIONAIS -->
+<section class="info-section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <h3>Contato</h3>
+          <p>Para mais informações sobre horários especiais, entre em contato com a secretaria paroquial.</p>
+          <a href="tel:+5511999999999" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-phone"></i> Ligar
+          </a>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <h3>Calendário Litúrgico</h3>
+          <p>Confira as celebrações especiais do ano litúrgico e os tempos sagrados.</p>
+          <a routerLink="/calendario-liturgico" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-calendar"></i> Ver Calendário
+          </a>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="info-card">
+          <div class="info-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <h3>Avisos Paroquiais</h3>
+          <p>Fique por dentro das alterações nos horários e eventos especiais.</p>
+          <a routerLink="/noticias" class="btn btn-outline-primary btn-sm">
+            <i class="fas fa-newspaper"></i> Ver Avisos
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

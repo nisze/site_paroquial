@@ -1,0 +1,935 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação Técnica Completa - Sistema Digital paroquial</title>
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos para impressão */
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm 1.5cm;
+            }
+            
+            body {
+                font-size: 11pt;
+                line-height: 1.4;
+                color: #000;
+                background: white;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            table {
+                break-inside: avoid;
+            }
+            
+            h1, h2, h3 {
+                break-after: avoid;
+            }
+            
+            .section {
+                break-inside: avoid;
+            }
+        }
+
+        /* Estilos gerais */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        /* Cabeçalho principal */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #1a365d;
+        }
+
+        .header h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h2 {
+            font-size: 14pt;
+            color: #4a5568;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        /* Seções */
+        .section {
+            margin-bottom: 25px;
+            padding: 15px 0;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            font-weight: bold;
+            color: #1a365d;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .subsection-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 15px 0 10px 0;
+        }
+
+        /* Tabelas */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 10pt;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 8px 10px;
+            border: 1px solid #d1d5db;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .info-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #1a365d;
+        }
+
+        .info-table td:first-child {
+            font-weight: bold;
+            background-color: #f8f9fa;
+            width: 30%;
+        }
+
+        /* Código */
+        .code-block {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e0;
+            border-left: 4px solid #3182ce;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            line-height: 1.4;
+            overflow-x: auto;
+            white-space: pre-line;
+        }
+
+        .inline-code {
+            background-color: #e2e8f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+        }
+
+        /* Listas */
+        .feature-list {
+            margin: 15px 0 15px 30px;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            list-style-type: disc;
+            line-height: 1.5;
+        }
+
+        /* Texto destacado */
+        .highlight-box {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        .tech-stack {
+            background-color: #e6fffa;
+            border: 1px solid #38b2ac;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        /* Arquitetura */
+        .architecture-diagram {
+            text-align: center;
+            font-family: monospace;
+            background-color: #f7fafc;
+            border: 2px solid #e2e8f0;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 10pt;
+            line-height: 1.2;
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 10pt;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Endpoints */
+        .endpoint-list {
+            background-color: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .endpoint {
+            margin: 8px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+        }
+
+        .endpoint-method {
+            font-weight: bold;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>DOCUMENTAÇÃO TÉCNICA COMPLETA</h1>
+        <h2>Sistema Digital paroquial - Especificações Técnicas</h2>
+    </div>
+
+    <div class="section">
+        <div class="section-title">INFORMAÇÕES GERAIS</div>
+        <table class="info-table">
+            <tr>
+                <td>Sistema</td>
+                <td>Sistema Digital paroquial Nossa Senhora Aparecida</td>
+            </tr>
+            <tr>
+                <td>Versão</td>
+                <td>1.0.0</td>
+            </tr>
+            <tr>
+                <td>Data</td>
+                <td>Novembro 2025</td>
+            </tr>
+            <tr>
+                <td>Arquitetura</td>
+                <td>Full-Stack Web Application</td>
+            </tr>
+            <tr>
+                <td>Tipo</td>
+                <td>SPA (Single Page Application) + API REST</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">ARQUITETURA DO SISTEMA</div>
+        
+        <div class="subsection-title">1. Visão Geral da Arquitetura</div>
+        <div class="architecture-diagram">
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐<br>
+│   FRONTEND      │    │    BACKEND      │    │   BANCO DADOS   │<br>
+│   Angular 20    │◄──►│  Spring Boot    │◄──►│ H2 (Dev) /      │<br>
+│   Bootstrap 5   │    │   Java 21 LTS   │    │ Supabase (Prod) │<br>
+└─────────────────┘    └─────────────────┘    └─────────────────┘<br>
+         │                       │                       │<br>
+         ▼                       ▼                       ▼<br>
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐<br>
+│   APIs EXTERNAS │    │  WEB SCRAPING   │    │    IMAGENS      │<br>
+│  • Bible API    │    │  • JSoup        │    │ • Wikimedia     │<br>
+│  • liturgia API │    │  • Selenium     │    │ • Vatican       │<br>
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+        </div>
+
+        <div class="subsection-title">2. Fluxo de Dados</div>
+        <ol class="feature-list">
+            <li>Frontend → Requisições HTTP → Backend API</li>
+            <li>Backend → Consultas SQL → Banco H2 (Dev) / Supabase (Prod)</li>
+            <li>Backend → HTTP Requests → APIs Externas</li>
+            <li>Backend → Web Scraping → Sites Católicos</li>
+            <li>Frontend → CDN Requests → Imagens Externas</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <div class="section-title">FRONTEND - ANGULAR 20</div>
+        
+        <div class="subsection-title">Estrutura de Diretórios</div>
+        <div class="code-block">
+src/app/
+├── pages/
+│   ├── home/                 # Página inicial
+│   ├── Bíblia/               # Bíblia online
+│   ├── liturgia-diaria/      # liturgia do dia
+│   ├── noticias/             # Sistema de notícias
+│   └── grupos/               # Pastorais e movimentos
+├── shared/
+│   ├── components/           # Componentes reutilizáveis
+│   ├── services/             # Services API
+│   └── models/               # Interfaces TypeScript
+└── assets/                   # Recursos estáticos
+        </div>
+
+        <div class="subsection-title">Componentes Principais</div>
+        
+        <div class="tech-stack">
+            <strong>HomeComponent:</strong>
+            <ul class="feature-list">
+                <li>Responsabilidade: Página inicial com vídeo hero</li>
+                <li>Features: Cards de navegação, busca rápida</li>
+            </ul>
+            
+            <strong>BíbliaComponent:</strong>
+            <ul class="feature-list">
+                <li>API: bible-api.com (Português Almeida)</li>
+                <li>Features: 66 livros, busca avançada, navegação</li>
+            </ul>
+            
+            <strong>liturgiaDiariaComponent:</strong>
+            <ul class="feature-list">
+                <li>API: liturgia.up.railway.app</li>
+                <li>Features: Leituras, evangelho, salmos, santo</li>
+            </ul>
+        </div>
+
+        <div class="subsection-title">Services Implementados</div>
+        <div class="code-block">
+BíbliaApiService:
+- getBooks(): Buscar livros disponíveis
+- getChapters(): Buscar capítulos de um livro
+- getVerses(): Buscar versículos
+- searchVerses(): Busca textual
+
+liturgiaApiService:
+- getliturgiaDoDia(): liturgia do dia
+- getSantoDoDia(): Santo do dia
+- getliturgiaDiaCompleta(): liturgia + santo
+        </div>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">BACKEND - SPRING BOOT 3.5.5</div>
+        
+        <div class="subsection-title">Estrutura de Pacotes</div>
+        <div class="code-block">
+com.paróquia.siteparoquial/
+├── config/                   # Configurações
+├── controllers/              # API REST endpoints
+│   ├── SantoController.java  # Gestão de Santos
+│   └── AdminController.java  # Área Administrativa
+├── entities/                 # Entidades JPA
+│   ├── Santo.java           # Santos Católicos
+│   └── Usuário.java         # Usuários Admin
+├── repositories/             # Repository JPA
+│   ├── SantoRepository.java
+│   └── UsuárioRepository.java
+├── services/                 # Lógica de negócio
+│   ├── SantoService.java
+│   ├── Usuárioservice.java
+│   └── ImagemSantoService.java
+└── SiteparoquialApplication.java
+        </div>
+
+        <div class="subsection-title">Sistema de Banco de Dados</div>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Tabela</th>
+                    <th>Função</th>
+                    <th>Registros Estimados</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>santos</td>
+                    <td>Armazena informações dos santos católicos</td>
+                    <td>365+ registros (ciclo anual)</td>
+                </tr>
+                <tr>
+                    <td>Usuários</td>
+                    <td>Usuários administrativos do sistema</td>
+                    <td>3-5 registros (padre + equipe)</td>
+                </tr>
+                <tr>
+                    <td>santo_padroeiro</td>
+                    <td>Tabela auxiliar para patronatos</td>
+                    <td>1000+ registros</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="subsection-title">Entidade Principal - Santo.java</div>
+        <div class="code-block">
+@Entity
+@Table(name = "santos")
+public class Santo {
+    @Id @GeneratedValue
+    private Long id;
+    
+    @NotBlank @Column(length = 200)
+    private String nome;
+    
+    @Column(length = 300)
+    private String titulo;
+    
+    @Column(columnDefinition = "TEXT")
+    private String biografia;
+    
+    @NotNull
+    private Integer dia;
+    
+    @NotNull
+    private Integer mes;
+    
+    @Column(name = "imagem_url")
+    private String imagemUrl;
+    
+    @Column(length = 100)
+    private String fonte;
+    
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+}
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">ENDPOINTS DA API REST</div>
+        
+        <div class="subsection-title">Santos - Consulta</div>
+        <div class="endpoint-list">
+            <div class="endpoint">
+                <span class="endpoint-method">GET</span> /api/santos/hoje
+                <br>Retorna: Santo do dia atual
+            </div>
+            <div class="endpoint">
+                <span class="endpoint-method">GET</span> /api/santos/data/{dia}/{mes}
+                <br>Parâmetros: dia (1-31), mes (1-12)
+                <br>Retorna: Lista de santos da data específica
+            </div>
+            <div class="endpoint">
+                <span class="endpoint-method">GET</span> /api/santos/mes/{mes}
+                <br>Parâmetros: mes (1-12)
+                <br>Retorna: Todos os santos do mês
+            </div>
+            <div class="endpoint">
+                <span class="endpoint-method">GET</span> /api/santos/buscar?nome={nome}
+                <br>Parâmetros: nome (string)
+                <br>Retorna: Santos com nome similar
+            </div>
+        </div>
+
+        <div class="subsection-title">Santos - Gestão (CRUD)</div>
+        <div class="endpoint-list">
+            <div class="endpoint">
+                <span class="endpoint-method">POST</span> /api/santos
+                <br>Body: JSON Santo
+                <br>Retorna: Santo criado com ID
+            </div>
+            <div class="endpoint">
+                <span class="endpoint-method">PUT</span> /api/santos/{id}
+                <br>Parâmetros: id (Long)
+                <br>Body: JSON Santo
+                <br>Retorna: Santo atualizado
+            </div>
+            <div class="endpoint">
+                <span class="endpoint-method">DELETE</span> /api/santos/{id}
+                <br>Parâmetros: id (Long)
+                <br>Retorna: Status da operação
+            </div>
+        </div>
+
+        <div class="subsection-title">Importação de Dados</div>
+        <div class="endpoint-list">
+            <div class="endpoint">
+                <span class="endpoint-method">POST</span> /api/santos/importar/arquivo
+                <br>Body: MultipartFile (TXT)
+                <br>Retorna: Relatório de importação
+            </div>
+            <div class="endpoint">
+                <span class="endpoint-method">GET</span> /api/santos/importar/exemplo
+                <br>Retorna: Exemplo de formato de dados
+            </div>
+        </div>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">SISTEMA ADMINISTRATIVO</div>
+        
+        <div class="subsection-title">Funcionalidades da Área Admin</div>
+        <ul class="feature-list">
+            <li><strong>Autenticação Segura:</strong> Login com usuário e senha criptografada</li>
+            <li><strong>Gestão de Usuários:</strong> Criar, editar e gerenciar usuários administrativos</li>
+            <li><strong>Gestão de Conteúdo:</strong> Adicionar, editar e excluir santos</li>
+            <li><strong>Dashboard Estatísticas:</strong> Visão geral do sistema</li>
+            <li><strong>Controle de Permissões:</strong> Diferentes níveis de acesso (Admin, Editor, Visualizador)</li>
+        </ul>
+
+        <div class="subsection-title">Entidade Usuário.java</div>
+        <div class="code-block">
+@Entity
+@Table(name = "Usuários")
+public class Usuário {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false, unique = true)
+    private String username;
+    
+    @Email
+    @Column(nullable = false, unique = true)
+    private String email;
+    
+    @Column(nullable = false)
+    private String senha; // Hash SHA-256
+    
+    @Column(name = "nome_completo")
+    private String nomeCompleto;
+    
+    @Enumerated(EnumType.STRING)
+    private Role role; // ADMIN, EDITOR, VISUALIZADOR
+    
+    private Boolean ativo = true;
+    private LocalDateTime criadoEm;
+    private LocalDateTime ultimoLogin;
+}
+        </div>
+
+        <div class="subsection-title">Níveis de Permissão</div>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Permissões</th>
+                    <th>Uso Recomendado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ADMIN</td>
+                    <td>Acesso total: usuários, conteúdo, configurações</td>
+                    <td>Padre pároco, coordenador técnico</td>
+                </tr>
+                <tr>
+                    <td>EDITOR</td>
+                    <td>Adicionar/editar conteúdo (santos, notícias)</td>
+                    <td>Membros da equipe pastoral</td>
+                </tr>
+                <tr>
+                    <td>VISUALIZADOR</td>
+                    <td>Apenas visualizar relatórios e estatísticas</td>
+                    <td>Consulta e acompanhamento</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="subsection-title">APIs Administrativas</div>
+        <div class="code-block">
+# Autenticação
+POST /api/admin/login
+Body: {"login": "admin", "senha": "admin123"}
+
+# Dashboard com estatísticas
+GET /api/admin/dashboard
+Response: {
+  "Usuários": {"total": 3, "ativos": 2},
+  "santos": {"total": 365, "comImagem": 200}
+}
+
+# Gestão de usuários
+GET /api/admin/Usuários          # Listar usuários
+POST /api/admin/Usuários         # Criar usuário
+PUT /api/admin/Usuários/{id}/status  # Ativar/desativar
+PUT /api/admin/Usuários/{id}/role    # Alterar permissão
+
+# Gestão de conteúdo (santos)
+GET /api/santos                  # Listar santos
+POST /api/santos                 # Criar santo
+PUT /api/santos/{id}            # Editar santo
+DELETE /api/santos/{id}         # Excluir santo
+        </div>
+
+        <div class="subsection-title">Segurança Implementada</div>
+        <ul class="feature-list">
+            <li><strong>Hash de Senhas:</strong> SHA-256 para proteger credenciais</li>
+            <li><strong>Validação de Dados:</strong> Verificação de entrada em todos os endpoints</li>
+            <li><strong>Controle de Sessão:</strong> Registro de último login</li>
+            <li><strong>Auditoria:</strong> Log de criação e modificação de registros</li>
+            <li><strong>Fonte de Imagens:</strong> Validação de URLs apenas de fontes confiáveis</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">BANCO DE DADOS</div>
+        
+        <div class="subsection-title">🔧 Desenvolvimento - H2 Database</div>
+        <table class="info-table">
+            <tr>
+                <td>Tipo</td>
+                <td>H2 Database Engine</td>
+            </tr>
+            <tr>
+                <td>Modo</td>
+                <td>File-based (persistente)</td>
+            </tr>
+            <tr>
+                <td>Localização</td>
+                <td>./dados/santos_db</td>
+            </tr>
+            <tr>
+                <td>URL</td>
+                <td>jdbc:h2:file:./dados/santos_db</td>
+            </tr>
+            <tr>
+                <td>Console Web</td>
+                <td>http://localhost:8080/h2-console</td>
+            </tr>
+            <tr>
+                <td>Usuário</td>
+                <td>sa (sem senha)</td>
+            </tr>
+        </table>
+
+        <div class="subsection-title">🚀 Produção - Supabase (PostgreSQL)</div>
+        <table class="info-table">
+            <tr>
+                <td>Provedor</td>
+                <td>Supabase (supabase.com)</td>
+            </tr>
+            <tr>
+                <td>Tipo</td>
+                <td>PostgreSQL 15+ hospedado</td>
+            </tr>
+            <tr>
+                <td>Plano</td>
+                <td>Gratuito (500MB, 2 projetos)</td>
+            </tr>
+            <tr>
+                <td>Recursos Inclusos</td>
+                <td>Dashboard, APIs REST automáticas, Auth</td>
+            </tr>
+            <tr>
+                <td>Backup</td>
+                <td>Automático (7 dias)</td>
+            </tr>
+            <tr>
+                <td>SSL</td>
+                <td>Habilitado por padrão</td>
+            </tr>
+        </table>
+
+        <div class="subsection-title">📋 Estratégia de Deploy</div>
+        <ul class="feature-list">
+            <li><strong>Desenvolvimento Local:</strong> H2 para testes rápidos e desenvolvimento</li>
+            <li><strong>Homologação/Produção:</strong> Supabase PostgreSQL para estabilidade</li>
+            <li><strong>Migração:</strong> Scripts SQL compatíveis entre H2 e PostgreSQL</li>
+            <li><strong>Vantagens Supabase:</strong> Gratuito, dashboard visual, APIs prontas</li>
+        </ul>
+
+        <div class="subsection-title">Tabela Principal: santos</div>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>BIGINT</td>
+                    <td>Chave primária, auto incremento</td>
+                </tr>
+                <tr>
+                    <td>nome</td>
+                    <td>VARCHAR(200)</td>
+                    <td>Nome completo do santo</td>
+                </tr>
+                <tr>
+                    <td>titulo</td>
+                    <td>VARCHAR(300)</td>
+                    <td>Título honorífico</td>
+                </tr>
+                <tr>
+                    <td>biografia</td>
+                    <td>TEXT</td>
+                    <td>Vida e obra do santo</td>
+                </tr>
+                <tr>
+                    <td>dia</td>
+                    <td>INTEGER</td>
+                    <td>Dia da festa litúrgica (1-31)</td>
+                </tr>
+                <tr>
+                    <td>mes</td>
+                    <td>INTEGER</td>
+                    <td>Mês da festa litúrgica (1-12)</td>
+                </tr>
+                <tr>
+                    <td>imagem_url</td>
+                    <td>VARCHAR(500)</td>
+                    <td>URL da imagem (domínio público)</td>
+                </tr>
+                <tr>
+                    <td>fonte</td>
+                    <td>VARCHAR(100)</td>
+                    <td>Fonte da informação</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="subsection-title">Índices</div>
+        <ul class="feature-list">
+            <li>idx_santos_data: (dia, mes)</li>
+            <li>idx_santos_nome: (nome)</li>
+            <li>idx_santos_mes: (mes)</li>
+        </ul>
+    </div>
+
+    <div class="section page-break">
+        <div class="section-title">SERVIÇOS PRINCIPAIS</div>
+        
+        <div class="subsection-title">SantoService</div>
+        <ul class="feature-list">
+            <li>buscarSantosDeHoje(): Santos do dia atual</li>
+            <li>buscarSantosPorData(): Santos por data específica</li>
+            <li>buscarSantosPorMes(): Santos de um mês</li>
+            <li>buscarPorNome(): Busca por nome</li>
+            <li>salvar(): Criar/atualizar santo</li>
+            <li>deletar(): Remover santo</li>
+            <li>obterEstatisticas(): Estatísticas gerais</li>
+        </ul>
+
+        <div class="subsection-title">ImagemSantoService</div>
+        <ul class="feature-list">
+            <li>obterImagemLegal(): URL de imagem legal</li>
+            <li>validarFonte(): Verificar se fonte é permitida</li>
+            <li>gerarPlaceholder(): Criar imagem placeholder</li>
+            <li>fontesPermitidas(): Lista de fontes seguras</li>
+        </ul>
+
+        <div class="highlight-box">
+            <strong>Fontes Permitidas:</strong>
+            <ul class="feature-list">
+                <li>Wikimedia Commons</li>
+                <li>Vatican Official</li>
+                <li>Archive.org</li>
+                <li>Placeholders próprios</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">INTEGRAÇÃO COM APIS EXTERNAS</div>
+        
+        <div class="subsection-title">Bible API (bible-api.com)</div>
+        <table class="info-table">
+            <tr>
+                <td>Endpoint</td>
+                <td>https://www.aBíbliadigital.com.br/api</td>
+            </tr>
+            <tr>
+                <td>Tradução</td>
+                <td>João Ferreira de Almeida Revista e Corrigida</td>
+            </tr>
+            <tr>
+                <td>Formato</td>
+                <td>JSON</td>
+            </tr>
+            <tr>
+                <td>Rate Limit</td>
+                <td>Nenhum</td>
+            </tr>
+            <tr>
+                <td>Autenticação</td>
+                <td>Não requerida</td>
+            </tr>
+        </table>
+
+        <div class="subsection-title">liturgia API (liturgia.up.railway.app)</div>
+        <table class="info-table">
+            <tr>
+                <td>Endpoint</td>
+                <td>https://liturgia.up.railway.app</td>
+            </tr>
+            <tr>
+                <td>Conteúdo</td>
+                <td>liturgia diária oficial da Igreja Católica</td>
+            </tr>
+            <tr>
+                <td>Formato</td>
+                <td>JSON</td>
+            </tr>
+            <tr>
+                <td>Rate Limit</td>
+                <td>Nenhum</td>
+            </tr>
+            <tr>
+                <td>Autenticação</td>
+                <td>Não requerida</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <div class="section-title">DEPLOY E CONFIGURAÇÃO</div>
+        
+        <div class="subsection-title">Requisitos do Sistema</div>
+        <table class="info-table">
+            <tr>
+                <td>Java</td>
+                <td>21 LTS</td>
+            </tr>
+            <tr>
+                <td>Maven</td>
+                <td>3.9+</td>
+            </tr>
+            <tr>
+                <td>RAM Mínimo</td>
+                <td>512MB</td>
+            </tr>
+            <tr>
+                <td>Espaço em Disco</td>
+                <td>1GB</td>
+            </tr>
+            <tr>
+                <td>Porta</td>
+                <td>8080 disponível</td>
+            </tr>
+        </table>
+
+        <div class="subsection-title">Configuração de Desenvolvimento</div>
+        <div class="code-block">
+1. Clonar repositório
+2. ./mvnw clean install
+3. ./mvnw spring-boot:run
+4. Acessar http://localhost:8080
+        </div>
+
+        <div class="subsection-title">Variáveis de Ambiente</div>
+        <ul class="feature-list">
+            <li>SPRING_PROFILES_ACTIVE=prod</li>
+            <li>DATABASE_PATH=./dados/santos_db</li>
+            <li>CORS_ORIGINS=https://paróquia.com.br</li>
+            <li>LOG_LEVEL=INFO</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">SEGURANÇA E VALIDAÇÃO</div>
+        
+        <div class="subsection-title">Configuração CORS</div>
+        <ul class="feature-list">
+            <li>Permite origins: http://localhost:4200</li>
+            <li>Métodos: GET, POST, PUT, DELETE, OPTIONS</li>
+            <li>Headers: Content-Type, Authorization</li>
+            <li>Credentials: false</li>
+        </ul>
+
+        <div class="subsection-title">Validação de Dados</div>
+        <ul class="feature-list">
+            <li>@NotBlank: nome obrigatório</li>
+            <li>@NotNull: dia e mês obrigatórios</li>
+            <li>@Valid: validação automática de entidades</li>
+            <li>@Size: limitação de tamanho de strings</li>
+            <li>Validação customizada para datas</li>
+        </ul>
+
+        <div class="subsection-title">Tratamento de Erros</div>
+        <ul class="feature-list">
+            <li>GlobalExceptionHandler para exceções globais</li>
+            <li>ResponseEntity com status HTTP apropriados</li>
+            <li>Logs detalhados para debugging</li>
+            <li>Mensagens de erro amigáveis</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <div class="section-title">MONITORAMENTO E LOGS</div>
+        
+        <div class="subsection-title">Logs Configurados</div>
+        <ul class="feature-list">
+            <li>INFO: Operações principais</li>
+            <li>WARN: Situações anormais</li>
+            <li>ERROR: Erros e exceções</li>
+            <li>DEBUG: Detalhamento de desenvolvimento</li>
+        </ul>
+
+        <div class="subsection-title">Endpoints de Monitoramento</div>
+        <div class="endpoint-list">
+            <div class="endpoint">
+                <span class="endpoint-method">GET</span> /actuator/health
+                <br>Status da aplicação
+            </div>
+            <div class="endpoint">
+                <span class="endpoint-method">GET</span> /actuator/info
+                <br>Informações da versão
+            </div>
+            <div class="endpoint">
+                <span class="endpoint-method">GET</span> /actuator/metrics
+                <br>Métricas de performance
+            </div>
+        </div>
+
+        <div class="subsection-title">Métricas Importantes</div>
+        <ul class="feature-list">
+            <li>Tempo de resposta dos endpoints</li>
+            <li>Número de santos cadastrados</li>
+            <li>Uso de memória e CPU</li>
+            <li>Taxa de erro das requisições</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p><strong>Este documento contém as especificações técnicas completas do sistema para referência durante o desenvolvimento, manutenção e futuras expansões.</strong></p>
+        <hr style="margin: 10px 0; border: none; border-top: 1px solid #d1d5db;">
+        <p>Data: 21 de Novembro de 2025 | Versão: 1.0 - Documentação Final</p>
+    </div>
+
+    <div class="no-print" style="margin-top: 30px; text-align: center;">
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 16px; background-color: #3498db; color: white; border: none; cursor: pointer; border-radius: 5px;">
+            🖨️ Imprimir Documento
+        </button>
+    </div>
+</body>
+</html>

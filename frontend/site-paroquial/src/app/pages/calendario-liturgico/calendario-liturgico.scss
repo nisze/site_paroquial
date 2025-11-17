@@ -1,0 +1,306 @@
+// Cores da Paróquia
+$cor-primaria: #8B7355;
+$cor-secundaria: #d4af37;
+$cor-texto: #333;
+$cor-texto-claro: #666;
+
+// ===== HERO SECTION =====
+.hero-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%),
+              url('/calendario.jpeg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+
+  .hero-img {
+    max-width: 200px;
+    height: auto;
+    opacity: 0.9;
+  }
+
+  .btn-hero-hoje {
+    background: white;
+    color: $cor-primaria;
+    border: 2px solid white;
+    font-weight: 600;
+
+    &:hover {
+      background: transparent;
+      color: white;
+      border-color: white;
+    }
+  }
+
+  .btn-hero-download {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    font-weight: 600;
+
+    &:hover {
+      background: white;
+      color: $cor-primaria;
+    }
+  }
+}
+
+// ===== INFO DO DIA =====
+.info-dia-section {
+  background: #FFF8E1;
+  border-bottom: 3px solid $cor-primaria;
+
+  .text-primary {
+    color: $cor-primaria !important;
+  }
+}
+
+// ===== CALENDÁRIO =====
+.card-header {
+  background: white;
+  border-bottom: 2px solid $cor-primaria;
+
+  h5 {
+    color: $cor-primaria;
+  }
+
+  .fas {
+    color: $cor-primaria;
+  }
+}
+
+.btn-nav-anterior,
+.btn-nav-proximo {
+  background: transparent;
+  color: $cor-primaria;
+  border: 2px solid $cor-primaria;
+
+  &:hover {
+    background: $cor-primaria;
+    color: white;
+  }
+}
+
+.btn-nav-hoje {
+  background: $cor-primaria;
+  color: white;
+  border: 2px solid $cor-primaria;
+
+  &:hover {
+    background: darken($cor-primaria, 10%);
+    border-color: darken($cor-primaria, 10%);
+  }
+}
+
+.calendario-grid {
+  .calendario-header {
+    background: $cor-primaria;
+    color: white;
+  }
+
+  .calendario-dia-semana {
+    padding: 0.75rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .calendario-dia {
+    min-height: 120px;
+    padding: 0.5rem;
+    border: 1px solid #e9ecef;
+    position: relative;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: lighten($cor-primaria, 45%);
+      cursor: pointer;
+    }
+
+    &.hoje {
+      background: lighten($cor-secundaria, 35%);
+      border: 2px solid $cor-secundaria;
+      font-weight: 700;
+    }
+
+    &.outro-mes {
+      opacity: 0.4;
+    }
+
+    &.domingo {
+      background: lighten($cor-primaria, 48%);
+    }
+
+    &.festa {
+      background: lighten($cor-secundaria, 40%);
+    }
+
+    .dia-numero {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: $cor-primaria;
+      margin-bottom: 0.25rem;
+    }
+
+    .celebracoes {
+      font-size: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .celebracao-item {
+      padding: 0.15rem 0.3rem;
+      border-radius: 3px;
+      margin-bottom: 0.25rem;
+      font-size: 0.7rem;
+    }
+
+    .mais-celebracoes {
+      color: $cor-texto-claro;
+      font-size: 0.65rem;
+      font-style: italic;
+    }
+
+    .cor-liturgica-dia {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+  }
+}
+
+// ===== CORES LITÚRGICAS =====
+.liturgico-green { background: #2e7d32; }
+.liturgico-purple { background: #6a1b9a; }
+.liturgico-white { background: #f5f5f5; border: 1px solid #ddd; }
+.liturgico-red { background: #c62828; }
+.liturgico-rose { background: #ec407a; }
+
+.cor-liturgica-atual {
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+
+  .cor-nome {
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  &.liturgico-white .cor-nome {
+    color: $cor-texto;
+  }
+}
+
+// ===== SIDEBAR =====
+.card-header-cores {
+  background: $cor-primaria;
+  color: white;
+}
+
+.card-header-celebracoes {
+  background: $cor-secundaria;
+  color: white;
+}
+
+.card-header-tempos {
+  background: lighten($cor-primaria, 35%);
+  color: $cor-texto;
+  border-bottom: 2px solid $cor-primaria;
+}
+
+.cor-legenda-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .cor-sample {
+    width: 30px;
+    height: 20px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  span {
+    font-size: 0.9rem;
+  }
+}
+
+.proxima-celebracao {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .badge {
+    &.bg-primary {
+      background: $cor-primaria !important;
+    }
+    &.bg-danger {
+      background: #c62828 !important;
+    }
+    &.bg-warning {
+      background: $cor-secundaria !important;
+    }
+  }
+}
+
+.tempo-liturgico-item {
+  .tempo-cor {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+}
+
+// ===== BADGES DE CELEBRAÇÃO =====
+.badge-solemnity {
+  background: #c62828 !important;
+  color: white;
+}
+
+.badge-feast {
+  background: $cor-secundaria !important;
+  color: white;
+}
+
+.badge-memorial {
+  background: $cor-primaria !important;
+  color: white;
+}
+
+.badge-optional {
+  background: #6c757d !important;
+  color: white;
+}
+
+// ===== RESPONSIVIDADE =====
+@media (max-width: 768px) {
+  .hero-section {
+    .hero-img {
+      max-width: 150px;
+      margin-top: 2rem;
+    }
+
+    .btn-hero-hoje,
+    .btn-hero-download {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  .calendario-dia {
+    min-height: 80px;
+    font-size: 0.8rem;
+
+    .dia-numero {
+      font-size: 0.9rem;
+    }
+  }
+}

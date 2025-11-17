@@ -1,0 +1,232 @@
+<!-- Hero Section -->
+<section class="hero-section text-white py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-12 text-center">
+        <h1 class="display-4 fw-bold mb-3">Calendário Litúrgico</h1>
+        <p class="lead mb-4">
+          Acompanhe o ano litúrgico da Igreja Católica com as celebrações, 
+          tempos sagrados e cores litúrgicas oficiais.
+        </p>
+        <div class="d-flex gap-3 justify-content-center">
+          <button class="btn btn-hero-hoje btn-lg">
+            <i class="fas fa-calendar-day me-2"></i>
+            Hoje
+          </button>
+          <button class="btn btn-hero-download btn-lg">
+            <i class="fas fa-download me-2"></i>
+            Baixar Calendário
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Informações do Dia Atual -->
+<section class="py-4 info-dia-section">
+  <div class="container">
+    @if (calendarioHoje) {
+      <div class="row">
+        <div class="col-12">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-md-8">
+                  <h5 class="card-title mb-1">
+                    <i class="fas fa-calendar-day text-primary me-2"></i>
+                    {{ dataAtual | date:'EEEE, d MMMM y':'pt-BR' }}
+                  </h5>
+                  <p class="text-muted mb-2">{{ calendarioHoje.season.name }}</p>
+                  @if (calendarioHoje.celebrations.length > 0) {
+                    <p class="fw-bold mb-0">{{ calendarioHoje.celebrations[0].name }}</p>
+                  }
+                </div>
+                <div class="col-md-4 text-end">
+                  <div class="cor-liturgica-atual" [ngClass]="getCorClasse(calendarioHoje.liturgical_color)">
+                    <span class="cor-nome">{{ getCorNome(calendarioHoje.liturgical_color) }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- Calendário Principal -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9">
+        <!-- Controles do Calendário -->
+        <div class="card mb-4">
+          <div class="card-header bg-white">
+            <div class="row align-items-center">
+              <div class="col-md-6">
+                <h5 class="mb-0">
+                  <i class="fas fa-calendar me-2"></i>
+                  {{ mesAtual | date:'MMMM y':'pt-BR' | titlecase }}
+                </h5>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex gap-2 justify-content-end">
+                  <button class="btn btn-nav-anterior btn-sm" (click)="mesAnterior()">
+                    <i class="fas fa-chevron-left"></i>
+                  </button>
+                  <button class="btn btn-nav-hoje btn-sm" (click)="irParaHoje()">
+                    Hoje
+                  </button>
+                  <button class="btn btn-nav-proximo btn-sm" (click)="proximoMes()">
+                    <i class="fas fa-chevron-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card-body p-0">
+            <!-- Grid do Calendário -->
+            <div class="calendario-grid">
+              <!-- Cabeçalho dos dias da semana -->
+              <div class="row g-0 calendario-header">
+                <div class="col calendario-dia-semana">Dom</div>
+                <div class="col calendario-dia-semana">Seg</div>
+                <div class="col calendario-dia-semana">Ter</div>
+                <div class="col calendario-dia-semana">Qua</div>
+                <div class="col calendario-dia-semana">Qui</div>
+                <div class="col calendario-dia-semana">Sex</div>
+                <div class="col calendario-dia-semana">Sáb</div>
+              </div>
+              
+              <!-- Dias do mês -->
+              @for (semana of semanasDoMes; track semana) {
+                <div class="row g-0">
+                  @for (dia of semana; track dia.date) {
+                    <div class="col calendario-dia" 
+                         [class.hoje]="ehHoje(dia.date)"
+                         [class.outro-mes]="!ehMesAtual(dia.date)"
+                         [class.domingo]="dia.is_sunday"
+                         [class.festa]="dia.is_holy_day">
+                      
+                      <div class="dia-numero">{{ dia.day }}</div>
+                      
+                      @if (dia.celebrations.length > 0) {
+                        <div class="celebracoes">
+                          @for (celebracao of dia.celebrations.slice(0, 2); track celebracao.id) {
+                            <div class="celebracao-item" 
+                                 [ngClass]="getBadgeCelebracao(celebracao.rank)">
+                              {{ celebracao.name }}
+                            </div>
+                          }
+                          @if (dia.celebrations.length > 2) {
+                            <div class="mais-celebracoes">
+                              +{{ dia.celebrations.length - 2 }} mais
+                            </div>
+                          }
+                        </div>
+                      }
+                      
+                      <div class="cor-liturgica-dia" 
+                           [ngClass]="getCorClasse(dia.liturgical_color)"></div>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Sidebar -->
+      <div class="col-lg-3">
+        <!-- Legenda das Cores -->
+        <div class="card mb-4">
+          <div class="card-header card-header-cores">
+            <h6 class="mb-0">
+              <i class="fas fa-palette me-2"></i>
+              Cores Litúrgicas
+            </h6>
+          </div>
+          <div class="card-body">
+            <div class="cor-legenda-item mb-2">
+              <div class="cor-sample liturgico-green"></div>
+              <span>Verde - Tempo Comum</span>
+            </div>
+            <div class="cor-legenda-item mb-2">
+              <div class="cor-sample liturgico-purple"></div>
+              <span>Roxo - Advento/Quaresma</span>
+            </div>
+            <div class="cor-legenda-item mb-2">
+              <div class="cor-sample liturgico-white"></div>
+              <span>Branco - Natal/Páscoa</span>
+            </div>
+            <div class="cor-legenda-item mb-2">
+              <div class="cor-sample liturgico-red"></div>
+              <span>Vermelho - Pentecostes</span>
+            </div>
+            <div class="cor-legenda-item mb-2">
+              <div class="cor-sample liturgico-rose"></div>
+              <span>Rosa - Gaudete/Laetare</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Próximas Celebrações -->
+        <div class="card mb-4">
+          <div class="card-header card-header-celebracoes">
+            <h6 class="mb-0">
+              <i class="fas fa-star me-2"></i>
+              Próximas Celebrações
+            </h6>
+          </div>
+          <div class="card-body">
+            @for (celebracao of proximasCelebracoes; track celebracao.id) {
+              <div class="proxima-celebracao mb-3">
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <strong>{{ celebracao.name }}</strong>
+                    <br>
+                    <small class="text-muted">{{ celebracao.date | date:'d MMM':'pt-BR' }}</small>
+                  </div>
+                  <span class="badge" [ngClass]="getBadgeCelebracao(celebracao.rank)">
+                    {{ getGrauNome(celebracao.rank) }}
+                  </span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+        
+        <!-- Tempos Litúrgicos -->
+        <div class="card">
+          <div class="card-header card-header-tempos">
+            <h6 class="mb-0">
+              <i class="fas fa-clock me-2"></i>
+              Tempos Litúrgicos 2025
+            </h6>
+          </div>
+          <div class="card-body">
+            @for (tempo of temposLiturgicos; track tempo.key) {
+              <div class="tempo-liturgico-item mb-2">
+                <div class="d-flex align-items-center">
+                  <div class="tempo-cor" [ngClass]="getCorClasse(tempo.color)"></div>
+                  <div class="ms-2">
+                    <strong>{{ tempo.name }}</strong>
+                    <br>
+                    <small class="text-muted">
+                      {{ tempo.start_date | date:'d MMM':'pt-BR' }} - 
+                      {{ tempo.end_date | date:'d MMM':'pt-BR' }}
+                    </small>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

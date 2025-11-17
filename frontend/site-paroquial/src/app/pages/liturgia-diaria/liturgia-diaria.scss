@@ -1,0 +1,397 @@
+// ===== PÁGINA LITURGIA DIÁRIA =====
+
+// Variáveis
+:root {
+  --liturgia-primary: #8B7355;
+  --liturgia-secondary: #C4A57B;
+  --liturgia-gold: #d4af37;
+  --liturgia-bg: #f8f9fa;
+  --liturgia-card: #ffffff;
+  --liturgia-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  --liturgia-radius: 12px;
+}
+
+// ===== HERO SECTION =====
+.liturgia-hero {
+  position: relative;
+  color: white;
+  padding: 2rem 0 1rem;
+  margin-bottom: 0;
+  margin-top: 0;
+  min-height: 300px;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  .video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+    .hero-video {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+
+    .video-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      z-index: 2;
+    }
+  }
+
+  .container {
+    position: relative;
+    z-index: 3;
+  }
+
+  .liturgia-hero-content {
+    text-align: center;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+
+      i {
+        color: var(--liturgia-gold);
+        margin-right: 0.5rem;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+
+      a {
+        color: white;
+        text-decoration: none;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      span {
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
+// ===== CONTEÚDO PRINCIPAL =====
+.liturgia-content {
+  padding: 3rem 0;
+  background: var(--liturgia-bg);
+  min-height: 70vh;
+}
+
+// ===== CARDS =====
+.liturgia-card, .santo-card, .links-card {
+  background: white;
+  border-radius: var(--liturgia-radius);
+  padding: 2rem;
+  box-shadow: var(--liturgia-shadow);
+  margin-bottom: 2rem;
+  border: 1px solid #e9ecef;
+}
+
+// ===== HEADER DA LITURGIA =====
+.liturgia-header {
+  border-bottom: 3px solid var(--liturgia-gold);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+
+  h2 {
+    color: var(--liturgia-primary);
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  .cor-liturgica {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  }
+}
+
+// ===== SEÇÕES DE LEITURA =====
+.leitura-section, .salmo-section, .evangelho-section, .reflexao-section {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: #fafbfc;
+  border-radius: 8px;
+  border-left: 4px solid var(--liturgia-primary);
+
+  &.destaque {
+    border-left-color: var(--liturgia-gold);
+    background: linear-gradient(135deg, #fff8e1 0%, #ffffff 100%);
+  }
+}
+
+.section-title {
+  color: var(--liturgia-primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  i {
+    font-size: 1.1rem;
+  }
+
+  &.destaque {
+    color: var(--liturgia-gold);
+  }
+}
+
+.referencia {
+  background: var(--liturgia-primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: inline-block;
+  font-size: 0.9rem;
+}
+
+.texto-leitura {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.response {
+  font-style: italic;
+  color: var(--liturgia-secondary);
+  font-weight: 500;
+  margin: 0.25rem 0;
+}
+
+// ===== SALMO =====
+.salmo-antifona {
+  background: var(--liturgia-gold);
+  color: white;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.salmo-versos {
+  .verso {
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    background: white;
+    border-left: 3px solid var(--liturgia-gold);
+    border-radius: 0 6px 6px 0;
+    font-style: italic;
+    line-height: 1.6;
+  }
+}
+
+// ===== REFLEXÃO =====
+.reflexao-section {
+  background: linear-gradient(135deg, #f5f1ed 0%, #ffffff 100%);
+  border-left-color: #8B7355;
+}
+
+.reflexao-texto {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #495057;
+}
+
+// ===== SANTO DO DIA =====
+.santo-card {
+  .card-title {
+    color: var(--liturgia-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 2px solid var(--liturgia-gold);
+    padding-bottom: 0.75rem;
+  }
+
+  .santo-nome {
+    color: var(--liturgia-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .santo-titulo {
+    color: #6c757d;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .santo-biografia {
+    text-align: justify;
+    line-height: 1.6;
+    color: #495057;
+  }
+
+  .santo-info {
+    .info-item {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+
+      strong {
+        color: var(--liturgia-primary);
+      }
+    }
+  }
+
+  .santo-padroeiro {
+    .padroeiro-list {
+      margin-top: 0.5rem;
+
+      .padroeiro-item {
+        display: inline-block;
+        background: var(--liturgia-bg);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        margin: 0.125rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  .santo-oracao {
+    h6 {
+      color: var(--liturgia-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .oracao-texto {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 6px;
+      border-left: 3px solid var(--liturgia-gold);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+// ===== OUTROS SANTOS =====
+.outros-santos-section {
+  h6 {
+    color: var(--liturgia-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .outro-santo-item {
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 3px solid var(--liturgia-secondary);
+
+    .santo-bio {
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+// ===== LINKS ÚTEIS =====
+.links-card {
+  h5 {
+    color: var(--liturgia-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+// ===== RESPONSIVO =====
+@media (max-width: 768px) {
+  .liturgia-hero {
+    padding: 2rem 0 1rem;
+
+    .liturgia-hero-content {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .liturgia-card, .santo-card, .links-card {
+    padding: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+  }
+
+  .texto-leitura {
+    font-size: 1rem;
+  }
+
+  .leitura-section, .salmo-section, .evangelho-section, .reflexao-section {
+    padding: 1rem;
+  }
+}

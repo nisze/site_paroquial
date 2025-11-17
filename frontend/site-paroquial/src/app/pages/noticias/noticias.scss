@@ -1,0 +1,183 @@
+// Cores da Paróquia
+$cor-primaria: #8B7355;
+$cor-secundaria: #d4af37;
+$cor-texto: #333;
+$cor-texto-claro: #666;
+
+// ===== HERO SECTION =====
+.hero-section {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%),
+              url('/noticiasim.jpeg');
+  background-size: cover;
+  background-position: center 30%;
+  position: relative;
+  overflow: hidden;
+
+  .hero-img {
+    max-width: 200px;
+    height: auto;
+    opacity: 0.9;
+  }
+}
+
+// ===== FILTROS =====
+.filtros-section {
+  background: #FFF8E1;
+  border-bottom: 3px solid $cor-primaria;
+
+  .btn-filtro {
+    background: white;
+    color: $cor-primaria;
+    border: 2px solid $cor-primaria;
+    border-radius: 6px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: lighten($cor-primaria, 35%);
+      color: darken($cor-primaria, 10%);
+      border-color: darken($cor-primaria, 10%);
+    }
+
+    &.active {
+      background: darken($cor-primaria, 10%);
+      color: white;
+      border-color: darken($cor-primaria, 10%);
+    }
+  }
+}
+
+// ===== NOTÍCIA DESTAQUE =====
+.noticia-destaque {
+  border: 2px solid $cor-primaria;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(139, 115, 85, 0.2);
+  }
+
+  .badge {
+    background: $cor-primaria !important;
+  }
+
+  .text-primary {
+    color: $cor-primaria !important;
+  }
+
+  .btn-primary {
+    background: $cor-primaria;
+    border-color: $cor-primaria;
+
+    &:hover {
+      background: darken($cor-primaria, 10%);
+      border-color: darken($cor-primaria, 10%);
+    }
+  }
+}
+
+// ===== CARDS DE NOTÍCIAS =====
+.noticia-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(139, 115, 85, 0.2);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(139, 115, 85, 0.15);
+  }
+
+  .badge {
+    &.bg-primary {
+      background: $cor-primaria !important;
+    }
+  }
+
+  .btn-outline-primary {
+    color: $cor-primaria;
+    border-color: $cor-primaria;
+
+    &:hover {
+      background: $cor-primaria;
+      border-color: $cor-primaria;
+      color: white;
+    }
+  }
+}
+
+// ===== SIDEBAR =====
+.card-header-avisos {
+  background: #FFF3CD;
+  color: $cor-texto;
+  border-bottom: 2px solid #FFC107;
+}
+
+.card-header-eventos {
+  background: $cor-primaria;
+  color: white;
+}
+
+.card-header-newsletter {
+  background: $cor-secundaria;
+  color: white;
+}
+
+.aviso-item {
+  .text-warning {
+    color: #FFC107 !important;
+  }
+}
+
+.evento-item {
+  .data-evento {
+    .dia {
+      background: $cor-primaria !important;
+    }
+  }
+}
+
+.btn-newsletter {
+  background: $cor-secundaria;
+  border: none;
+  color: white;
+
+  &:hover {
+    background: darken($cor-secundaria, 10%);
+  }
+}
+
+// ===== PAGINAÇÃO =====
+.pagination {
+  .page-item {
+    &.active .page-link {
+      background: $cor-primaria;
+      border-color: $cor-primaria;
+    }
+
+    .page-link {
+      color: $cor-primaria;
+
+      &:hover {
+        background: lighten($cor-primaria, 40%);
+        border-color: $cor-primaria;
+      }
+    }
+  }
+}
+
+// ===== RESPONSIVIDADE =====
+@media (max-width: 768px) {
+  .hero-section {
+    .hero-img {
+      max-width: 150px;
+      margin-top: 2rem;
+    }
+  }
+
+  .filtros-section {
+    .btn-filtro {
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+    }
+  }
+}

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bíblia Online - Paróquia Nossa Senhora Aparecida</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="biblia-api.js"></script>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-church"></i>
+                <span>Paróquia N. Sra. Aparecida</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="index.html#horarios" class="nav-link">Horários</a></li>
+                <li><a href="biblia.html" class="nav-link active">Bíblia</a></li>
+                <li><a href="index.html#noticias" class="nav-link">Notícias</a></li>
+                <li><a href="index.html#grupos" class="nav-link">Grupos</a></li>
+                <li><a href="index.html#galeria" class="nav-link">Galeria</a></li>
+                <li><a href="index.html#contato" class="nav-link">Contato</a></li>
+            </ul>
+            <button class="nav-cta" onclick="window.location.href='index.html#servicos'">Solicitar Missa</button>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER DA BÍBLIA -->
+    <section class="biblia-hero">
+        <div class="container">
+            <div class="biblia-hero-content">
+                <h1><i class="fas fa-book-open"></i> Bíblia Online</h1>
+                <p>Acesse a Palavra de Deus completa - Edição Pastoral</p>
+                <div class="breadcrumb">
+                    <a href="index.html"><i class="fas fa-home"></i> Início</a>
+                    <span><i class="fas fa-chevron-right"></i></span>
+                    <span>Bíblia Online</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO BÍBLIA ONLINE COMPLETA -->
+    <section class="biblia-section">
+        <div class="container">
+            <div class="biblia-interface">
+                <div class="biblia-controls">
+                    <div class="testamento-selector">
+                        <button class="testamento-btn active" data-testamento="at">Antigo Testamento</button>
+                        <button class="testamento-btn" data-testamento="nt">Novo Testamento</button>
+                    </div>
+                    
+                    <!-- BUSCA POR PALAVRA/FRASE -->
+                    <div class="busca-textual-simples">
+                        <div class="busca-compacta">
+                            <input type="text" id="busca-palavra" placeholder="Buscar na Bíblia..." class="busca-input-simples">
+                            <button class="busca-btn-simples" id="buscar-palavra-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="busca-opcoes-simples">
+                            <label><input type="checkbox" id="busca-exata"> Exata</label>
+                            <label><input type="checkbox" id="apenas-testamento"> Só testamento atual</label>
+                        </div>
+                    </div>
+                    
+                    <div class="navegacao-divisor-simples">
+                        <span>ou</span>
+                    </div>
+                    
+                    <div class="biblia-selectors">
+                        <div class="selector-group">
+                            <label>Livro:</label>
+                            <select class="biblia-select" id="livro-select">
+                                <option value="">Selecione um livro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="selector-group">
+                            <label>Capítulo:</label>
+                            <select class="biblia-select" id="capitulo-select">
+                                <option value="">Cap.</option>
+                            </select>
+                        </div>
+                        
+                        <div class="selector-group">
+                            <label>Versículo:</label>
+                            <select class="biblia-select" id="versiculo-select">
+                                <option value="">Vers.</option>
+                            </select>
+                        </div>
+                        
+                        <button class="biblia-buscar-btn">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="biblia-content">
+                    <!-- RESULTADOS DA BUSCA -->
+                    <div class="resultados-busca" id="resultados-busca" style="display: none;">
+                        <div class="resultados-header">
+                            <h3><i class="fas fa-search"></i> Resultados da Busca</h3>
+                            <button class="fechar-busca" id="fechar-busca">
+                                <i class="fas fa-times"></i> Voltar à navegação
+                            </button>
+                        </div>
+                        <div class="resultados-lista" id="resultados-lista">
+                            <!-- Resultados serão inseridos aqui via JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="biblia-texto" id="biblia-texto-principal">
+                        <div class="capitulo-header">
+                            <h3>Gênesis - Capítulo 1</h3>
+                            <p class="subtitulo">A Criação do Mundo</p>
+                        </div>
+                        
+                        <div class="versiculos">
+                            <div class="versiculo">
+                                <span class="numero">1</span>
+                                <span class="texto">No princípio, Deus criou o céu e a terra.</span>
+                            </div>
+                            <div class="versiculo">
+                                <span class="numero">2</span>
+                                <span class="texto">A terra estava vazia e vaga, as trevas cobriam o abismo, e o Espírito de Deus pairava sobre as águas.</span>
+                            </div>
+                            <div class="versiculo">
+                                <span class="numero">3</span>
+                                <span class="texto">Deus disse: "Faça-se a luz!" E a luz foi feita.</span>
+                            </div>
+                            <div class="versiculo">
+                                <span class="numero">4</span>
+                                <span class="texto">Deus viu que a luz era boa, e separou a luz das trevas.</span>
+                            </div>
+                            <div class="versiculo">
+                                <span class="numero">5</span>
+                                <span class="texto">Deus chamou dia à luz, e noite às trevas. Houve uma tarde e uma manhã: foi o primeiro dia.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="biblia-navegacao">
+                            <button class="nav-btn" id="capitulo-anterior">
+                                <i class="fas fa-chevron-left"></i> Capítulo Anterior
+                            </button>
+                            <span class="nav-info" id="nav-info-atual">Gênesis 1</span>
+                            <button class="nav-btn" id="proximo-capitulo">
+                                Próximo Capítulo <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+
+                        <!-- ATALHOS RÁPIDOS -->
+                        <div class="atalhos-biblicos">
+                            <h4><i class="fas fa-star"></i> Passagens Populares</h4>
+                            <div class="atalhos-grid">
+                                <button class="atalho-btn" data-livro="genesis" data-capitulo="1">
+                                    <strong>Gn 1</strong><span>A Criação</span>
+                                </button>
+                                <button class="atalho-btn" data-livro="salmos" data-capitulo="23">
+                                    <strong>Sl 23</strong><span>O Bom Pastor</span>
+                                </button>
+                                <button class="atalho-btn" data-livro="salmos" data-capitulo="91">
+                                    <strong>Sl 91</strong><span>Proteção Divina</span>
+                                </button>
+                                <button class="atalho-btn" data-livro="mateus" data-capitulo="5">
+                                    <strong>Mt 5</strong><span>Bem-aventuranças</span>
+                                </button>
+                                <button class="atalho-btn" data-livro="joao" data-capitulo="1">
+                                    <strong>Jo 1</strong><span>O Verbo</span>
+                                </button>
+                                <button class="atalho-btn" data-livro="joao" data-capitulo="14">
+                                    <strong>Jo 14</strong><span>Caminho, Verdade</span>
+                                </button>
+                                <button class="atalho-btn" data-livro="apocalipse" data-capitulo="21">
+                                    <strong>Ap 21</strong><span>Nova Jerusalém</span>
+                                </button>
+                                <button class="atalho-btn" data-livro="proverbios" data-capitulo="31">
+                                    <strong>Pv 31</strong><span>Mulher Virtuosa</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="biblia-sidebar">
+                        <div class="reflexao-diaria">
+                            <h4><i class="fas fa-heart"></i> Reflexão do Dia</h4>
+                            <p>"No princípio era o Verbo..." (João 1,1)</p>
+                            <p class="reflexao-texto">Deus se revela através de sua Palavra. Que possamos sempre buscar seu amor e sabedoria nas Escrituras.</p>
+                        </div>
+                        
+                        <div class="santos-do-dia">
+                            <h4><i class="fas fa-pray"></i> Santos do Dia</h4>
+                            <p><strong>São João XXIII</strong></p>
+                            <p class="santo-descricao">Papa que convocou o Concílio Vaticano II</p>
+                        </div>
+                        
+                        <div class="compartilhar">
+                            <h4><i class="fas fa-share"></i> Compartilhar</h4>
+                            <div class="share-buttons">
+                                <button class="share-btn facebook"><i class="fab fa-facebook"></i></button>
+                                <button class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></button>
+                                <button class="share-btn twitter"><i class="fab fa-twitter"></i></button>
+                                <button class="share-btn copy"><i class="fas fa-copy"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- VERSÍCULO DO DIA -->
+                        <div class="versiculo-do-dia">
+                            <h4><i class="fas fa-quote-left"></i> Versículo do Dia</h4>
+                            <blockquote>
+                                "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna."
+                                <cite>João 3:16</cite>
+                            </blockquote>
+                        </div>
+
+                        <!-- ESTATÍSTICAS -->
+                        <div class="biblia-stats">
+                            <h4><i class="fas fa-chart-bar"></i> Sobre a Bíblia</h4>
+                            <div class="stats-list">
+                                <div class="stat-item">
+                                    <span class="stat-number">73</span>
+                                    <span class="stat-label">Livros</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">1189</span>
+                                    <span class="stat-label">Capítulos</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number">31000+</span>
+                                    <span class="stat-label">Versículos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Paróquia Nossa Senhora Aparecida</h3>
+                    <p>Uma comunidade de fé que acolhe e evangeliza</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="index.html#horarios">Horários de Missa</a></li>
+                        <li><a href="biblia.html">Bíblia Online</a></li>
+                        <li><a href="index.html#noticias">Notícias</a></li>
+                        <li><a href="index.html#grupos">Grupos e Pastorais</a></li>
+                        <li><a href="index.html#contato">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Av. Nisshimbo do Brasil, 1236<br>Vila Camarão - Itapetininga/SP</p>
+                        <p><i class="fas fa-phone"></i> (15) 3272-8718</p>
+                        <p><i class="fas fa-envelope"></i> p.n.s.aparecida@hotmail.com</p>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Horário de Atendimento</h4>
+                    <p>Segunda a Sexta: 8h às 12h30<br>13h30 às 17h</p>
+                    <p>Sábado: 8h às 12h</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Paróquia Nossa Senhora Aparecida. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // ===== IMPLEMENTAÇÃO DA BUSCA POR TEXTO =====
+        
+        // Elementos DOM
+        let buscaPalavraInput;
+        let buscarPalavraBotao;
+        let buscaExataCheckbox;
+        let apenasTestamentoCheckbox;
+        let resultadosBusca;
+        let resultadosLista;
+        let fecharBuscaBotao;
+        let bibliaTextoPrincipal;
+        let testamentoAtual = 'at'; // 'at' ou 'nt'
+        
+        // Navegação entre capítulos
+        let capituloAnteriorBtn;
+        let proximoCapituloBtn;
+        let navInfoAtual;
+        let livroAtual = 'genesis';
+        let capituloAtualNum = 1;
+
+        // Estrutura da Bíblia para navegação
+        const estruturaBiblia = {
+            'genesis': { nome: 'Gênesis', capitulos: 50, testamento: 'at' },
+            'exodus': { nome: 'Êxodo', capitulos: 40, testamento: 'at' },
+            'leviticus': { nome: 'Levítico', capitulos: 27, testamento: 'at' },
+            'numbers': { nome: 'Números', capitulos: 36, testamento: 'at' },
+            'deuteronomy': { nome: 'Deuteronômio', capitulos: 34, testamento: 'at' },
+            'psalms': { nome: 'Salmos', capitulos: 150, testamento: 'at' },
+            'proverbs': { nome: 'Provérbios', capitulos: 31, testamento: 'at' },
+            'isaiah': { nome: 'Isaías', capitulos: 66, testamento: 'at' },
+            'jeremiah': { nome: 'Jeremias', capitulos: 52, testamento: 'at' },
+            'ezekiel': { nome: 'Ezequiel', capitulos: 48, testamento: 'at' },
+            'matthew': { nome: 'Mateus', capitulos: 28, testamento: 'nt' },
+            'mark': { nome: 'Marcos', capitulos: 16, testamento: 'nt' },
+            'luke': { nome: 'Lucas', capitulos: 24, testamento: 'nt' },
+            'john': { nome: 'João', capitulos: 21, testamento: 'nt' },
+            'acts': { nome: 'Atos', capitulos: 28, testamento: 'nt' },
+            'romans': { nome: 'Romanos', capitulos: 16, testamento: 'nt' },
+            '1corinthians': { nome: '1 Coríntios', capitulos: 16, testamento: 'nt' },
+            '2corinthians': { nome: '2 Coríntios', capitulos: 13, testamento: 'nt' },
+            'ephesians': { nome: 'Efésios', capitulos: 6, testamento: 'nt' },
+            'philippians': { nome: 'Filipenses', capitulos: 4, testamento: 'nt' },
+            '1john': { nome: '1 João', capitulos: 5, testamento: 'nt' },
+            'hebrews': { nome: 'Hebreus', capitulos: 13, testamento: 'nt' },
+            'revelation': { nome: 'Apocalipse', capitulos: 22, testamento: 'nt' }
+        };
+
+        // Ordem dos livros para navegação sequencial
+        const ordemLivros = [
+            'genesis', 'exodus', 'leviticus', 'numbers', 'deuteronomy',
+            'psalms', 'proverbs', 'isaiah', 'jeremiah', 'ezekiel',
+            'matthew', 'mark', 'luke', 'john', 'acts', 'romans',
+            '1corinthians', '2corinthians', 'ephesians', 'philippians',
+            '1john', 'hebreus', 'revelation'
+        ];
+
+        // Inicializar quando DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔍 Inicializando sistema de busca bíblica...');
+            
+            // Selecionar elementos DOM para busca
+            buscaPalavraInput = document.getElementById('busca-palavra');
+            buscarPalavraBotao = document.getElementById('buscar-palavra-btn');
+            buscaExataCheckbox = document.getElementById('busca-exata');
+            apenasTestamentoCheckbox = document.getElementById('apenas-testamento');
+            resultadosBusca = document.getElementById('resultados-busca');
+            resultadosLista = document.getElementById('resultados-lista');
+            fecharBuscaBotao = document.getElementById('fechar-busca');
+            bibliaTextoPrincipal = document.getElementById('biblia-texto-principal');
+
+            // Selecionar elementos DOM para navegação
+            capituloAnteriorBtn = document.getElementById('capitulo-anterior');
+            proximoCapituloBtn = document.getElementById('proximo-capitulo');
+            navInfoAtual = document.getElementById('nav-info-atual');
+
+            // Verificar se todos os elementos foram encontrados
+            if (!buscaPalavraInput || !buscarPalavraBotao) {
+                console.error('❌ Elementos de busca não encontrados!');
+                return;
+            }
+
+            if (!capituloAnteriorBtn || !proximoCapituloBtn) {
+                console.error('❌ Elementos de navegação não encontrados!');
+                return;
+            }
+
+            // Adicionar event listeners
+            configurarEventListeners();
+            
+            // Configurar testamentos
+            configurarTestamentos();
+            
+            // Configurar navegação
+            configurarNavegacao();
+            
+            console.log('✅ Sistema de busca e navegação inicializados com sucesso!');
+        });
+
+        function configurarEventListeners() {
+            // Botão de busca
+            buscarPalavraBotao.addEventListener('click', executarBusca);
+            
+            // Enter no campo de busca
+            buscaPalavraInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    executarBusca();
+                }
+            });
+            
+            // Fechar resultados
+            if (fecharBuscaBotao) {
+                fecharBuscaBotao.addEventListener('click', fecharResultados);
+            }
+        }
+
+        function configurarNavegacao() {
+            // Botão capítulo anterior
+            capituloAnteriorBtn.addEventListener('click', irCapituloAnterior);
+            
+            // Botão próximo capítulo
+            proximoCapituloBtn.addEventListener('click', irProximoCapitulo);
+            
+            // Atualizar estado inicial dos botões
+            atualizarEstadoBotoes();
+        }
+
+        function irCapituloAnterior() {
+            console.log('📖 Navegando para capítulo anterior...');
+            
+            // Se não é o primeiro capítulo do livro atual
+            if (capituloAtualNum > 1) {
+                capituloAtualNum--;
+            } else {
+                // Ir para o último capítulo do livro anterior
+                const indiceAtual = ordemLivros.indexOf(livroAtual);
+                if (indiceAtual > 0) {
+                    livroAtual = ordemLivros[indiceAtual - 1];
+                    capituloAtualNum = estruturaBiblia[livroAtual].capitulos;
+                } else {
+                    // Já é o primeiro capítulo da Bíblia
+                    alert('Este é o primeiro capítulo da Bíblia!');
+                    return;
+                }
+            }
+            
+            carregarCapituloAtual();
+        }
+
+        function irProximoCapitulo() {
+            console.log('📖 Navegando para próximo capítulo...');
+            
+            // Se não é o último capítulo do livro atual
+            if (capituloAtualNum < estruturaBiblia[livroAtual].capitulos) {
+                capituloAtualNum++;
+            } else {
+                // Ir para o primeiro capítulo do próximo livro
+                const indiceAtual = ordemLivros.indexOf(livroAtual);
+                if (indiceAtual < ordemLivros.length - 1) {
+                    livroAtual = ordemLivros[indiceAtual + 1];
+                    capituloAtualNum = 1;
+                } else {
+                    // Já é o último capítulo da Bíblia
+                    alert('Este é o último capítulo da Bíblia!');
+                    return;
+                }
+            }
+            
+            carregarCapituloAtual();
+        }
+
+        async function carregarCapituloAtual() {
+            try {
+                console.log(`📖 Carregando ${livroAtual} ${capituloAtualNum}`);
+                
+                // Mostrar loading nos botões
+                capituloAnteriorBtn.disabled = true;
+                proximoCapituloBtn.disabled = true;
+                capituloAnteriorBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
+                proximoCapituloBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Carregando...';
+                
+                // Usar a API para carregar o capítulo
+                const dadosCapitulo = await window.bibliaAPI.buscarCapitulo(livroAtual, capituloAtualNum);
+                
+                if (dadosCapitulo) {
+                    // Fechar resultados da busca se estiverem abertos
+                    fecharResultados();
+                    
+                    // Exibir o capítulo
+                    exibirCapitulo(dadosCapitulo);
+                    
+                    // Atualizar info de navegação
+                    atualizarInfoNavegacao();
+                } else {
+                    alert('Capítulo não encontrado. Tente novamente.');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao carregar capítulo:', error);
+                alert('Erro ao carregar capítulo. Tente novamente.');
+            } finally {
+                // Restaurar botões
+                atualizarEstadoBotoes();
+            }
+        }
+
+        function atualizarInfoNavegacao() {
+            const nomelivro = estruturaBiblia[livroAtual].nome;
+            navInfoAtual.textContent = `${nomelivro} ${capituloAtualNum}`;
+        }
+
+        function atualizarEstadoBotoes() {
+            // Botão anterior
+            const isPrimeiroCapitulo = (livroAtual === ordemLivros[0] && capituloAtualNum === 1);
+            capituloAnteriorBtn.disabled = isPrimeiroCapitulo;
+            capituloAnteriorBtn.innerHTML = '<i class="fas fa-chevron-left"></i> Capítulo Anterior';
+            
+            // Botão próximo
+            const isUltimoCapitulo = (
+                livroAtual === ordemLivros[ordemLivros.length - 1] && 
+                capituloAtualNum === estruturaBiblia[livroAtual].capitulos
+            );
+            proximoCapituloBtn.disabled = isUltimoCapitulo;
+            proximoCapituloBtn.innerHTML = 'Próximo Capítulo <i class="fas fa-chevron-right"></i>';
+            
+            // Atualizar aparência visual dos botões desabilitados
+            if (isPrimeiroCapitulo) {
+                capituloAnteriorBtn.style.opacity = '0.5';
+                capituloAnteriorBtn.style.cursor = 'not-allowed';
+            } else {
+                capituloAnteriorBtn.style.opacity = '1';
+                capituloAnteriorBtn.style.cursor = 'pointer';
+            }
+            
+            if (isUltimoCapitulo) {
+                proximoCapituloBtn.style.opacity = '0.5';
+                proximoCapituloBtn.style.cursor = 'not-allowed';
+            } else {
+                proximoCapituloBtn.style.opacity = '1';
+                proximoCapituloBtn.style.cursor = 'pointer';
+            }
+        }
+
+        function configurarTestamentos() {
+            // Botões de testamento
+            const testamentoBtns = document.querySelectorAll('.testamento-btn');
+            testamentoBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remover active de todos
+                    testamentoBtns.forEach(b => b.classList.remove('active'));
+                    // Adicionar active ao clicado
+                    this.classList.add('active');
+                    // Atualizar testamento atual
+                    testamentoAtual = this.dataset.testamento;
+                    console.log(`📖 Testamento alterado para: ${testamentoAtual}`);
+                });
+            });
+        }
+
+        async function executarBusca() {
+            const palavraChave = buscaPalavraInput.value.trim();
+            
+            if (!palavraChave || palavraChave.length < 2) {
+                alert('Por favor, digite pelo menos 2 caracteres para buscar.');
+                return;
+            }
+
+            console.log(`🔍 Executando busca por: "${palavraChave}"`);
+            
+            // Mostrar loading
+            mostrarLoading();
+            
+            try {
+                // Preparar opções de busca
+                const opcoes = {
+                    buscaExata: buscaExataCheckbox ? buscaExataCheckbox.checked : false,
+                    testamentoAtual: apenasTestamentoCheckbox && apenasTestamentoCheckbox.checked ? testamentoAtual : null,
+                    versao: 'almeida',
+                    limite: 50
+                };
+                
+                console.log('Opções de busca:', opcoes);
+                
+                // Executar busca usando a API
+                const resultados = await window.bibliaAPI.buscarTexto(palavraChave, opcoes);
+                
+                console.log(`📊 Resultados encontrados:`, resultados);
+                
+                // Exibir resultados
+                exibirResultados(palavraChave, resultados);
+                
+            } catch (error) {
+                console.error('❌ Erro na busca:', error);
+                alert('Erro ao realizar a busca. Tente novamente.');
+                esconderLoading();
+            }
+        }
+
+        function mostrarLoading() {
+            if (buscarPalavraBotao) {
+                buscarPalavraBotao.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                buscarPalavraBotao.disabled = true;
+            }
+        }
+
+        function esconderLoading() {
+            if (buscarPalavraBotao) {
+                buscarPalavraBotao.innerHTML = '<i class="fas fa-search"></i>';
+                buscarPalavraBotao.disabled = false;
+            }
+        }
+
+        function exibirResultados(palavraChave, resultados) {
+            esconderLoading();
+            
+            if (!resultados || resultados.length === 0) {
+                exibirSemResultados(palavraChave);
+                return;
+            }
+
+            // Esconder texto principal e mostrar resultados
+            if (bibliaTextoPrincipal) bibliaTextoPrincipal.style.display = 'none';
+            if (resultadosBusca) resultadosBusca.style.display = 'block';
+            
+            // Gerar HTML dos resultados
+            const resultadosHTML = gerarHTMLResultados(palavraChave, resultados);
+            
+            if (resultadosLista) {
+                resultadosLista.innerHTML = resultadosHTML;
+            }
+            
+            console.log(`✅ ${resultados.length} resultados exibidos`);
+        }
+
+        function gerarHTMLResultados(palavraChave, resultados) {
+            const totalResultados = resultados.length;
+            
+            let html = `
+                <div class="resultados-info">
+                    <p><i class="fas fa-search"></i> <strong>${totalResultados}</strong> resultado${totalResultados !== 1 ? 's' : ''} para "<em>${palavraChave}</em>"</p>
+                </div>
+            `;
+            
+            resultados.forEach(resultado => {
+                // Destacar palavra-chave no texto
+                const textoDestacado = destacarPalavraChave(resultado.texto, palavraChave);
+                
+                html += `
+                    <div class="resultado-item">
+                        <div class="resultado-referencia">
+                            <strong>${resultado.referencia}</strong>
+                            <span class="resultado-fonte">${resultado.fonte === 'API' ? '🌐' : '📱'}</span>
+                        </div>
+                        <div class="resultado-texto">
+                            ${textoDestacado}
+                        </div>
+                        <div class="resultado-acoes">
+                            <button onclick="carregarCapitulo('${resultado.livro}', ${resultado.capitulo})" class="btn-ver-capitulo">
+                                <i class="fas fa-book-open"></i> Ver capítulo completo
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            return html;
+        }
+
+        function destacarPalavraChave(texto, palavraChave) {
+            const regex = new RegExp(`(${palavraChave})`, 'gi');
+            return texto.replace(regex, '<mark class="highlight-search">$1</mark>');
+        }
+
+        function exibirSemResultados(palavraChave) {
+            esconderLoading();
+            
+            // Esconder texto principal e mostrar resultados
+            if (bibliaTextoPrincipal) bibliaTextoPrincipal.style.display = 'none';
+            if (resultadosBusca) resultadosBusca.style.display = 'block';
+            
+            if (resultadosLista) {
+                resultadosLista.innerHTML = `
+                    <div class="sem-resultados">
+                        <i class="fas fa-search"></i>
+                        <h3>Nenhum resultado encontrado</h3>
+                        <p>Não foram encontrados versículos contendo "<strong>${palavraChave}</strong>".</p>
+                        <div class="dicas-busca">
+                            <h4>Dicas para melhorar sua busca:</h4>
+                            <ul>
+                                <li>Verifique a ortografia das palavras</li>
+                                <li>Use palavras-chave mais específicas</li>
+                                <li>Tente sinônimos ou termos relacionados</li>
+                                <li>Desmarque "Busca exata" para resultados mais amplos</li>
+                            </ul>
+                        </div>
+                        <div class="sugestoes-busca">
+                            <h4>Sugestões de busca:</h4>
+                            <div class="sugestoes-botoes">
+                                <button onclick="buscarSugestao('amor')" class="btn-sugestao">amor</button>
+                                <button onclick="buscarSugestao('paz')" class="btn-sugestao">paz</button>
+                                <button onclick="buscarSugestao('fé')" class="btn-sugestao">fé</button>
+                                <button onclick="buscarSugestao('esperança')" class="btn-sugestao">esperança</button>
+                                <button onclick="buscarSugestao('Jesus')" class="btn-sugestao">Jesus</button>
+                                <button onclick="buscarSugestao('Deus')" class="btn-sugestao">Deus</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function buscarSugestao(termo) {
+            if (buscaPalavraInput) {
+                buscaPalavraInput.value = termo;
+                executarBusca();
+            }
+        }
+
+        function fecharResultados() {
+            // Mostrar texto principal e esconder resultados
+            if (bibliaTextoPrincipal) bibliaTextoPrincipal.style.display = 'block';
+            if (resultadosBusca) resultadosBusca.style.display = 'none';
+            
+            // Limpar campo de busca
+            if (buscaPalavraInput) buscaPalavraInput.value = '';
+        }
+
+        async function carregarCapitulo(livro, capitulo) {
+            console.log(`📖 Carregando capítulo ${livro} ${capitulo}`);
+            
+            try {
+                // Atualizar variáveis de navegação
+                livroAtual = livro.toLowerCase();
+                capituloAtualNum = parseInt(capitulo);
+                
+                // Usar a API para carregar o capítulo
+                const dadosCapitulo = await window.bibliaAPI.buscarCapitulo(livroAtual, capituloAtualNum);
+                
+                if (dadosCapitulo) {
+                    // Fechar resultados da busca
+                    fecharResultados();
+                    
+                    // Exibir o capítulo na área principal
+                    exibirCapitulo(dadosCapitulo);
+                    
+                    // Atualizar navegação
+                    atualizarInfoNavegacao();
+                    atualizarEstadoBotoes();
+                } else {
+                    alert('Capítulo não encontrado. Tente novamente.');
+                }
+                
+            } catch (error) {
+                console.error('Erro ao carregar capítulo:', error);
+                alert('Erro ao carregar capítulo. Tente novamente.');
+            }
+        }
+
+        function exibirCapitulo(dadosCapitulo) {
+            if (!bibliaTextoPrincipal) return;
+            
+            let html = `
+                <div class="capitulo-header">
+                    <h3>${dadosCapitulo.referencia}</h3>
+                    <p class="subtitulo">Clique em um versículo para destacá-lo</p>
+                </div>
+                
+                <div class="versiculos">
+            `;
+            
+            dadosCapitulo.versiculos.forEach(versiculo => {
+                html += `
+                    <div class="versiculo" onclick="destacarVersiculo(this)">
+                        <span class="numero">${versiculo.numero}</span>
+                        <span class="texto">${versiculo.texto}</span>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            
+            bibliaTextoPrincipal.innerHTML = html;
+        }
+
+        function destacarVersiculo(elemento) {
+            // Remover destaque de outros versículos
+            const versiculos = document.querySelectorAll('.versiculo');
+            versiculos.forEach(v => v.classList.remove('destacado'));
+            
+            // Adicionar destaque ao versículo clicado
+            elemento.classList.add('destacado');
+        }
+
+        // Função global para teste
+        window.testarBusca = async function(termo) {
+            if (buscaPalavraInput) {
+                buscaPalavraInput.value = termo;
+                await executarBusca();
+            }
+        };
+
+        console.log('🔍 Script de busca bíblica carregado!');
+        console.log('💡 Para testar: window.testarBusca("amor")');
+    </script>
+</body>
+</html>

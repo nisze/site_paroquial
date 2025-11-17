@@ -1,0 +1,87 @@
+<div class="page-header">
+  <div>
+    <h2><i class="fas fa-newspaper"></i> Gestão de Notícias</h2>
+    <p class="text-muted">Gerenciar comunicados e avisos</p>
+  </div>
+  <button class="btn btn-primary" (click)="novo()">
+    <i class="fas fa-plus"></i> Nova Notícia
+  </button>
+</div>
+
+<div class="content-card">
+  @if (carregando) {
+    <p class="text-center py-5">
+      <i class="fas fa-spinner fa-spin fa-2x"></i><br>
+      Carregando notícias...
+    </p>
+  } @else {
+    @if (noticiasFiltradas.length === 0) {
+      <p class="text-muted">
+        <i class="fas fa-info-circle"></i> Nenhuma notícia cadastrada ainda.
+      </p>
+    } @else {
+      <p class="mb-3">
+        <strong>{{ noticiasFiltradas.length }}</strong> notícia(s) encontrada(s)
+      </p>
+      
+      <div class="noticias-grid">
+        @for (noticia of noticiasFiltradas; track noticia.id) {
+          <div class="noticia-card">
+            <div class="noticia-date">
+              <div class="date-day">{{ noticia.dataPublicacao | date:'dd' }}</div>
+              <div class="date-month">{{ noticia.dataPublicacao | date:'MMM' }}</div>
+            </div>
+            
+            @if (noticia.imagemUrl) {
+              <div class="noticia-image">
+                <img [src]="noticia.imagemUrl" [alt]="noticia.titulo">
+                @if (!noticia.ativo) {
+                  <div class="noticia-badge-inativo">
+                    <span class="badge badge-inativo">
+                      <i class="fas fa-eye-slash"></i> Inativo
+                    </span>
+                  </div>
+                }
+              </div>
+            }
+            
+            <div class="noticia-content">
+              <h3>{{ noticia.titulo }}</h3>
+              
+              @if (noticia.tipo) {
+                <div class="noticia-tipo">{{ noticia.tipo }}</div>
+              }
+              
+              @if (noticia.resumo) {
+                <p class="noticia-descricao">{{ noticia.resumo }}</p>
+              }
+              
+              <div class="noticia-info">
+                <div class="info-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>{{ noticia.dataPublicacao | date:'dd/MM/yyyy' }}</span>
+                </div>
+                
+                @if (noticia.autor) {
+                  <div class="info-item">
+                    <i class="fas fa-user"></i>
+                    <span>{{ noticia.autor }}</span>
+                  </div>
+                }
+              </div>
+              
+              <div class="noticia-actions">
+                <button class="btn btn-sm btn-outline-primary" (click)="editar(noticia.id!)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deletar(noticia)">
+                  <i class="fas fa-trash"></i> Deletar
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>

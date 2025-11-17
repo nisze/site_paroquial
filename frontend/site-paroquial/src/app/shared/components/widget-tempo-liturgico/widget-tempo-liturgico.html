@@ -1,0 +1,57 @@
+<div class="tempo-liturgico-widget card h-100 shadow-sm">
+  @if (!carregando && widget) {
+    <div class="card-body text-center">
+      <!-- Header com cor litúrgica -->
+      <div class="liturgico-header mb-3" [ngClass]="getCorClasse(widget.cor_liturgica)">
+        <i [class]="getIconeTempo(widget.tempo_atual.key)" class="fa-2x mb-2"></i>
+        <h5 class="card-title mb-0">{{ widget.tempo_atual.name }}</h5>
+      </div>
+
+      <!-- Celebração Principal -->
+      @if (widget.celebracao_principal) {
+        <div class="celebracao-principal mb-3">
+          <h6 class="text-muted mb-1">Celebração do Dia</h6>
+          <p class="fw-bold mb-0">{{ widget.celebracao_principal.name }}</p>
+        </div>
+      }
+
+      <!-- Cor Litúrgica -->
+      <div class="cor-liturgica mb-3">
+        <small class="text-muted">Cor Litúrgica:</small>
+        <div class="cor-indicador mt-1" [ngClass]="getCorClasse(widget.cor_liturgica)">
+          <span class="cor-nome">{{ getCorNome(widget.cor_liturgica) }}</span>
+        </div>
+      </div>
+
+      <!-- Botão para ver calendário completo -->
+      <div class="d-grid">
+        <a routerLink="/calendario-liturgico" class="btn btn-outline-primary btn-sm">
+          <i class="fas fa-calendar-alt me-2"></i>
+          Ver Calendário Completo
+        </a>
+      </div>
+    </div>
+  }
+
+  <!-- Loading state -->
+  @if (carregando) {
+    <div class="card-body text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+      <p class="mt-2 text-muted">Carregando tempo litúrgico...</p>
+    </div>
+  }
+
+  <!-- Error state -->
+  @if (!carregando && !widget) {
+    <div class="card-body text-center">
+      <i class="fas fa-exclamation-triangle text-warning fa-2x mb-2"></i>
+      <p class="text-muted">Não foi possível carregar os dados litúrgicos</p>
+      <button class="btn btn-outline-secondary btn-sm" (click)="carregarWidget()">
+        <i class="fas fa-redo me-2"></i>
+        Tentar Novamente
+      </button>
+    </div>
+  }
+</div>

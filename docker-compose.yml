@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend/Site_Paroquial
+      dockerfile: Dockerfile
+    container_name: paroquia-backend
+    ports:
+      - "8081:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - FRONTEND_URL=http://localhost
+    networks:
+      - paroquia-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend/site-paroquial
+      dockerfile: Dockerfile
+    container_name: paroquia-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - paroquia-network
+    restart: unless-stopped
+
+networks:
+  paroquia-network:
+    driver: bridge

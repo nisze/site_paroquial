@@ -1,0 +1,270 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+// SIDEBAR
+.admin-sidebar {
+  width: 250px;
+  background: linear-gradient(180deg, #8B7355 0%, #6f5a43 100%);
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transition: all 0.3s;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+
+  .sidebar-header {
+    padding: 25px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+      font-weight: 700;
+
+      i {
+        font-size: 2rem;
+        color: #d4af37;
+      }
+
+      .logo-text {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .sidebar-menu {
+    flex: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 20px;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s;
+      border-left: 3px solid transparent;
+      cursor: pointer;
+      background: none;
+      border-right: none;
+      border-top: none;
+      border-bottom: none;
+      width: 100%;
+      text-align: left;
+      font-size: 1rem;
+
+      i {
+        font-size: 1.3rem;
+        min-width: 24px;
+      }
+
+      &:hover {
+        background: rgba(255,255,255,0.1);
+        color: white;
+      }
+
+      &.active {
+        background: rgba(255,255,255,0.15);
+        border-left-color: #d4af37;
+        color: white;
+        font-weight: 600;
+      }
+
+      &.menu-spacer {
+        margin-top: auto;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        padding-top: 20px;
+      }
+    }
+  }
+
+  .sidebar-footer {
+    padding: 20px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 20px;
+      color: rgba(255,255,255,0.8);
+      transition: all 0.3s;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 1rem;
+
+      i {
+        font-size: 1.3rem;
+        min-width: 24px;
+      }
+
+      &:hover {
+        background: rgba(255,0,0,0.2);
+        color: white;
+      }
+    }
+  }
+}
+
+// SIDEBAR FECHADA
+.sidebar-fechada {
+  .admin-sidebar {
+    width: 80px;
+
+    .logo-text,
+    .menu-item span {
+      display: none;
+    }
+
+    .menu-item {
+      justify-content: center;
+    }
+  }
+
+  .admin-content {
+    margin-left: 80px;
+  }
+}
+
+// CONTENT
+.admin-content {
+  flex: 1;
+  margin-left: 250px;
+  transition: margin-left 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-header {
+  background: white;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .btn-toggle-sidebar {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #8B7355;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+
+  .header-title {
+    flex: 1;
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #333;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+  }
+
+  .header-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .user-info {
+      text-align: right;
+
+      strong {
+        display: block;
+        color: #333;
+        font-size: 0.95rem;
+      }
+
+      small {
+        display: block;
+        color: #666;
+        font-size: 0.85rem;
+      }
+    }
+
+    .user-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8B7355 0%, #C4A57B 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.admin-main {
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+// RESPONSIVIDADE
+@media (max-width: 768px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+
+  .admin-content {
+    margin-left: 0 !important;
+  }
+
+  .sidebar-fechada .admin-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .admin-header {
+    padding: 15px 20px;
+
+    .header-title h1 {
+      font-size: 1.2rem;
+    }
+
+    .user-info {
+      display: none;
+    }
+  }
+
+  .admin-main {
+    padding: 20px 15px;
+  }
+}
