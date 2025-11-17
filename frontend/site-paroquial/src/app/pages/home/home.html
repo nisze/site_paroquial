@@ -123,25 +123,30 @@
           </div>
           
           <div class="liturgia-content">
-            <div class="liturgia-preview">
-              <div class="leitura-item">
-                <h4><i class="fas fa-scroll"></i> Primeira Leitura</h4>
-                <p class="referencia">Malaquias 3,19-20a</p>
-                <p class="texto-preview">
-                  "Eis que vem o dia, ardente como fornalha! Nesse dia, 
-                  todos os soberbos e malfeitores serão como palha..."
-                </p>
+            @if (!liturgiaCompleta) {
+              <div class="text-center py-4">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>Carregando liturgia...</p>
               </div>
-              
-              <div class="leitura-item">
-                <h4><i class="fas fa-cross"></i> Evangelho</h4>
-                <p class="referencia">Lucas 21,5-19</p>
-                <p class="texto-preview">
-                  "Naquele tempo, algumas pessoas falavam a respeito do templo, 
-                  como era ornamentado com belas pedras e com ofertas votivas..."
-                </p>
+            } @else {
+              <div class="liturgia-preview">
+                <div class="leitura-item" *ngIf="liturgiaCompleta?.liturgia?.primeira_leitura">
+                  <h4><i class="fas fa-scroll"></i> Primeira Leitura</h4>
+                  <p class="referencia">{{ liturgiaCompleta.liturgia.primeira_leitura.referencia }}</p>
+                  <p class="texto-preview">
+                    {{ truncarTexto(liturgiaCompleta.liturgia.primeira_leitura.texto, 120) }}
+                  </p>
+                </div>
+                
+                <div class="leitura-item" *ngIf="liturgiaCompleta?.liturgia?.evangelho">
+                  <h4><i class="fas fa-cross"></i> Evangelho</h4>
+                  <p class="referencia">{{ liturgiaCompleta.liturgia.evangelho.referencia }}</p>
+                  <p class="texto-preview">
+                    {{ truncarTexto(liturgiaCompleta.liturgia.evangelho.texto, 120) }}
+                  </p>
+                </div>
               </div>
-            </div>
+            }
             
             <div class="liturgia-actions">
               <a routerLink="/liturgia-diaria" class="btn-liturgia-completa">

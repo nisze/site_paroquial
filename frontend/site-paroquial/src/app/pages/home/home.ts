@@ -76,4 +76,10 @@ export class Home implements OnInit, AfterViewInit {
     const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
     return meses[mes - 1] || '';
   }
+
+  truncarTexto(texto: string, limite: number = 120): string {
+    if (!texto) return '';
+    if (texto.length <= limite) return texto;
+    return texto.substring(0, limite) + '...';
+  }
 }
