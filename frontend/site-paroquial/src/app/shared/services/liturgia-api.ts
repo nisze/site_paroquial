@@ -195,9 +195,15 @@ export class LiturgiaApi {
    * Transforma a resposta da API externa para o formato interno
    */
   private transformarRespostaLiturgia(apiResponse: any): LiturgiaData {
+    // Log para debug
+    console.log('Resposta da API:', apiResponse);
+    
+    // Extrair título correto - priorizar dia da semana do tempo comum
+    const tituloExtraido = this.extrairTituloLiturgico(apiResponse);
+    
     return {
       data: apiResponse.data || this.formatarDataHoje(),
-      titulo: apiResponse.liturgia || 'Liturgia do dia',
+      titulo: tituloExtraido,
       cor_liturgica: this.mapearCorLiturgica(apiResponse.cor),
       tempo_liturgico: this.extrairTempoLiturgico(apiResponse.liturgia),
       primeira_leitura: this.extrairPrimeiraLeitura(apiResponse.leituras),
@@ -222,13 +228,38 @@ export class LiturgiaApi {
     return mapeamento[cor] || 'verde';
   }
 
+  private extrairTituloLiturgico(apiResponse: any): string {
+    // Se existe um campo específico para o dia/título litúrgico
+    if (apiResponse.dia) return apiResponse.dia;
+    
+    // Tenta extrair do campo liturgia
+    const liturgia = apiResponse.liturgia || '';
+    
+    // Se contém informação de semana do tempo comum, extrai isso
+    const regexSemana = /(\d+ª Semana do Tempo Comum|Domingo do Tempo Comum|Segunda-feira da \d+ª Semana|Terça-feira da \d+ª Semana|Quarta-feira da \d+ª Semana|Quinta-feira da \d+ª Semana|Sexta-feira da \d+ª Semana|Sábado da \d+ª Semana)/i;
+    const match = liturgia.match(regexSemana);
+    if (match) return match[0];
+    
+    // Gera título baseado no dia da semana atual
+    const hoje = new Date();
+    const diaSemana = this.getDiaDaSemana(hoje.getDay());
+    const numeroSemana = Math.ceil((hoje.getDate() + 6) / 7); // Estimativa
+    
+    // Se é uma celebração especial (santo, memória, etc), mostra o dia do tempo comum
+    if (liturgia.includes('Santa') || liturgia.includes('Santo') || liturgia.includes('Memória') || liturgia.includes('Festa')) {
+      return `${diaSemana} da ${numeroSemana}ª Semana do Tempo Comum`;
+    }
+    
+    return liturgia || 'Liturgia do dia';
+  }
+
   private extrairTempoLiturgico(liturgia: string): string {
-    if (liturgia?.includes('Tempo Comum')) return 'tempo_comum';
-    if (liturgia?.includes('Advento')) return 'advento';
-    if (liturgia?.includes('Natal')) return 'natal';
-    if (liturgia?.includes('Quaresma')) return 'quaresma';
-    if (liturgia?.includes('Páscoa')) return 'pascoa';
-    return 'tempo_comum';
+    if (liturgia?.includes('Tempo Comum')) return 'Tempo Comum';
+    if (liturgia?.includes('Advento')) return 'Advento';
+    if (liturgia?.includes('Natal')) return 'Natal';
+    if (liturgia?.includes('Quaresma')) return 'Quaresma';
+    if (liturgia?.includes('Páscoa')) return 'Tempo Pascal';
+    return 'Tempo Comum';
   }
 
   private extrairPrimeiraLeitura(leituras: any) {
