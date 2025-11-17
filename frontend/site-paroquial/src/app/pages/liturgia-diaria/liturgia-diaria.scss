@@ -177,14 +177,14 @@
 }
 
 .referencia {
-  background: var(--liturgia-primary);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  background: transparent;
+  color: #000 !important;
+  padding: 0.5rem 0;
+  border-radius: 0;
   font-weight: 600;
   margin-bottom: 1rem;
   display: inline-block;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 .texto-leitura {
